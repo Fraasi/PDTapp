@@ -1,12 +1,17 @@
 ## PDapp personal desktop app (WIP)
 
-PDapp is a little side project to build a little personal desktop app with electron.
-I have no idea what the end product will be like.
+PDTapp is a 'little' side project to build a little personal desktop app with electron.
+I have no idea what the end product will be like. Im making this shit up as I go along.
+
+### so far
+* electron-forge-react
+* fullcalendar.js
 
 ### todo (or maybe not, to do):
 
-* [ ] startpage
-- [ ] nav bar
+* [x] startpage
+  - [ ] content?
+- [x] nav bar
   - [ ] hotkeys for views?  
 - [x] calendar 
   - [x] listview hover
@@ -15,15 +20,17 @@ I have no idea what the end product will be like.
   - [ ] style buttons
   - [x] tooltip
   - [ ] listview, next event diff color
-- [ ] gigs
+- [ ] gigs page
   - [ ] add photowalk
   - [ ] styling
-- [ ] note app?
+- [ ] note page
 - [ ] design icon  
 - [x] system tray
   - [x] temp icon works
-- [ ] to menu or not to menu
-- [ ] add font awesome icons
-- [ ] app doesnt quit right
+- [ ] taskbar right click
+- [x] to menu or not to menu
+- [x] add font awesome icons
+- [x] app doesnt quit right
 - [ ] save window position config
 - [ ] loader gif?
+- [x] notification module (propably waste of time)

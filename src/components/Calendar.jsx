@@ -10,10 +10,9 @@ export default class Calendar extends Component {
 
 	render() {
 		return (
-			<div id="calendar-container">
-				<div className="calendar" />
+			<div className="view-container" id="calendar">
 				<div id="tooltip" />
 			</div>
-		);
+		)
 	}
 }

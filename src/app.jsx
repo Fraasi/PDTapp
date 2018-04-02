@@ -1,22 +1,44 @@
+// const store = require('electron').remote.getGlobal('store')
+// import { notify } from './js/notification.js'
 import React, { Component } from 'react';
 import Calendar from './components/Calendar.jsx';
-// import { ipcRenderer } from 'electron'
-const { notify } = require('./js/notification.js')
-// const store = require('electron').remote.getGlobal('store')
-// const wc = require('electron').remote.webContents.getAllWebContents()
-// console.log(store, wc);
+import Navbar from './components/Navbar.jsx';
+import Home from './components/Home.jsx';
+import Settings from './components/Settings.jsx';
+import Notebook from './components/Notebook.jsx';
 
+const components = {
+	home: Home,
+	calendar: Calendar,
+	notebook: Notebook,
+	settings: Settings
+}
 
 export default class App extends Component {
+	constructor() {
+		super()
+		this.state = {
+			view: 'settings',
+			loading: true
+		}
+		this.handleViewChange = this.handleViewChange.bind(this)
+	}
 
-	componentDidMount() {
-		notify('app sez', 'component did mount')
+
+	handleViewChange(view) {
+		this.setState({
+			view
+		})
 	}
 
 	render() {
+		const View = components[this.state.view]
+
 		return (
-			<div>
-				<Calendar />
+			<div id="app-container">
+				<Navbar handleViewChange={this.handleViewChange} />
+				<View loading={this.state.loading} />
+
 			</div>);
 	}
 }

@@ -6,9 +6,9 @@ module.exports.template = [
 	{
 		label: 'DevTools',
 		submenu: [
-			{ role: 'toggledevtools' },
 			{ role: 'reload' },
 			{ role: 'forcereload' },
+			{ role: 'toggledevtools' },
 			{ role: 'resetzoom' },
 			{ role: 'pasteandmatchstyle' }
 		]

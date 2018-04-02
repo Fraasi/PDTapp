@@ -23,7 +23,7 @@ export default () => {
 		}
 	});
 
-	$('.calendar').fullCalendar({
+	$('#calendar').fullCalendar({
 
 		customButtons: {
 			addEventButton: {

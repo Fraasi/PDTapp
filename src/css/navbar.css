@@ -1,0 +1,21 @@
+
+
+#navbar {
+	box-sizing: border-box;
+	width: 25px;
+	margin: 10px 10px 10px 8px;
+	display: grid; 
+	grid-template-rows: repeat(3, 40px) 1fr;
+}
+
+.fa-icon {
+	transition: 0.25s ease-in-out;
+}
+
+.fa-icon:hover {
+	transform: scale(1.2);
+}
+
+.settings {
+	align-self: end;
+}

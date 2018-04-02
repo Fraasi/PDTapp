@@ -33,7 +33,7 @@ async function createWindow() {
 		minWidth: 600,
 		x: 0,
 		y: 140,
-		title: app.getName(),
+		title: `${app.getName()} launched at ${new Date().toLocaleString('en', { hour12: false })} `,
 		resizable: true,
 		backgroundColor: '#525252',
 		icon: path.join(__dirname, 'assets/icons/64x64.png'),
