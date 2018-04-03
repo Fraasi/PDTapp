@@ -3,9 +3,10 @@
 PDTapp is a 'little' side project to build a little personal desktop app with electron.
 I have no idea what the end product will be like. Im making this shit up as I go along.
 
-### so far
+### dependencies so far
 * electron-forge-react
 * fullcalendar.js
+* node-osmosis
 
 ### todo (or maybe not to, do):
 
@@ -21,8 +22,9 @@ I have no idea what the end product will be like. Im making this shit up as I go
   - [ ] style buttons
   - [x] tooltip
   - [ ] listview, next event diff color
-- [ ] gigs page
+- [x] gigs page
   - [ ] styling
+  - [ ] promises promises...
 - [ ] notebook page
 - [ ] design icon  
 - [x] system tray
@@ -30,7 +32,6 @@ I have no idea what the end product will be like. Im making this shit up as I go
 - [ ] taskbar right click
 - [x] to menu or not to menu
 - [x] add font awesome icons
-- [x] app doesnt quit right
 - [ ] save window position config
 - [x] loader/spinner
   - [x] bonus: projects first ugly hack
