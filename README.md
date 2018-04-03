@@ -7,12 +7,13 @@ I have no idea what the end product will be like. Im making this shit up as I go
 * electron-forge-react
 * fullcalendar.js
 
-### todo (or maybe not, to do):
+### todo (or maybe not to, do):
 
 * [x] startpage
   - [ ] content?
 - [x] nav bar
   - [ ] hotkeys for views?  
+  - [ ] evenly space out icons
 - [x] calendar 
   - [x] listview hover
   - [x] monthview recurring shit
@@ -21,9 +22,8 @@ I have no idea what the end product will be like. Im making this shit up as I go
   - [x] tooltip
   - [ ] listview, next event diff color
 - [ ] gigs page
-  - [ ] add photowalk
   - [ ] styling
-- [ ] note page
+- [ ] notebook page
 - [ ] design icon  
 - [x] system tray
   - [x] temp icon works
@@ -32,5 +32,7 @@ I have no idea what the end product will be like. Im making this shit up as I go
 - [x] add font awesome icons
 - [x] app doesnt quit right
 - [ ] save window position config
-- [ ] loader gif?
+- [x] loader/spinner
+  - [x] bonus: projects first ugly hack
 - [x] notification module (propably waste of time)
+- [x] esLint(airBnB) => new Promise().resolve(hell)

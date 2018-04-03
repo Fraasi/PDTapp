@@ -6,11 +6,13 @@ import Navbar from './components/Navbar.jsx';
 import Home from './components/Home.jsx';
 import Settings from './components/Settings.jsx';
 import Notebook from './components/Notebook.jsx';
+import Gigscraper from './components/Gigscraper.jsx';
 
 const components = {
 	home: Home,
 	calendar: Calendar,
 	notebook: Notebook,
+	gigscraper: Gigscraper,
 	settings: Settings
 }
 
@@ -18,17 +20,19 @@ export default class App extends Component {
 	constructor() {
 		super()
 		this.state = {
-			view: 'settings',
+			view: 'gigscraper',
 			loading: true
 		}
 		this.handleViewChange = this.handleViewChange.bind(this)
+		this.changeSpinnerState = this.changeSpinnerState.bind(this)
 	}
 
-
 	handleViewChange(view) {
-		this.setState({
-			view
-		})
+		this.setState({ view })
+	}
+
+	changeSpinnerState(boolean) {
+		this.setState({ loading: boolean })
 	}
 
 	render() {
@@ -37,8 +41,7 @@ export default class App extends Component {
 		return (
 			<div id="app-container">
 				<Navbar handleViewChange={this.handleViewChange} />
-				<View loading={this.state.loading} />
-
+				<View loading={this.state.loading} changeSpinnerState={this.changeSpinnerState} />
 			</div>);
 	}
 }

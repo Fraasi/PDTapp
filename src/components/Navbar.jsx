@@ -21,6 +21,7 @@ export default class Navbar extends Component {
 				<img className="fa-icon home" src="./assets/img/home.svg" alt="home.svg" />
 				<img className="fa-icon calendar" src="./assets/img/calendar-alt.svg" alt="calendar-alt.svg" />
 				<img className="fa-icon notebook" src="./assets/img/file-alt.svg" alt="file-alt.svg" />
+				<img className="fa-icon gigscraper" src="./assets/img/compass.svg" alt="compass.svg" />
 				<img className="fa-icon settings" src="./assets/img/cog.svg" alt="cog.svg" />
 			</div>
 		)
