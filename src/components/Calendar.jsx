@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import calendar from '../js/calendar.js'
-// console.log('cal', require('electron').remote.getGlobal('store'))
 // NOTE:  props.loading needed only if i change spinner code
 
 export default class Calendar extends Component {
@@ -11,7 +10,7 @@ export default class Calendar extends Component {
 			calendar()
 			// eslint-disable-next-line
 			document.getElementById('spinner').remove()
-		}, 1)
+		})
 	}
 
 	componentWillUnmount() {

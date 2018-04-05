@@ -1,20 +1,21 @@
-## PDapp personal desktop app (WIP)
+## PDTapp personal desktop app (WIP)
 
 PDTapp is a 'little' side project to build a little personal desktop app with electron.
 I have no idea what the end product will be like. Im making this shit up as I go along.
 
 ### dependencies so far
-* electron-forge-react
+* react
 * fullcalendar.js
 * node-osmosis
+* electron-store
 
 ### todo (or maybe not to, do):
 
 * [x] startpage
   - [ ] content?
 - [x] nav bar
-  - [ ] hotkeys for views?  
-  - [ ] evenly space out icons
+  - [x] hotkeys for views?  
+  - [x] evenly space out icons
 - [x] calendar 
   - [x] listview hover
   - [x] monthview recurring shit
@@ -23,17 +24,18 @@ I have no idea what the end product will be like. Im making this shit up as I go
   - [x] tooltip
   - [ ] listview, next event diff color
 - [x] gigs page
-  - [ ] styling
-  - [ ] promises promises...
+  - [x] styling
+  - [x] promises promises...
 - [ ] notebook page
-- [ ] design icon  
+- [ ] design an icon (preferably(?) a nice one?)
 - [x] system tray
   - [x] temp icon works
-- [ ] taskbar right click
+- [x] taskbar right click icon. No icon but app name is correct after build
 - [x] to menu or not to menu
-- [x] add font awesome icons
+- [x] add some awesome icons
 - [ ] save window position config
 - [x] loader/spinner
   - [x] bonus: projects first ugly hack
+  - [ ] modulerize the doohickey 
 - [x] notification module (propably waste of time)
-- [x] esLint(airBnB) => new Promise().resolve(hell)
+- [x] (esLint, airBnB) => new Promise().resolve(hell)

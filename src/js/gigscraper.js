@@ -1,6 +1,4 @@
-// import { shell } from 'electron';
 const osmosis = require('osmosis');
-
 
 export const scrapeInfo = {
 	vastis: {
@@ -56,37 +54,34 @@ export const scrapeInfo = {
 	}
 };
 
-// let count = 0;
-export default function scrape(url, find, set, arr, dataObject) {
-
-	return new Promise((resolve rehect) => {
-
-		let d;
+export default function scrape(url, find, set, pub, dataObject) {
+	return new Promise((resolve, reject) => {
+		const dataArr = {
+			[pub]: []
+		}
 		osmosis.get(url)
 			.find(find)
 			.set(set)
 			.data((data) => {
-				dataObject[arr].push(data);
-				d = data
-				return data
+				// dataObject[pub].push(data);
+				dataArr[pub].push(data)
+				// console.log('data', data)
 			})
 			// .log(console.log)
 			// .debug(console.log)
 			.error((err) => {
+				reject('osmosis err', err)
 				console.log(err);
 			})
 			.done(() => {
-				console.log(`Pushed ${arr} data!`, d);
-				resolve(d)
-				// count++
-				// if (count === Object.keys(dataObject).length) handleData();
+				console.log(`Pushed ${pub} data!`);
+				resolve(dataArr)
 			})
 	})
-	// return d
 }
 
 
-export function handleScrapeData(dataObject) {
+export function handleScrapedData(dataObject) {
 	/* eslint-disable */
 	function id(id) {
 		return document.getElementById(id);
@@ -101,10 +96,8 @@ export function handleScrapeData(dataObject) {
 	const date = new Date();
 	// const monthName = date.toLocaleString('en-us', {month: 'short'});
 	const regDate = new RegExp(/^\d+\.\d+/);
-	// console.log(dataObject);
 
 	dataObject.dogs.forEach((dog) => {
-		// console.log(dog.html)
 		const str = dog.html || '';
 		if (regDate.test(str)) {
 			const strMonth = regDate.exec(str)[0].match(/\d\d?$/)[0];
@@ -127,7 +120,7 @@ export function handleScrapeData(dataObject) {
 	})
 
 	dataObject.huurus.forEach((huuru) => {
-		huurus.innerHTML += `<li>${huuru.date} - <a href="${huuru.url}">${huuru.hap}</a></li>`;
+		huurus.innerHTML += `<li>${huuru.date} - <a href="${huuru.url}" target="_blank">${huuru.hap}</a></li>`;
 	})
 
 	dataObject.hietis.forEach((hieti) => {
@@ -136,6 +129,7 @@ export function handleScrapeData(dataObject) {
 		const splitted = hieti.gig.split(' ');
 		const gigDate = splitted.shift().slice(0, -1);
 		const gig = splitted.join(' ');
+		hieti.target = '_blank'
 		const link = hieti.aHref.replace(/\d\d?\..*(?=<)/, gig);
 
 		hietis.innerHTML += `<li>${gigDate} - ${link}</li>`;
@@ -148,7 +142,7 @@ export function handleScrapeData(dataObject) {
 	})
 
 	dataObject.maanis.forEach((maani) => {
-		maanis.innerHTML += `<li>${maani.date} - <a href="${maani.link}">${maani.gig}</a></li>`;
+		maanis.innerHTML += `<li>${maani.date} - <a href="${maani.link}" target="_blank">${maani.gig}</a></li>`;
 	})
 }
 

@@ -3,12 +3,14 @@
 #navbar {
 	box-sizing: border-box;
 	width: 25px;
-	margin: 10px 10px 10px 8px;
+	margin: 10px 10px 10px 5px;
 	display: grid; 
 	grid-template-rows: repeat(3, 40px) 1fr;
 }
 
 .fa-icon {
+	height: 30px;
+	width: 30px;
 	transition: 0.25s ease-in-out;
 }
 
