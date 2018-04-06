@@ -1,3 +1,5 @@
+### Something fucked up electron-prebuilt-compile and this shit isn't working, branched for debugging/posterity
+
 ## PDTapp personal desktop app (WIP)
 
 PDTapp is a 'little' side project to build a little personal desktop app with electron.
@@ -20,8 +22,9 @@ I have no idea what the end product will be like. Im making this shit up as I go
   - [x] listview hover
   - [x] monthview recurring shit
   - [x] week month hover full text
-  - [ ] style buttons
   - [x] tooltip
+  - [ ] style buttons
+  - [ ] fit height fix
   - [ ] listview, next event diff color
 - [x] gigs page
   - [x] styling
@@ -33,7 +36,9 @@ I have no idea what the end product will be like. Im making this shit up as I go
 - [x] taskbar right click icon. No icon but app name is correct after build
 - [x] to menu or not to menu
 - [x] add some awesome icons
-- [ ] save window position config
+- [ ] settings file
+	- [ ] save window position/size
+	- [ ] notes
 - [x] loader/spinner
   - [x] bonus: projects first ugly hack
   - [ ] modulerize the doohickey 

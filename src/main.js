@@ -4,11 +4,26 @@ import { enableLiveReload } from 'electron-compile';
 import { app, BrowserWindow, Menu, dialog, globalShortcut, Tray, shell } from 'electron';
 import path from 'path'
 const Store = require('electron-store');
-const store = new Store({
-	name: 'pdtapp'
+const eStore = new Store({
+	name: 'pdtapp-config',
+	defaults: {
+		path: app.getPath('userData'),
+		bounds: {
+			width: 900,
+			minWidth: 600,
+			height: 600,
+			x: 0,
+			y: 140,
+		}
+	}
 });
-store.set('unicorn', '🦄');
-store.set('uni', 'inu');
+
+// exports.store = eStore;
+
+console.log('from main.js')
+// const nodeConsole = require('console');
+// const myConsole = new nodeConsole.Console(process.stdout, process.stderr);
+// myConsole.log('Hello World!');
 
 
 const isDevMode = process.execPath.match(/[\\/]electron/);
@@ -27,6 +42,7 @@ let win;
 let trayIcon
 
 async function createWindow() {
+	// frgot this one...?
 	app.setAppUserModelId('app.setAppUserModelId')
 	app.setUserTasks([
 		{
@@ -96,7 +112,7 @@ async function createWindow() {
 		}
 	]);
 
-	trayIcon.setToolTip('PDapp in the tray');
+	trayIcon.setToolTip('PDTapp');
 	trayIcon.setContextMenu(trayIconContextMenu);
 
 	app.on('window-all-closed', () => {
@@ -107,6 +123,14 @@ async function createWindow() {
 	win.webContents.on('did-finish-load', () => {
 		// notify('main sez', 'webcontents finished loading')
 	})
+	win.on('move', () => {
+		// noup: win,
+		const bounds = app.getCurrentWindow().getBounds()
+		win.webContents.send('windowMove/Resize', {
+			store: eStore.store,
+			bounds
+		})
+	});
 }
 
 
@@ -171,7 +195,7 @@ var menuTemplate = [
 				if (focusedWindow) {
 					const options = {
 						type: 'info',
-						icon: path.join(__dirname, '../assets/icons/64x64.png'),
+						icon: path.join(__dirname, './assets/icons/64x64.png'),
 						buttons: ['Ok', 'Github repo'],
 						defaultId: 0,
 						browserWindow: true,
@@ -192,7 +216,7 @@ var menuTemplate = [
 			click() {
 				const options = {
 					type: 'info',
-					icon: path.join(__dirname, '../assets/icons/64x64.png'),
+					icon: path.join(__dirname, './assets/icons/64x64.png'),
 					buttons: ['Ok'],
 					browserWindow: true,
 					title: 'Shortcuts',
