@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { ipcRenderer, remote } from 'electron';
+import Store from 'electron-store';
 import Calendar from './components/Calendar.jsx';
 import Navbar from './components/Navbar.jsx';
 import Home from './components/Home.jsx';
@@ -7,13 +8,11 @@ import Settings from './components/Settings.jsx';
 import Notebook from './components/Notebook.jsx';
 import Gigs from './components/Gigs.jsx';
 
-const { store } = require('./main.js')
+const store = new Store({ name: 'pdtapp-config' })
+// store.openInEditor()
+// console.log(store.store)
 
-// const Store = remote.require('electron-store');
-// const eStore = new Store()
-// eStore.openInEditor()
-
-console.log(store)
+// console.log(store.get('bounds.width'))
 
 const components = {
 	home: Home,
@@ -39,13 +38,13 @@ export default class App extends Component {
 				loading: (msg.label === 'Calendar')
 			})
 		})
-		ipcRenderer.on('windowMove/Resize', (s, msg) => {
+		ipcRenderer.on('windowMove/Resize', () => {
 			const bounds = remote.getCurrentWindow().getBounds()
-			console.log('bounds', {
-				bounds,
-				msg
-
-			})
+			store.set({ bounds })
+			// console.log('bounds', {
+			// 	bounds,
+			// 	msg
+			// })
 		})
 	}
 

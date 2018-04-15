@@ -57,7 +57,10 @@ export default () => {
 				allDaySlot: false,
 				slotDuration: '01:00:00',
 				displayEventTime: false,
-				contentHeight: 'auto',
+				contentHeight: 'auto'
+				// () => {
+				// 	return document.querySelector('.fc-agendaWeek-view').getClientRects()[0].height - 155
+				// },
 			},
 			list: {
 				// show all year from now
@@ -70,10 +73,12 @@ export default () => {
 			},
 		},
 
-		defaultView: 'list',
+		defaultView: 'agendaWeek',
 		editable: false,
 		firstDay: 1,
-		height: 'parent',
+		height: () => {
+			return document.getElementById('calendar').getClientRects()[0].height - 10
+		},
 		events: calendarData,
 		eventBackgroundColor: '#dddd',
 
@@ -93,8 +98,8 @@ export default () => {
 				tooltip.html(html);
 				tooltip.css({
 					display: 'block',
-					left: jsEvent.clientX - 50,
-					top: jsEvent.clientY - 110,
+					left: jsEvent.clientX - 120,
+					top: jsEvent.clientY - 75,
 				});
 			}
 		},

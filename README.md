@@ -1,9 +1,8 @@
-### Something fucked up electron-prebuilt-compile and this shit isn't working, branched for debugging/posterity
-
 ## PDTapp personal desktop app (WIP)
 
 PDTapp is a 'little' side project to build a little personal desktop app with electron.
 I have no idea what the end product will be like. Im making this shit up as I go along.
+edit: Looks like I'm dumping all my little projects inside electron here...
 
 ### dependencies so far
 * react
@@ -15,6 +14,7 @@ I have no idea what the end product will be like. Im making this shit up as I go
 
 * [x] startpage
   - [ ] content?
+  - [ ] fetch github notifications?
 - [x] nav bar
   - [x] hotkeys for views?  
   - [x] evenly space out icons
@@ -29,6 +29,8 @@ I have no idea what the end product will be like. Im making this shit up as I go
 - [x] gigs page
   - [x] styling
   - [x] promises promises...
+  - [ ] fix title all links
+  - [ ] put gigs in app state so need only load once  
 - [ ] notebook page
 - [ ] design an icon (preferably(?) a nice one?)
 - [x] system tray
@@ -36,8 +38,8 @@ I have no idea what the end product will be like. Im making this shit up as I go
 - [x] taskbar right click icon. No icon but app name is correct after build
 - [x] to menu or not to menu
 - [x] add some awesome icons
-- [ ] settings file
-	- [ ] save window position/size
+- [x] settings file
+	- [x] save window position/size
 	- [ ] notes
 - [x] loader/spinner
   - [x] bonus: projects first ugly hack

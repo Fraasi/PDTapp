@@ -1,4 +1,4 @@
-const osmosis = require('osmosis');
+import osmosis from 'osmosis'
 
 export const scrapeInfo = {
 	vastis: {
@@ -54,7 +54,7 @@ export const scrapeInfo = {
 	}
 };
 
-export default function scrape(url, find, set, pub, dataObject) {
+export default function scrape(url, find, set, pub) {
 	return new Promise((resolve, reject) => {
 		const dataArr = {
 			[pub]: []
@@ -70,8 +70,9 @@ export default function scrape(url, find, set, pub, dataObject) {
 			// .log(console.log)
 			// .debug(console.log)
 			.error((err) => {
-				reject('osmosis err', err)
-				console.log(err);
+				dataArr[pub].push(`${err.replace(/"/g, '\\"')}`);
+				console.log('Osmosis Err', err);
+				// reject('osmosis err', err)
 			})
 			.done(() => {
 				console.log(`Pushed ${pub} data!`);
@@ -142,7 +143,11 @@ export function handleScrapedData(dataObject) {
 	})
 
 	dataObject.maanis.forEach((maani) => {
-		maanis.innerHTML += `<li>${maani.date} - <a href="${maani.link}" target="_blank">${maani.gig}</a></li>`;
+		if (typeof maani === 'string') {
+			maanis.innerHTML += `<li>${maani}</li>`;	
+		} else {
+			maanis.innerHTML += `<li>${maani.date} - <a href="${maani.link}">${maani.gig}</a></li>`;
+		}
 	})
 }
 

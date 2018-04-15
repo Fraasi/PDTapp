@@ -1,16 +1,16 @@
 // $ .\node_modules\.bin\electron .
+import path from 'path'
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
 import { enableLiveReload } from 'electron-compile';
 import { app, BrowserWindow, Menu, dialog, globalShortcut, Tray, shell } from 'electron';
-import path from 'path'
-const Store = require('electron-store');
-const eStore = new Store({
+import Store from 'electron-store';
+
+const store = new Store({
 	name: 'pdtapp-config',
 	defaults: {
-		path: app.getPath('userData'),
+		storePath: app.getPath('userData'),
 		bounds: {
 			width: 900,
-			minWidth: 600,
 			height: 600,
 			x: 0,
 			y: 140,
@@ -18,9 +18,6 @@ const eStore = new Store({
 	}
 });
 
-// exports.store = eStore;
-
-console.log('from main.js')
 // const nodeConsole = require('console');
 // const myConsole = new nodeConsole.Console(process.stdout, process.stderr);
 // myConsole.log('Hello World!');
@@ -38,11 +35,12 @@ if (isDevMode) {
 	});
 }
 
-let win;
+let win
 let trayIcon
+const launchedAt = new Date().toLocaleString('de', { hour12: false }).replace(/\./g, '/')
 
 async function createWindow() {
-	// frgot this one...?
+	// frgot this one...? wtf are these again?
 	app.setAppUserModelId('app.setAppUserModelId')
 	app.setUserTasks([
 		{
@@ -56,12 +54,12 @@ async function createWindow() {
 	])
 
 	win = new BrowserWindow({
-		width: 900,
-		height: 600,
+		width: store.get('bounds.width'), // 900,
+		height: store.get('bound.height'), // 600,
 		minWidth: 600,
-		x: 0,
-		y: 140,
-		title: `${app.getName()} launched at ${new Date().toLocaleString('en', { hour12: false })}`,
+		x: store.get('bounds.x'), // 0,
+		y: store.get('bounds.y'), // 140,
+		title: `${app.getName()} launched at ${launchedAt}`,
 		resizable: true,
 		backgroundColor: '#525252',
 		icon: path.join(__dirname, 'assets/icons/64x64.png'),
@@ -92,6 +90,7 @@ async function createWindow() {
 
 	app.on('will-quit', () => {
 		globalShortcut.unregisterAll();
+		store.set('lastLaunched', launchedAt)
 	});
 
 	const trayIconPath = path.join(__dirname, './assets/icons/24x24.png')
@@ -124,11 +123,13 @@ async function createWindow() {
 		// notify('main sez', 'webcontents finished loading')
 	})
 	win.on('move', () => {
-		// noup: win,
-		const bounds = app.getCurrentWindow().getBounds()
 		win.webContents.send('windowMove/Resize', {
-			store: eStore.store,
-			bounds
+			store: store.store,
+		})
+	});
+	win.on('resize', () => {
+		win.webContents.send('windowMove/Resize', {
+			store: store.store,
 		})
 	});
 }
