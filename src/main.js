@@ -1,14 +1,26 @@
 // $ .\node_modules\.bin\electron .
+import path from 'path'
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
 import { enableLiveReload } from 'electron-compile';
 import { app, BrowserWindow, Menu, dialog, globalShortcut, Tray, shell } from 'electron';
-import path from 'path'
-const Store = require('electron-store');
+import Store from 'electron-store';
+
 const store = new Store({
-	name: 'pdtapp'
+	name: 'pdtapp-config',
+	defaults: {
+		storePath: app.getPath('userData'),
+		bounds: {
+			width: 900,
+			height: 600,
+			x: 0,
+			y: 140,
+		}
+	}
 });
-store.set('unicorn', '🦄');
-store.set('uni', 'inu');
+
+// const nodeConsole = require('console');
+// const myConsole = new nodeConsole.Console(process.stdout, process.stderr);
+// myConsole.log('Hello World!');
 
 
 const isDevMode = process.execPath.match(/[\\/]electron/);
@@ -23,10 +35,12 @@ if (isDevMode) {
 	});
 }
 
-let win;
+let win
 let trayIcon
+const launchedAt = new Date().toLocaleString('de', { hour12: false }).replace(/\./g, '/')
 
 async function createWindow() {
+	// frgot this one...? wtf are these again?
 	app.setAppUserModelId('app.setAppUserModelId')
 	app.setUserTasks([
 		{
@@ -40,12 +54,12 @@ async function createWindow() {
 	])
 
 	win = new BrowserWindow({
-		width: 900,
-		height: 600,
+		width: store.get('bounds.width'), // 900,
+		height: store.get('bound.height'), // 600,
 		minWidth: 600,
-		x: 0,
-		y: 140,
-		title: `${app.getName()} launched at ${new Date().toLocaleString('en', { hour12: false })}`,
+		x: store.get('bounds.x'), // 0,
+		y: store.get('bounds.y'), // 140,
+		title: `${app.getName()} launched at ${launchedAt}`,
 		resizable: true,
 		backgroundColor: '#525252',
 		icon: path.join(__dirname, 'assets/icons/64x64.png'),
@@ -76,6 +90,7 @@ async function createWindow() {
 
 	app.on('will-quit', () => {
 		globalShortcut.unregisterAll();
+		store.set('lastLaunched', launchedAt)
 	});
 
 	const trayIconPath = path.join(__dirname, './assets/icons/24x24.png')
@@ -96,7 +111,7 @@ async function createWindow() {
 		}
 	]);
 
-	trayIcon.setToolTip('PDapp in the tray');
+	trayIcon.setToolTip('PDTapp');
 	trayIcon.setContextMenu(trayIconContextMenu);
 
 	app.on('window-all-closed', () => {
@@ -107,6 +122,16 @@ async function createWindow() {
 	win.webContents.on('did-finish-load', () => {
 		// notify('main sez', 'webcontents finished loading')
 	})
+	win.on('move', () => {
+		win.webContents.send('windowMove/Resize', {
+			store: store.store,
+		})
+	});
+	win.on('resize', () => {
+		win.webContents.send('windowMove/Resize', {
+			store: store.store,
+		})
+	});
 }
 
 
@@ -171,7 +196,7 @@ var menuTemplate = [
 				if (focusedWindow) {
 					const options = {
 						type: 'info',
-						icon: path.join(__dirname, '../assets/icons/64x64.png'),
+						icon: path.join(__dirname, './assets/icons/64x64.png'),
 						buttons: ['Ok', 'Github repo'],
 						defaultId: 0,
 						browserWindow: true,
@@ -192,7 +217,7 @@ var menuTemplate = [
 			click() {
 				const options = {
 					type: 'info',
-					icon: path.join(__dirname, '../assets/icons/64x64.png'),
+					icon: path.join(__dirname, './assets/icons/64x64.png'),
 					buttons: ['Ok'],
 					browserWindow: true,
 					title: 'Shortcuts',

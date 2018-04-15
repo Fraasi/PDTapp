@@ -37,6 +37,7 @@ export default class Gigs extends Component {
 				.then((data) => {
 					const obj = {}
 					data.forEach((el) => {
+						
 						const pub = Object.keys(el)[0]
 						obj[pub] = el[pub]
 					})
