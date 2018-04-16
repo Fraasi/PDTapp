@@ -8,33 +8,33 @@ module.exports.template = [
 		submenu: [{
 			label: 'Home',
 			accelerator: 'CmdOrCtrl+H',
-			click(item) {
-				switchView(item)
-			}
+			// click(item) {
+			// 	switchView(item)
+			// }
 		}, {
 			label: 'Calendar',
 			accelerator: 'CmdOrCtrl+C',
-			click(item) {
-				switchView(item)
-			}
+			// click(item) {
+			// 	switchView(item)
+			// }
 		}, {
 			label: 'Notebook',
 			accelerator: 'CmdOrCtrl+N',
-			click(item) {
-				switchView(item)
-			}
+			// click(item) {
+			// 	switchView(item)
+			// }
 		}, {
 			label: 'Gigs',
 			accelerator: 'CmdOrCtrl+G',
-			click(item) {
-				switchView(item)
-			}
+			// click(item) {
+			// 	switchView(item)
+			// }
 		}, {
 			label: 'Settings',
 			accelerator: 'CmdOrCtrl+S',
-			click(item) {
-				switchView(item)
-			}
+			// click(item) {
+			// 	switchView(item)
+			// }
 		}]
 	}, {
 		role: 'editMenu'
@@ -57,7 +57,7 @@ module.exports.template = [
 				if (focusedWindow) {
 					const options = {
 						type: 'info',
-						icon: path.join(__dirname, '../assets/icons/64x64.png'),
+						icon: path.join(__dirname, '../assets/icons/32x32.png'),
 						buttons: ['Ok', 'Github repo'],
 						defaultId: 0,
 						browserWindow: true,

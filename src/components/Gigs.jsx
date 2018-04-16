@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { shell } from 'electron';
 import scrape, { scrapeInfo, handleScrapedData } from '../js/gigscraper.js';
+process.setMaxListeners(15) // some err comes from gigscraper promises,  default 10 exceeded
 
 export default class Gigs extends Component {
 	constructor() {
@@ -37,7 +38,6 @@ export default class Gigs extends Component {
 				.then((data) => {
 					const obj = {}
 					data.forEach((el) => {
-						
 						const pub = Object.keys(el)[0]
 						obj[pub] = el[pub]
 					})
@@ -60,35 +60,35 @@ export default class Gigs extends Component {
 		return (
 			<div className="view-container" id="gigscraper">
 
-				{ !this.state.dataLoaded && <button onClick={this.handleScrape}>Scrape data</button> }
+				{!this.state.dataLoaded && <button onClick={this.handleScrape}>Scrape data</button>}
 
 				<div>
-					<span className="link" onClick={ this.handleClick.bind(this, 'http://dogshome.fi/index.php?id=4') }>Dogshome</span>
+					<a href="#" onClick={this.handleClick.bind(this, 'http://dogshome.fi/index.php?id=4')}>Dogshome</a>
 					<ul id="dogs" />
 				</div>
 
 				<div>
-					<a href="#" onClick={ this.handleClick.bind(this, "http://huurupiilo.fi/")}>Huurupiilo</a>
+					<a href="#" onClick={this.handleClick.bind(this, 'http://huurupiilo.fi/')}>Huurupiilo</a>
 					<ul id="huurus" />
 				</div>
 
 				<div>
-					<a href="#" onClick={ this.handleClick.bind(this, 'https://www.kujakolli.fi/')}>Kujakolli</a>
+					<a href="#" onClick={this.handleClick.bind(this, 'https://www.kujakolli.fi/')}>Kujakolli</a>
 					<ul id="kujis" />
-					</div>
+				</div>
 
 				<div>
-					<a href="#" onClick={ this.handleClick.bind(this, 'http://valiaikainenhiedanranta.fi/tapahtumat/tulevat-tapahtumat')}>Hiedanranta</a>
+					<a href="#" onClick={this.handleClick.bind(this, 'http://valiaikainenhiedanranta.fi/tapahtumat/tulevat-tapahtumat')}>Hiedanranta</a>
 					<ul id="hietis" />
 				</div >
 
 				<div>
-					<a href="#" onClick={ this.handleClick.bind(this, 'http://vastavirta.net/')}>Vastavirta</a>
+					<a href="#" onClick={this.handleClick.bind(this, 'http://vastavirta.net/')}>Vastavirta</a>
 					<ul id="vastis" />
 				</div>
 
 				<div>
-					<a href="#" onClick={ this.handleClick.bind(this, 'http://maanalainen.net/tapahtumat/') }>Maanalainen</a>
+					<a href="#" onClick={this.handleClick.bind(this, 'http://maanalainen.net/tapahtumat/')}>Maanalainen</a>
 					<ul id="maanis" />
 				</div>
 

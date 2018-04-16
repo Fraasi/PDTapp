@@ -3,3 +3,5 @@ out
 .eslintcache
 
 src/assets/calendar-data.js
+.env
+src/js/main-menu-template.js

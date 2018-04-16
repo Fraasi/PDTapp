@@ -9,12 +9,14 @@ edit: Looks like I'm dumping all my little projects inside electron here...
 * fullcalendar.js
 * node-osmosis
 * electron-store
+* dotenv
 
 ### todo (or maybe not to, do):
 
 * [x] startpage
   - [ ] content?
-  - [ ] fetch github notifications?
+  - [x] fetch github notifications
+- [ ] window.titleBar customation possible?
 - [x] nav bar
   - [x] hotkeys for views?  
   - [x] evenly space out icons
@@ -24,12 +26,11 @@ edit: Looks like I'm dumping all my little projects inside electron here...
   - [x] week month hover full text
   - [x] tooltip
   - [ ] style buttons
-  - [ ] fit height fix
-  - [ ] listview, next event diff color
+  - [x] fit height fix
+  - [ ] listview, events this month with diff color
 - [x] gigs page
   - [x] styling
   - [x] promises promises...
-  - [ ] fix title all links
   - [ ] put gigs in app state so need only load once  
 - [ ] notebook page
 - [ ] design an icon (preferably(?) a nice one?)
@@ -44,5 +45,6 @@ edit: Looks like I'm dumping all my little projects inside electron here...
 - [x] loader/spinner
   - [x] bonus: projects first ugly hack
   - [ ] modulerize the doohickey 
-- [x] notification module (propably waste of time)
+- [x] notification script  (propably waste of time)
+  - [ ] github notifications here or in titlebar?
 - [x] (esLint, airBnB) => new Promise().resolve(hell)

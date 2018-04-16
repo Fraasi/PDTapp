@@ -5,8 +5,8 @@ exports.notify = (title, body) => {
 	const notification = {
 		title: title || 'PDapp says...',
 		body: body || 'PDapp ready to go',
-		// detail: 'wuzzuuup',
-		icon: path.join(__dirname, '../assets/img/2017-03-18_1200.png')
+		detail: 'Details go here',
+		icon: path.join(__dirname, '../assets/img/32x32.png')
 	}
 	// eslint-disable-next-line
 	const myNotification = new window.Notification(notification.title, notification)

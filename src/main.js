@@ -62,7 +62,7 @@ async function createWindow() {
 		title: `${app.getName()} launched at ${launchedAt}`,
 		resizable: true,
 		backgroundColor: '#525252',
-		icon: path.join(__dirname, 'assets/icons/64x64.png'),
+		icon: path.join(__dirname, 'assets/icons/32x32.png'),
 		show: false,
 		titleBarStyle: 'hidden',
 	}).on('ready-to-show', () => {
@@ -93,7 +93,7 @@ async function createWindow() {
 		store.set('lastLaunched', launchedAt)
 	});
 
-	const trayIconPath = path.join(__dirname, './assets/icons/24x24.png')
+	const trayIconPath = path.join(__dirname, './assets/icons/32x32.png')
 	trayIcon = new Tray(trayIconPath);
 
 	const trayIconContextMenu = Menu.buildFromTemplate([
@@ -196,7 +196,7 @@ var menuTemplate = [
 				if (focusedWindow) {
 					const options = {
 						type: 'info',
-						icon: path.join(__dirname, './assets/icons/64x64.png'),
+						icon: path.join(__dirname, './assets/icons/32x32.png'),
 						buttons: ['Ok', 'Github repo'],
 						defaultId: 0,
 						browserWindow: true,
@@ -213,11 +213,11 @@ var menuTemplate = [
 			}
 		}, {
 			label: 'ShortCuts',
-			accelerator: 'CmdOrCtrl+S',
+			accelerator: 'CmdOrCtrl+Shift+S',
 			click() {
 				const options = {
 					type: 'info',
-					icon: path.join(__dirname, './assets/icons/64x64.png'),
+					icon: path.join(__dirname, './assets/icons/32x32.png'),
 					buttons: ['Ok'],
 					browserWindow: true,
 					title: 'Shortcuts',

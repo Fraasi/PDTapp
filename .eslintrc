@@ -23,6 +23,9 @@
 		"max-len": 0,
 		"react/prop-types": 0,
 		"no-plusplus": 0,
-		"no-new": 0
+		"no-new": 0,
+		"react/jsx-no-bind": 0,
+		"jsx-a11y/href-no-hash": 0,
+		"jsx-a11y/anchor-is-valid": 0
   }
 }
