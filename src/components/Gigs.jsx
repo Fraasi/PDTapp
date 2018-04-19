@@ -4,35 +4,31 @@ import scrape, { scrapeInfo, handleScrapedData } from '../js/gigscraper.js';
 process.setMaxListeners(15) // some err comes from gigscraper promises,  default 10 exceeded
 
 export default class Gigs extends Component {
-	constructor() {
-		super()
+	constructor(props) {
+		super(props)
 		this.state = {
-			dataObject: {
-				dogs: [],
-				vastis: [],
-				huurus: [],
-				kujis: [],
-				hietis: [],
-				maanis: []
-			},
 			loading: false,
-			dataLoaded: false
+			dataLoaded: (this.props.gigsObject.dogs.length > 1),
 		}
-		this.handleScrape = this.handleScrape.bind(this)
+		this.scrapeGigs = this.scrapeGigs.bind(this)
 		// this.handleClick = this.handleClick.bind(this)
 	}
 
-	handleScrape() {
+	componentDidMount() {
+		handleScrapedData(this.props.gigsObject)
+	}
+
+	scrapeGigs() {
 		this.setState({
 			loading: true
 		}, () => {
 			const promises = []
-			const pubs = Object.keys(this.state.dataObject);
+			const pubs = Object.keys(this.props.gigsObject);
 			pubs.forEach((pub) => {
 				const url = scrapeInfo[pub].Url;
 				const find = scrapeInfo[pub].Find;
 				const set = scrapeInfo[pub].Set;
-				promises.push(scrape(url, find, set, pub, this.state.dataObject))
+				promises.push(scrape(url, find, set, pub, this.props.gigsObject))
 			})
 			Promise.all(promises)
 				.then((data) => {
@@ -42,8 +38,10 @@ export default class Gigs extends Component {
 						obj[pub] = el[pub]
 					})
 					handleScrapedData(obj)
+					this.props.handleStateChange({
+						gigsObject: obj
+					})
 					this.setState({
-						dataObject: obj,
 						loading: false,
 						dataLoaded: true
 					})
@@ -60,7 +58,7 @@ export default class Gigs extends Component {
 		return (
 			<div className="view-container" id="gigscraper">
 
-				{!this.state.dataLoaded && <button onClick={this.handleScrape}>Scrape data</button>}
+				{!this.state.dataLoaded && <button onClick={this.scrapeGigs}>Scrape data</button>}
 
 				<div>
 					<a href="#" onClick={this.handleClick.bind(this, 'http://dogshome.fi/index.php?id=4')}>Dogshome</a>

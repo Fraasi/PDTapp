@@ -27,10 +27,19 @@ export default class App extends Component {
 		super()
 		this.state = {
 			view: 'notebook',
-			loading: true
+			loading: true,
+			gitNotifications: [],
+			gigsObject: {
+				dogs: [],
+				vastis: [],
+				huurus: [],
+				kujis: [],
+				hietis: [],
+				maanis: []
+			}
 		}
-		this.handleViewChange = this.handleViewChange.bind(this)
-		this.changeSpinnerState = this.changeSpinnerState.bind(this)
+
+		this.handleStateChange = this.handleStateChange.bind(this)
 
 		ipcRenderer.on('switchView', (sender, msg) => {
 			this.setState({
@@ -48,13 +57,26 @@ export default class App extends Component {
 		})
 	}
 
-	handleViewChange(view) {
-		this.setState({ view })
+	componentDidMount() {
+		this.fetchNotifications()
 	}
 
+	fetchNotifications() {
+		if (this.state.gitNotifications.length < 1) {
+			// eslint-disable-next-line
+			fetch(`https://api.github.com/notifications?access_token=${process.env.GIT_OAUTH_TOKEN}`)
+				.then(r => r.json())
+				.then((arr) => {
+					console.log('git fetched:', arr)
+					this.setState({
+						gitNotifications: arr
+					})
+				})
+		}
+	}
 
-	changeSpinnerState(boolean) {
-		this.setState({ loading: boolean })
+	handleStateChange(newState) {
+		this.setState(newState)
 	}
 
 	render() {
@@ -62,8 +84,13 @@ export default class App extends Component {
 
 		return (
 			<div id="app-container">
-				<Navbar handleViewChange={this.handleViewChange} />
-				<View loading={this.state.loading} changeSpinnerState={this.changeSpinnerState} />
+				<Navbar handleStateChange={this.handleStateChange} />
+				<View
+					loading={this.state.loading}
+					handleStateChange={this.handleStateChange}
+					gitNotifications={this.state.gitNotifications}
+					gigsObject={this.state.gigsObject}
+				/>
 			</div>);
 	}
 }

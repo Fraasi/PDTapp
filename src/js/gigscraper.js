@@ -55,7 +55,7 @@ export const scrapeInfo = {
 };
 
 export default function scrape(url, find, set, pub) {
-	return new Promise((resolve, reject) => {
+	return new Promise((resolve) => {
 		const dataArr = {
 			[pub]: []
 		}
@@ -63,9 +63,7 @@ export default function scrape(url, find, set, pub) {
 			.find(find)
 			.set(set)
 			.data((data) => {
-				// dataObject[pub].push(data);
 				dataArr[pub].push(data)
-				// console.log('data', data)
 			})
 			// .log(console.log)
 			// .debug(console.log)
@@ -80,7 +78,6 @@ export default function scrape(url, find, set, pub) {
 			})
 	})
 }
-
 
 export function handleScrapedData(dataObject) {
 	/* eslint-disable */

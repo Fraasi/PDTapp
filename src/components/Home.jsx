@@ -1,40 +1,33 @@
 import React, { Component } from 'react'
 import Store from 'electron-store'
+import { shell } from 'electron';
 import dotenv from 'dotenv'
 dotenv.config()
 
 const store = new Store({ name: 'pdtapp-config' })
 
 export default class Home extends Component {
-	constructor() {
-		super()
-		this.state = {
-			notifications: undefined
-		}
+	handleClick(url) {
+		shell.openExternal(url)
 	}
 
-	componentDidMount() {
-		if (this.state.notifications === undefined) {
-			// eslint-disable-next-line
-			fetch(`https://api.github.com/notifications?access_token=${process.env.GIT_OAUTH_TOKEN}`)
-				.then(r => r.json())
-				.then((arr) => {
-				console.log(arr)
-					this.setState({
-						notifications: arr
-					})
-				})
-		}
-	}
 	render() {
 		return (
 			<div className="view-container" id="home">
 				{`Home, last visit was ${store.get('lastLaunched')}`}
+				<hr />
+					Notifications at GH: {this.props.gitNotifications.length}
 				<br />
 				{
-					this.state.notifications === undefined ?
-						'Notifications at GH: null' :
-						`Notifications at GH: ${this.state.notifications.length}`
+					this.props.gitNotifications.map((el, i) => {
+						const url = el.subject.url.replace(/api\.|repos\//g, '')
+						return (
+							<p key={i + 1}>
+								{i + 1}. <br />repo: {el.repository.full_name}<br />
+								{el.subject.type}: <span className="linkstyle" onClick={this.handleClick.bind(this, url)}>{el.subject.title}</span>
+							</p>
+						)
+					})
 				}
 			</div>
 		)

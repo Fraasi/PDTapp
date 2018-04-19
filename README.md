@@ -13,38 +13,42 @@ edit: Looks like I'm dumping all my little projects inside electron here...
 
 ### todo (or maybe not to, do):
 
-* [x] startpage
+* [x] **Startpage**
   - [ ] content?
   - [x] fetch github notifications
-- [ ] window.titleBar customation possible?
-- [x] nav bar
+  - [ ] timer fetch every 30 mins, notificate?
+- [x] **Nav bar**
+  - [x] add some awesome icons
   - [x] hotkeys for views?  
   - [x] evenly space out icons
-- [x] calendar 
+- [x] **Calendar** 
   - [x] listview hover
   - [x] monthview recurring shit
   - [x] week month hover full text
   - [x] tooltip
-  - [ ] style buttons
   - [x] fit height fix
-  - [ ] listview, events this month with diff color
-- [x] gigs page
+  - [ ] style buttons?
+  - [ ] listview, events coming month with diff color
+- [x] **Gigs page**
   - [x] styling
   - [x] promises promises...
-  - [ ] put gigs in app state so need only load once  
-- [ ] notebook page
-- [ ] design an icon (preferably(?) a nice one?)
-- [x] system tray
-  - [x] temp icon works
-- [x] taskbar right click icon. No icon but app name is correct after build
-- [x] to menu or not to menu
-- [x] add some awesome icons
-- [x] settings file
-	- [x] save window position/size
-	- [ ] notes
-- [x] loader/spinner
-  - [x] bonus: projects first ugly hack
-  - [ ] modulerize the doohickey 
-- [x] notification script  (propably waste of time)
-  - [ ] github notifications here or in titlebar?
-- [x] (esLint, airBnB) => new Promise().resolve(hell)
+  - [x] put gigs in app state so need only load once  
+- [ ] **Notebook page**
+  - [ ] similar to vivaldi extension, but modulerize to have more than one & editable title to each
+  - [ ] draggable?
+  - [ ] put to store to keep notes between launches
+- [x] **Settings page**
+- [x] **Main.js + other**
+	- [ ] window.titleBar customation possible?
+	- [x] design an icon (preferably(?) a nice one?)
+	- [x] system tray
+	- [x] taskbar right click icon. No icon but app name is correct after build
+	- [x] to menu or not to menu
+	- [x] settings file
+		- [x] save window position/size
+		- [ ] win resize/repos hangs the whole thing, call only on resize end etc.
+	- [x] loader/spinner
+		- [x] bonus: projects first ugly hack
+		- [ ] modulerize the doohickey 
+	- [x] notification script  (propably waste of time)
+	- [x] (esLint, airBnB) => new Promise().resolve(hell)

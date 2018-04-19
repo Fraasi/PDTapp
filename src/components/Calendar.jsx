@@ -2,16 +2,19 @@ import React, { Component } from 'react';
 import calendar from '../js/calendar.js'
 
 export default class Calendar extends Component {
-
 	componentDidMount() {
 		setTimeout(() => {
 			calendar()
-			this.props.changeSpinnerState(false)
+			this.props.handleStateChange({
+				loading: false
+			})
 		}, 10)
 	}
 
 	componentWillUnmount() {
-		this.props.changeSpinnerState(true)
+		this.props.handleStateChange({
+			loading: true
+		})
 	}
 
 	render() {
