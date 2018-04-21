@@ -1,0 +1,30 @@
+#note-wrapper {
+	height: 92%;
+}
+
+.note-title {
+	position: sticky;
+	background-color: #35363A;
+	width: calc(100% - 5px);
+	padding: 5px 5px 15px 5px;
+	/* margin: 0px 0px 10px 0px; */
+	text-align: center;
+	top: -5px;
+}
+
+h3 > img.fa-icon {
+	width: 25px;
+	height: 25px;
+}
+
+.note-editbox {
+	resize: none;
+	outline: none;
+	padding: 3px;
+	width: calc(100% - 5px);
+	height: calc(100vh - 85px);
+}
+
+/* .note-editbox, .note-text {
+	top: 25px;
+} */

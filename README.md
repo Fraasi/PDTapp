@@ -10,6 +10,7 @@ edit: Looks like I'm dumping all my little projects inside electron here...
 * node-osmosis
 * electron-store
 * dotenv
+* showdown
 
 ### todo (or maybe not to, do):
 
@@ -37,6 +38,8 @@ edit: Looks like I'm dumping all my little projects inside electron here...
   - [ ] similar to vivaldi extension, but modulerize to have more than one & editable title to each
   - [ ] draggable?
   - [ ] put to store to keep notes between launches
+  - [ ] new note button
+  - [ ] menu button with dropdown noteslist
 - [x] **Settings page**
 - [x] **Main.js + other**
 	- [ ] window.titleBar customation possible?

@@ -62,7 +62,8 @@ export default class App extends Component {
 	}
 
 	fetchNotifications() {
-		if (this.state.gitNotifications.length < 1) {
+		if (false) {
+		// if (this.state.gitNotifications.length < 1) {
 			// eslint-disable-next-line
 			fetch(`https://api.github.com/notifications?access_token=${process.env.GIT_OAUTH_TOKEN}`)
 				.then(r => r.json())
