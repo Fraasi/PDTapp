@@ -1,6 +1,6 @@
 ## PDTapp personal desktop app (WIP)
 
-PDTapp is a 'little' side project to build a little personal desktop app with electron.
+PDTapp is a 'little' *sideventure*<sup>tm</sup> to build a little personal desktop app with electron.
 I have no idea what the end product will be like. Im making this shit up as I go along.
 edit: Looks like I'm dumping all my little projects inside electron here...
 
@@ -35,10 +35,7 @@ edit: Looks like I'm dumping all my little projects inside electron here...
   - [x] promises promises...
   - [x] put gigs in app state so need only load once  
 - [ ] **Notebook page**
-  - [ ] similar to vivaldi extension, but modulerize to have more than one & editable title to each
-  - [ ] draggable?
   - [ ] put to store to keep notes between launches
-  - [ ] new note button
   - [ ] menu button with dropdown noteslist
 - [x] **Settings page**
 - [x] **Main.js + other**

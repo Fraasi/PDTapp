@@ -122,25 +122,26 @@ async function createWindow() {
 	win.webContents.on('did-finish-load', () => {
 		// notify('main sez', 'webcontents finished loading')
 	})
-}
 
+	win.on('move', () => {
+		win.webContents.send('windowMove/Resize', {
+			store: store.store,
+		})
+	});
+	win.on('resize', () => {
+		win.webContents.send('windowMove/Resize', {
+			store: store.store,
+		})
+	});
+}
 
 app.on('ready', createWindow);
 
-win.on('move', () => {
-	win.webContents.send('windowMove/Resize', {
-		store: store.store,
-	})
-});
-win.on('resize', () => {
-	win.webContents.send('windowMove/Resize', {
-		store: store.store,
-	})
-});
 
 function switchView(item) {
 	win.webContents.send('switchView', item)
 }
+
 // eslint-disable-next-line
 var menuTemplate = [
 	{

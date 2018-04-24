@@ -6,10 +6,12 @@
 	position: sticky;
 	background-color: #35363A;
 	width: calc(100% - 5px);
-	padding: 5px 5px 15px 5px;
-	/* margin: 0px 0px 10px 0px; */
+	padding: 5px 0px 10px 5px;
+	margin: -5px 0px 10px 0px;
 	text-align: center;
 	top: -5px;
+	border-bottom: 4px dotted black;
+	 /* #c7c7c7; */
 }
 
 h3 > img.fa-icon {
@@ -17,12 +19,20 @@ h3 > img.fa-icon {
 	height: 25px;
 }
 
+.minus-square {
+	margin: 0px 5px;
+}
+
+.plus-square {
+	margin-right: 5px;
+}
+
 .note-editbox {
 	resize: none;
 	outline: none;
 	padding: 3px;
 	width: calc(100% - 5px);
-	height: calc(100vh - 85px);
+	height: calc(100vh - 90px);
 }
 
 /* .note-editbox, .note-text {
