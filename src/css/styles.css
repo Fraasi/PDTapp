@@ -4,8 +4,10 @@
 @import 'app.css';
 @import 'gigscraper.css';
 @import 'notes.css';
-/* @import 'home.css'; empty so far */
+@import 'weather.css';
+@import 'home.css';
 @import 'atomspinner.css';
+
 
 /* global styles here */
 

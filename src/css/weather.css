@@ -1,0 +1,11 @@
+fieldset > ul {
+	list-style-type: none;
+    padding-left: 20px;
+}
+
+li > img {
+	position: relative;
+	top: -10px;
+	float: right;
+	width: 40px;
+}
