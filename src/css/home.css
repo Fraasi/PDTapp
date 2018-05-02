@@ -1,8 +1,5 @@
 #home {
 	display: grid;
-	/* grid-template-columns: 1fr 1fr;
-	grid-template-rows: 20px 1fr;
-	grid: 20px 10px 1fr/ 1fr 5fr; */
 	grid-template: "lastvisit lastvisit" 30px
 					"gits weather" ;
 	grid-template-columns: 50% 50%;

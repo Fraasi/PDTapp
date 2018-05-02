@@ -28,7 +28,7 @@ export default class App extends Component {
 		this.state = {
 			view: 'home',
 			loading: true,
-			gitNotifications: [],
+			gitNotifications: null,
 			weatherData: null,
 			weatherDatatest: {
 				coord: {
@@ -102,8 +102,7 @@ export default class App extends Component {
 	}
 
 	fetchGitNotifications() {
-		if (false) {
-			// if (this.state.gitNotifications.length < 1) {
+			if (this.state.gitNotifications === null) {
 			// eslint-disable-next-line
 			fetch(`https://api.github.com/notifications?access_token=${process.env.GIT_OAUTH_TOKEN}`)
 				.then(r => r.json())
@@ -118,20 +117,14 @@ export default class App extends Component {
 
 	fetchWeather() {
 		if (this.state.weatherData) return
-		const metric = '&units=metric'
-		const appid = `&appid=${process.env.OPENWEATHER_APIKEY}`
 
 		// forecast api.openweathermap.org/data/2.5/forecast?id=524901
-		// const cors1 = 'https://crossorigin.me/'
-		// const cors2 = 'https://cors-anywhere.herokuapp.com/'
-		const url = `http://api.openweathermap.org/data/2.5/weather?lat=${61.5}&lon=${23.75}${appid}${metric}`
-		// get accurate
-		// const url = `http://api.openweathermap.org/data/2.5/find?q=Tampere&type=accurate${appid}${metric}`
 
+		const url = `http://api.openweathermap.org/data/2.5/weather?lat=${61.5}&lon=${23.75}&appid=${process.env.OPENWEATHER_APIKEY}&units=metric`
 		// eslint-disable-next-line
 		fetch(url).then((data) => data.json())
 			.then((json) => {
-				// const json = json.list[0]
+				console.log('weather fetched:', json)
 				this.setState({
 					weatherData: json
 				})

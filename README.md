@@ -1,7 +1,7 @@
 ## PDTapp personal desktop app (WIP)
 
 PDTapp is a 'little' *sideventure*<sup>tm</sup> to build a little personal desktop app with electron.
-I have no idea what the end product will be like. I'm making this shit up as I go along.
+I have no idea what the end product will be like. I'm making this shit up as I go along.  
 edit: Looks like I'm dumping all my little projects inside electron here...
 
 ### dependencies so far
@@ -16,9 +16,10 @@ edit: Looks like I'm dumping all my little projects inside electron here...
 
 * [x] **Startpage**
   - [x] weather
-    - [ ] rotating arrow for wind
-  - [x] fetch github notifications
-  - [ ] timer fetch every 30 mins, notificate?
+    - [x] rotating arrow for wind
+	- [ ] forecast?
+  - [x] github notifications
+    - [ ] timer fetch every 30 mins, notificate?
 - [x] **Nav bar**
   - [x] add some awesome icons
   - [x] hotkeys for views?  
@@ -29,15 +30,16 @@ edit: Looks like I'm dumping all my little projects inside electron here...
   - [x] week month hover full text
   - [x] tooltip
   - [x] fit height fix
-  - [ ] style buttons?
+  - [ ] buttons?
   - [ ] listview, events coming month with diff color
 - [x] **Gigs page**
   - [x] styling
   - [x] promises promises...
   - [x] put gigs in app state so need only load once  
-- [ ] **Notebook page**
+- [x] **Notebook page**
   - [ ] put to store to keep notes between launches
 - [x] **Settings page**
+  - [x] why? nobody knows.
 - [x] **Main.js + other**
 	- [ ] window.titleBar customation possible?
 	- [x] design an icon (preferably(?) a nice one?)
@@ -46,9 +48,12 @@ edit: Looks like I'm dumping all my little projects inside electron here...
 	- [x] to menu or not to menu
 	- [x] settings file
 		- [x] save window position/size
-		- [ ] win resize/repos hangs the whole thing, should call only once on resize end etc.
+		- [ ] win resize/repos occasionally hangs the whole thing, should call only once on resize end etc.
 	- [x] loader/spinner
 		- [x] bonus: projects first ugly hack
 		- [ ] modulerize the doohickey 
 	- [x] notification script  (propably waste of time)
-	- [x] (esLint, airBnB) => new Promise().resolve(hell)
+	- [x] (esLint, airBnB) => new Promise().resolve(hell)  
+
+Screenshot of the home page  
+![2018-05-02_0951.png](src/assets/img/2018-05-02_0951.png)
