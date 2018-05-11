@@ -9,3 +9,7 @@ li > img {
 	float: right;
 	width: 40px;
 }
+.fa-icon.long-arrow-alt-down {
+	width: 30px;
+	height: 25px;
+}

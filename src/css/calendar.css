@@ -34,4 +34,9 @@
 .fc-unthemed .fc-list-item:hover td {
 	background-color: var(--color-dark);
 }
-
+/* jhj */
+.fc-row.fc-week.fc-widget-content {
+	min-height: 40px;
+	height: 44px !important;
+	/* height: 64px !important; */
+}

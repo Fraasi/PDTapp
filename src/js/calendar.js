@@ -50,17 +50,18 @@ export default () => {
 			month: {
 				titleFormat: 'YYYY, MMMM',
 				weekNumbers: true,
+				// contentHeight: 'auto'
 			},
 			agendaWeek: {
-				minTime: '10:00:00',
-				maxTime: '24:00:00',
+				minTime: '11:00:00',
+				maxTime: '23:00:00',
 				allDaySlot: false,
 				slotDuration: '01:00:00',
 				displayEventTime: false,
-				contentHeight: 'auto'
-				// () => {
-				// 	return document.querySelector('.fc-agendaWeek-view').getClientRects()[0].height - 155
-				// },
+				// height: 200,
+				// contentHeight: () => {
+				// 	return document.querySelector('.fc-agendaWeek-view').getClientRects()[0].height - 255
+				// }
 			},
 			list: {
 				// show all year from now
@@ -72,15 +73,16 @@ export default () => {
 				},
 			},
 		},
-
-		defaultView: 'agendaWeek',
+	
+		defaultView: 'month',
 		editable: false,
 		firstDay: 1,
+		// aspectRatio: 1.6,		
 		height: () => {
-			return document.getElementById('calendar').getClientRects()[0].height - 10
+			return document.getElementById('calendar').getClientRects()[0].height - 20
 		},
-		events: calendarData,
 		eventBackgroundColor: '#dddd',
+		events: calendarData,
 
 		eventClick(event) {
 			if (event.url) {

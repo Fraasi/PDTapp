@@ -99,6 +99,7 @@ export default class App extends Component {
 	componentDidMount() {
 		this.fetchGitNotifications()
 		this.fetchWeather()
+		// this.fetchQuote()
 	}
 
 	fetchGitNotifications() {
@@ -119,7 +120,6 @@ export default class App extends Component {
 		if (this.state.weatherData) return
 
 		// forecast api.openweathermap.org/data/2.5/forecast?id=524901
-
 		const url = `http://api.openweathermap.org/data/2.5/weather?lat=${61.5}&lon=${23.75}&appid=${process.env.OPENWEATHER_APIKEY}&units=metric`
 		// eslint-disable-next-line
 		fetch(url).then((data) => data.json())
@@ -130,6 +130,19 @@ export default class App extends Component {
 				})
 			})
 	}
+
+	// fetchQuote() {
+	// 	const url = 'dfg'
+	// 	// eslint-disable-next-line
+	// 	fetch(url).then((data) => data.json())
+	// 		.then((json) => {
+	// 			console.log('quote fetched:', json)
+	// 			this.setState({
+	// 				weatherData: json
+	// 			})
+	// 		})
+	// }
+
 
 	handleStateChange(newState) {
 		this.setState(newState)

@@ -23,8 +23,8 @@ export default class Weather extends Component {
 					<ul className="w-list">
 						<li>Clouds {clouds.all}%</li>
 						<li>Visibility {visibility}m</li>
-						<li>Wind {wind.deg}&deg; / {wind.speed} m/s
-						<img className="fa-icon long-arrow-alt-down.svg" src="./assets/img/long-arrow-alt-down.svg" alt="long-arrow-alt-down.svg" style={{ transform: `rotate(${wind.deg}deg)` }} />
+						<li>Wind {wind.speed} m/s @ {wind.deg}&deg;
+						<img className="fa-icon long-arrow-alt-down" src="./assets/img/long-arrow-alt-down.svg" alt="long-arrow-alt-down.svg" style={{ transform: `rotate(${wind.deg}deg)` }} />
 						</li>
 						<li>Humidity {main.humidity}%</li>
 						<li>Pressure {main.pressure} hPa</li>

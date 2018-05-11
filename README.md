@@ -1,6 +1,6 @@
 ## PDTapp personal desktop app (WIP)
 
-PDTapp is a 'little' *sideventure*<sup>tm</sup> to build a little personal desktop app with electron.
+PDTapp is a 'little' *sideventure*<sup>tm</sup> to learn & build a little personal desktop app with electron.
 I have no idea what the end product will be like. I'm making this shit up as I go along.  
 edit: Looks like I'm dumping all my little projects inside electron here...
 
@@ -18,18 +18,18 @@ edit: Looks like I'm dumping all my little projects inside electron here...
   - [x] weather
     - [x] rotating arrow for wind
 	- [ ] forecast?
+  - [x] make random quote api in heroku & fetch a quote
+  - [x] random image
   - [x] github notifications
     - [ ] timer fetch every 30 mins, notificate?
 - [x] **Nav bar**
-  - [x] add some awesome icons
-  - [x] hotkeys for views?  
-  - [x] evenly space out icons
+  - [x] hotkeys for views
 - [x] **Calendar** 
   - [x] listview hover
   - [x] monthview recurring shit
   - [x] week month hover full text
   - [x] tooltip
-  - [x] fit height fix
+  - [ ] fit height fix
   - [ ] buttons?
   - [ ] listview, events coming month with diff color
 - [x] **Gigs page**
@@ -37,7 +37,9 @@ edit: Looks like I'm dumping all my little projects inside electron here...
   - [x] promises promises...
   - [x] put gigs in app state so need only load once  
 - [x] **Notebook page**
+  - [x] markdown support
   - [ ] put to store to keep notes between launches
+  - [ ] finish the whole thing
 - [x] **Settings page**
   - [x] why? nobody knows.
 - [x] **Main.js + other**
@@ -55,5 +57,9 @@ edit: Looks like I'm dumping all my little projects inside electron here...
 	- [x] notification script  (propably waste of time)
 	- [x] (esLint, airBnB) => new Promise().resolve(hell)  
 
-Screenshot of the home page  
+#### Screenshot of the home page so far  
 ![2018-05-02_0951.png](src/assets/img/2018-05-02_0951.png)
+
+### Some thoughts
+* need to start thinking about program architecture as my apps are getting bigger
+* learn how to 'modulerize' **everything**
