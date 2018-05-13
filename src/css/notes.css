@@ -2,6 +2,10 @@
 	height: 92%;
 }
 
+#note-wrapper > ol > li {
+	cursor: pointer;
+}
+
 .note-title {
 	position: sticky;
 	background-color: #35363A;

@@ -1,9 +1,9 @@
 // $ .\node_modules\.bin\electron .
 import path from 'path'
-import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
-import { enableLiveReload } from 'electron-compile';
-import { app, BrowserWindow, Menu, dialog, globalShortcut, Tray, shell } from 'electron';
-import Store from 'electron-store';
+import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer'
+import { enableLiveReload } from 'electron-compile'
+import { app, BrowserWindow, Menu, dialog, globalShortcut, Tray, shell } from 'electron'
+import Store from 'electron-store'
 
 const store = new Store({
 	name: 'pdtapp-config',
@@ -14,9 +14,10 @@ const store = new Store({
 			height: 600,
 			x: 0,
 			y: 140,
-		}
+		},
+		infoNote: '<!-- Untitled, first word on first line will be the title --> \n- [x] github flavored markdown supported \n* click editbutton or press ctrl+enter to save and close edit box \nCheck About->shortcuts for other hotkeys'
 	}
-});
+})
 
 // const nodeConsole = require('console');
 // const myConsole = new nodeConsole.Console(process.stdout, process.stderr);
@@ -191,7 +192,7 @@ var menuTemplate = [
 	}, {
 		label: 'About',
 		submenu: [{
-			label: `About PDapp ${app.getVersion()}`,
+			label: `About PDTapp ${app.getVersion()}`,
 			role: 'about',
 			accelerator: 'Shift+CmdOrCtrl+A',
 			click(item, focusedWindow) {
@@ -204,7 +205,7 @@ var menuTemplate = [
 						browserWindow: true,
 						title: 'About',
 						message: `${app.getName()} ${app.getVersion()}`,
-						detail: 'PDapp is a side project to build a little personal desktop app with electron.',
+						detail: 'PDTapp is a side project to build a little personal desktop app with electron.',
 					}
 					dialog.showMessageBox(focusedWindow, options, (response) => {
 						if (response === 1) {
@@ -223,7 +224,7 @@ var menuTemplate = [
 					buttons: ['Ok'],
 					browserWindow: true,
 					title: 'Shortcuts',
-					message: 'Ctrl+H: Home\n Ctrl+C: Calendar\n Ctrl+N: Notebook\n Ctrl+G: gigs\n Ctrl+S: Settings',
+					message: 'Views\n Ctrl+H: Home\n Ctrl+C: Calendar\n Ctrl+N: Notebook\n Ctrl+G: Gigs\n Ctrl+S: Settings\n\n In notebook view\n Ctrl+Shift+N: Add new note\n Ctrl+L: All notes list\n Ctrl+Enter: Close/open editmode',
 
 				}
 				dialog.showMessageBox(options)

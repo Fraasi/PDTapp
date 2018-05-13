@@ -9,7 +9,6 @@ export default class Navbar extends Component {
 			})
 			e.stopPropagation()
 		}
-		// return
 	}
 
 	render() {

@@ -38,8 +38,9 @@ edit: Looks like I'm dumping all my little projects inside electron here...
   - [x] put gigs in app state so need only load once  
 - [x] **Notebook page**
   - [x] markdown support
-  - [ ] put to store to keep notes between launches
-  - [ ] finish the whole thing
+  - [ ] put to store to keep notes between launches 
+  - [x] hotkeys for save & views
+  - [ ] add example note with hotkeys & info
 - [x] **Settings page**
   - [x] why? nobody knows.
 - [x] **Main.js + other**
@@ -58,7 +59,7 @@ edit: Looks like I'm dumping all my little projects inside electron here...
 	- [x] (esLint, airBnB) => new Promise().resolve(hell)  
 
 #### Screenshot of the home page so far  
-![2018-05-02_0951.png](src/assets/img/2018-05-02_0951.png)
+![2018-05-02_0951.png](src/assets/img/2018-05-13_2350.png)
 
 ### Some thoughts
 * need to start thinking about program architecture as my apps are getting bigger

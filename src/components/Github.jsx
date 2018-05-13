@@ -33,7 +33,8 @@ export default class Github extends Component {
 									return (
 										<li key={i + 1}>
 											{i + 1}. <br />Repo: {el.repository.full_name}<br />
-											{el.subject.type}: <span className="linkstyle" onClick={this.handleClick.bind(this, url)}>{el.subject.title}</span>
+											{el.subject.type}: <span className="linkstyle" onClick={this.handleClick.bind(this, url)}>{el.subject.title}</span><br />
+											Reason: {el.reason}
 										</li>
 									)
 								})

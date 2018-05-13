@@ -26,52 +26,10 @@ export default class App extends Component {
 	constructor() {
 		super()
 		this.state = {
-			view: 'home',
+			view: 'notebook',
 			loading: true,
 			gitNotifications: null,
 			weatherData: null,
-			weatherDatatest: {
-				coord: {
-				  lon: 23.75,
-				  lat: 61.5
-				},
-				weather: [
-				  {
-					id: 701,
-					main: 'Mist',
-					description: 'mist',
-					icon: '50d'
-				  }
-				],
-				base: 'stations',
-				main: {
-				  temp: 5.44,
-				  pressure: 1008,
-				  humidity: 100,
-				  temp_min: 5,
-				  temp_max: 6
-				},
-				visibility: 2600,
-				wind: {
-				  speed: 3.6,
-				  deg: 90
-				},
-				clouds: {
-				  all: 90
-				},
-				dt: 1525193400,
-				sys: {
-				  type: 1,
-				  id: 5045,
-				  message: 0.0088,
-				  country: 'FI',
-				  sunrise: 1525140789,
-				  sunset: 1525199568
-				},
-				id: 634964,
-				name: 'Tampere',
-				cod: 200
-			  },
 			gigsObject: {
 				dogs: [],
 				vastis: [],
@@ -103,9 +61,10 @@ export default class App extends Component {
 	}
 
 	fetchGitNotifications() {
-			if (this.state.gitNotifications === null) {
+		if (this.state.gitNotifications === null) {
+			// fetch(`https://api.github.com/notifications?access_token=${process.env.GIT_OAUTH_TOKEN}`)
 			// eslint-disable-next-line
-			fetch(`https://api.github.com/notifications?access_token=${process.env.GIT_OAUTH_TOKEN}`)
+			fetch('https://api.github.com/notifications', { headers: { 'Authorization': `token ${process.env.GIT_OAUTH_TOKEN}` } })
 				.then(r => r.json())
 				.then((arr) => {
 					console.log('git fetched:', arr)
