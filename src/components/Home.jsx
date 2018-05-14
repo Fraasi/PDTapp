@@ -18,10 +18,10 @@ export default class Home extends Component {
 					<hr />
 				</div>
 				<br />
-				<Github gitNotifications={this.props.gitNotifications} />
+				<Github />
 				<Weather weatherData={this.props.weatherData} />
-				<Quote />
-				<Pic />
+				<Quote dailyQuote={this.props.dailyQuote} />
+				<Pic pictureFolder={this.props.pictureFolder} />
 			</div>
 		)
 	}

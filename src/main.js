@@ -15,7 +15,12 @@ const store = new Store({
 			x: 0,
 			y: 140,
 		},
-		infoNote: '<!-- Untitled, first word on first line will be the title --> \n- [x] github flavored markdown supported \n* click editbutton or press ctrl+enter to save and close edit box \nCheck About->shortcuts for other hotkeys'
+		notes: [{
+			title: 'Untitled',
+			dateCreated: 0,
+			rawText: '<!-- Untitled, first word on first line will be the title -->  \n- [x] github flavored markdown supported  \n* saves automaticly  \n* check About -> Shortcuts for hotkeys'
+		}],
+		pictureFolder: null
 	}
 })
 
@@ -224,7 +229,7 @@ var menuTemplate = [
 					buttons: ['Ok'],
 					browserWindow: true,
 					title: 'Shortcuts',
-					message: 'Views\n Ctrl+H: Home\n Ctrl+C: Calendar\n Ctrl+N: Notebook\n Ctrl+G: Gigs\n Ctrl+S: Settings\n\n In notebook view\n Ctrl+Shift+N: Add new note\n Ctrl+L: All notes list\n Ctrl+Enter: Close/open editmode',
+					message: 'Views\n Ctrl+H: Home\n Ctrl+C: Calendar\n Ctrl+N: Notebook\n Ctrl+G: Gigs\n Ctrl+S: Settings\n\n In notebook view\n Ctrl+Shift+N: Add new note\n Ctrl+L: All notes list\n Ctrl+Enter: Close/open editmode\n 1-9: Quick jump to note\n Saves automaticly',
 
 				}
 				dialog.showMessageBox(options)

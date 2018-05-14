@@ -1,26 +1,17 @@
 import React, { Component } from 'react'
-import showdown from 'showdown';
+import showdown from 'showdown'
+import Store from 'electron-store'
 
 showdown.setFlavor('github')
 const converter = new showdown.Converter()
 // console.log(showdown.getOptions())
+const store = new Store({ name: 'pdtapp-config' })
 
 export default class Note extends Component {
 	constructor() {
 		super()
 		this.state = {
-			notes: [
-				{
-					title: 'First',
-					dateCreated: 1234567432,
-					rawText: '### First word in first line will be title  \n [x] github flavored markdown supported'
-				},
-				{
-					title: 'title2',
-					dateCreated: 123423456743,
-					rawText: '### otsikko2'
-				}
-			],
+			notes: store.get('notes'),
 			noteView: 'list',
 			currentNote: null,
 			// editText: ''
@@ -50,7 +41,7 @@ export default class Note extends Component {
 			this.listBarsClick()
 		} else if ((this.state.noteView === 'edit' || this.state.noteView === 'note') && e.ctrlKey && e.key === 'Enter') {
 			this.changeEditMode()
-		} else if (this.state.noteView === 'list' && Number(e.key) > 0 && Number(e.key) <= 9 && Number(e.key) <= this.state.notes.length) {
+		} else if (Number(e.key) > 0 && Number(e.key) <= 9 && Number(e.key) <= this.state.notes.length) {
 			this.selectedNote(Number(e.key) - 1)
 		}
 	}
@@ -60,6 +51,8 @@ export default class Note extends Component {
 		// save here?
 		this.setState({
 			noteView: 'list'
+		}, () => {
+			this.saveToStore()
 		})
 	}
 
@@ -72,9 +65,13 @@ export default class Note extends Component {
 			this.setState({
 				noteView: 'note'
 			}, () => {
-				// save to store
+				this.saveToStore()
 			})
 		}
+	}
+
+	saveToStore() {
+		store.set('notes', this.state.notes)
 	}
 
 	handleEditing(e) {
@@ -89,16 +86,16 @@ export default class Note extends Component {
 	}
 
 	addNewNote() {
-		const infoText = '<!-- Untitled, first word on first line will be the title --> \n* click editbutton or press ctrl+enter to save and close edit box\n  - [x] github flavored markdown supported'
+		const text = '<!-- Untitled -->'
 
 		if (this.state.noteView === 'edit') {
 			// eslint-disable-next-line
-			document.querySelector('.note-editbox').value = infoText
+			document.querySelector('.note-editbox').value = text
 		}
 		const newNote = {
 			title: 'Untitled',
 			dateCreated: Date.now(),
-			rawText: infoText,
+			rawText: text,
 		}
 		this.setState({
 			notes: [...this.state.notes, newNote],
@@ -158,7 +155,7 @@ export default class Note extends Component {
 
 					{
 						this.state.noteView !== 'list' &&
-						<img className="fa-icon edit" src="./assets/img/edit.svg" alt="edit.svg" title="Edit" style={{ verticalAlign: '10%', float: 'right' }} onClick={this.changeEditMode} />
+						<img className="fa-icon edit" src="./assets/img/edit.svg" alt="edit.svg" title="Open/close edit" style={{ verticalAlign: '10%', float: 'right' }} onClick={this.changeEditMode} />
 					}
 
 				</h3>

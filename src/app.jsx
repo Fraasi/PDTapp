@@ -26,10 +26,11 @@ export default class App extends Component {
 	constructor() {
 		super()
 		this.state = {
-			view: 'notebook',
+			view: 'settings',
 			loading: true,
-			gitNotifications: null,
 			weatherData: null,
+			dailyQuote: { quote: null, author: null },
+			pictureFolder: store.get('pictureFolder'),
 			gigsObject: {
 				dogs: [],
 				vastis: [],
@@ -55,53 +56,39 @@ export default class App extends Component {
 	}
 
 	componentDidMount() {
-		this.fetchGitNotifications()
 		this.fetchWeather()
-		// this.fetchQuote()
-	}
-
-	fetchGitNotifications() {
-		if (this.state.gitNotifications === null) {
-			// fetch(`https://api.github.com/notifications?access_token=${process.env.GIT_OAUTH_TOKEN}`)
-			// eslint-disable-next-line
-			fetch('https://api.github.com/notifications', { headers: { 'Authorization': `token ${process.env.GIT_OAUTH_TOKEN}` } })
-				.then(r => r.json())
-				.then((arr) => {
-					console.log('git fetched:', arr)
-					this.setState({
-						gitNotifications: arr
-					})
-				})
-		}
+		this.fetchQuote()
 	}
 
 	fetchWeather() {
 		if (this.state.weatherData) return
-
 		// forecast api.openweathermap.org/data/2.5/forecast?id=524901
 		const url = `http://api.openweathermap.org/data/2.5/weather?lat=${61.5}&lon=${23.75}&appid=${process.env.OPENWEATHER_APIKEY}&units=metric`
 		// eslint-disable-next-line
 		fetch(url).then((data) => data.json())
 			.then((json) => {
-				console.log('weather fetched:', json)
+				console.log('Weather fetched:', json)
 				this.setState({
 					weatherData: json
 				})
 			})
 	}
 
-	// fetchQuote() {
-	// 	const url = 'dfg'
-	// 	// eslint-disable-next-line
-	// 	fetch(url).then((data) => data.json())
-	// 		.then((json) => {
-	// 			console.log('quote fetched:', json)
-	// 			this.setState({
-	// 				weatherData: json
-	// 			})
-	// 		})
-	// }
-
+	fetchQuote() {
+		if (this.state.dailyQuote.quote) return
+		// eslint-disable-next-line
+		fetch('https://ms-rq-api.herokuapp.com/')
+			.then(d => d.json())
+			.then((json) => {
+				console.log('Quote fetched:', json)
+				this.setState({
+					dailyQuote: {
+						quote: json[Object.keys(json)[0]],
+						author: Object.keys(json)[0]
+					}
+				})
+			})
+	}
 
 	handleStateChange(newState) {
 		this.setState(newState)
@@ -116,9 +103,10 @@ export default class App extends Component {
 				<View
 					loading={this.state.loading}
 					handleStateChange={this.handleStateChange}
-					gitNotifications={this.state.gitNotifications}
 					gigsObject={this.state.gigsObject}
 					weatherData={this.state.weatherData}
+					dailyQuote={this.state.dailyQuote}
+					pictureFolder={this.state.pictureFolder}
 				/>
 			</div>);
 	}

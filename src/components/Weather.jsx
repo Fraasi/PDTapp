@@ -21,13 +21,6 @@ export default class Weather extends Component {
 				<fieldset>
 					<legend>{name} weather</legend>
 					<ul className="w-list">
-						<li>Clouds {clouds.all}%</li>
-						<li>Visibility {visibility}m</li>
-						<li>Wind {wind.speed} m/s @ {wind.deg}&deg;
-						<img className="fa-icon long-arrow-alt-down" src="./assets/img/long-arrow-alt-down.svg" alt="long-arrow-alt-down.svg" style={{ transform: `rotate(${wind.deg}deg)` }} />
-						</li>
-						<li>Humidity {main.humidity}%</li>
-						<li>Pressure {main.pressure} hPa</li>
 						<li>Temp {main.temp}&deg;C</li>
 						{
 							weather.map((el, i) => (
@@ -35,6 +28,13 @@ export default class Weather extends Component {
 									<img src={`https://openweathermap.org/img/w/${el.icon}.png`} alt={el.icon} />
 								</li>))
 						}
+						<li>Clouds {clouds.all}%</li>
+						<li>Visibility {visibility}m</li>
+						<li>Wind {wind.speed} m/s @ {wind.deg}&deg;
+						<img className="fa-icon long-arrow-alt-down" src="./assets/img/long-arrow-alt-down.svg" alt="long-arrow-alt-down.svg" style={{ transform: `rotate(${wind.deg}deg)` }} />
+						</li>
+						<li>Humidity {main.humidity}%</li>
+						<li>Pressure {main.pressure} hPa</li>
 						<li>Sunrise {new Date(sys.sunrise * 1000).getHours()}:{new Date(sys.sunrise * 1000).getMinutes()}</li>
 						<li>Sunset {new Date(sys.sunset * 1000).getHours()}:{new Date(sys.sunset * 1000).getMinutes()}</li>
 					</ul>

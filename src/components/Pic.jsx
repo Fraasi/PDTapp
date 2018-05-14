@@ -6,11 +6,14 @@ import { shell } from 'electron'
 export default class Pic extends Component {
 	constructor() {
 		super()
-		this.state = { picDir: null }
+		this.state = { picPath: null }
 	}
 
 	componentDidMount() {
-		const dir = 'G:/Pics/icanread'
+		// dir in store = null, needs err handling
+		// if null, ask to set folder in settings & return
+		// need to think about this
+		const dir = this.props.pictureFolder
 		const files = []
 
 		fs.readdir(dir, (err, list) => {
@@ -20,9 +23,9 @@ export default class Pic extends Component {
 					files.push(el);
 				}
 			});
-			const rand = files[Math.floor(Math.random() * files.length)]
+			const randomPic = files[Math.floor(Math.random() * files.length)]
 			this.setState({
-				picDir: path.join('G:/Pics/icanread', rand)
+				picPath: path.join(dir, randomPic)
 			})
 		})
 	}
@@ -32,7 +35,7 @@ export default class Pic extends Component {
 	}
 
 	render() {
-		if (this.state.picDir === null) {
+		if (this.state.picPath === null) {
 			return (
 				<div className="pic">
 					<fieldset>
@@ -46,7 +49,7 @@ export default class Pic extends Component {
 			<div className="pic">
 				<fieldset>
 					<legend>Pic of the day</legend>
-					<img src={this.state.picDir} alt="pic" style={{ maxWidth: '100%', maxHeight: '100%' }} onClick={this.handleImageClick.bind(this, this.state.picDir)} />
+					<img src={this.state.picPath} alt="pic" style={{ maxWidth: '100%', maxHeight: '100%' }} onClick={this.handleImageClick.bind(this, this.state.picPath)} />
 				</fieldset>
 			</div>
 		)

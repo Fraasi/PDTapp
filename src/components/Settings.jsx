@@ -1,17 +1,36 @@
 import React, { Component } from 'react';
-import { shell } from 'electron'
+import { remote } from 'electron'
+import Store from 'electron-store';
+
+const store = new Store({ name: 'pdtapp-config' })
 
 export default class Settings extends Component {
-	handleGitClick() {
-		shell.openExternal('https://github.com/fraasi/pdtapp')
+	constructor() {
+		super()
+		this.chooseFolder = this.chooseFolder.bind(this)
 	}
+	chooseFolder() {
+		const pathArray = remote.dialog.showOpenDialog({ properties: ['openDirectory'] })
+		console.log('folderpath', pathArray)
+		if (pathArray === undefined) return
+
+		store.set('pictureFolder', pathArray[0])
+		this.props.handleStateChange({
+			pictureFolder: pathArray[0]
+		})
+	}
+
 	render() {
 		return (
 			<div className="view-container" id="settings">
-				<span className="linkstyle" onClick={this.handleGitClick}>
-					<img src="./assets/img/github.svg" alt="github.svg" width="33px" style={{ verticalAlign: 'middle' }} onClick={this.handleGitClick} />
-					PDTapp @ github
-				</span>
+
+				<div className="folder-dialog">
+					Current folder for pic of the day: {this.props.pictureFolder ? this.props.pictureFolder.match(/\\[a-zA-Z0-9_ ]+$/)[0] : 'Not set'}
+					<br />
+					<button className="button" onClick={this.chooseFolder}>
+					Choose a folder
+					</button>
+				</div>
 
 				<div id="atomspinner">
 					<div id="dot1" />
@@ -19,6 +38,7 @@ export default class Settings extends Component {
 					<div id="circle1" />
 					<div id="circle2" />
 				</div>
+
 			</div>
 		)
 	}

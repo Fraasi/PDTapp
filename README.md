@@ -41,8 +41,11 @@ edit: Looks like I'm dumping all my little projects inside electron here...
   - [ ] put to store to keep notes between launches 
   - [x] hotkeys for save & views
   - [ ] add example note with hotkeys & info
+  - [ ] test it out, complicated enough to have a bug somewhere
 - [x] **Settings page**
-  - [x] why? nobody knows.
+  - [x] choose pic of the day folder & save it to store
+  - [ ] clear settings file button
+  - [ ] choose weather city
 - [x] **Main.js + other**
 	- [ ] window.titleBar customation possible?
 	- [x] design an icon (preferably(?) a nice one?)
