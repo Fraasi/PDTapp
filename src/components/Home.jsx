@@ -19,7 +19,7 @@ export default class Home extends Component {
 				</div>
 				<br />
 				<Github />
-				<Weather weatherData={this.props.weatherData} />
+				<Weather weatherData={this.props.weatherData} weatherCity={this.props.weatherCity} />
 				<Quote dailyQuote={this.props.dailyQuote} />
 				<Pic pictureFolder={this.props.pictureFolder} />
 			</div>

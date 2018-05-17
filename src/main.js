@@ -12,15 +12,16 @@ const store = new Store({
 		bounds: {
 			width: 900,
 			height: 600,
-			x: 0,
-			y: 140,
+			x: 250,
+			y: 70,
 		},
 		notes: [{
 			title: 'Untitled',
 			dateCreated: 0,
 			rawText: '<!-- Untitled, first word on first line will be the title -->  \n- [x] github flavored markdown supported  \n* saves automaticly  \n* check About -> Shortcuts for hotkeys'
 		}],
-		pictureFolder: null
+		pictureFolder: app.getPath('pictures'),
+		weatherCity: null,
 	}
 })
 

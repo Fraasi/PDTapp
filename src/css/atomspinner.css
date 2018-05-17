@@ -3,7 +3,7 @@
 	width: 75px;
 	position: relative;
 	transform: rotate(45deg);
-	top: calc(50% - 40px);
+	top: calc(50% - 120px);
 	left: calc(50% - 40px);
 }
 #circle1, #circle2 {

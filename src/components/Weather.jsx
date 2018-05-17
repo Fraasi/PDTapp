@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 
 export default class Weather extends Component {
+	parseTime(time) {
+		return (time < 10) ? `0${time}` : time;
+	}
+
 	render() {
 		if (this.props.weatherData === null) {
 			return (
@@ -13,15 +17,28 @@ export default class Weather extends Component {
 			)
 		}
 
+		if (this.props.weatherData.message) {
+			return (
+				<div className="weather">
+					<fieldset>
+						<legend>{this.props.weatherData.cod} weather</legend>
+						{this.props.weatherData.message} <br />
+						Choose a city in settings
+					</fieldset>
+				</div>
+			)
+		}
+
 		const {
 			name, clouds, visibility, wind, main, weather, sys
 		} = this.props.weatherData
+
 		return (
 			<div className="weather">
 				<fieldset>
 					<legend>{name} weather</legend>
 					<ul className="w-list">
-						<li>Temp {main.temp}&deg;C</li>
+						<li>Temp {main.temp.toFixed(1)}&deg;C</li>
 						{
 							weather.map((el, i) => (
 								<li key={i}>{el.description}
@@ -35,8 +52,8 @@ export default class Weather extends Component {
 						</li>
 						<li>Humidity {main.humidity}%</li>
 						<li>Pressure {main.pressure} hPa</li>
-						<li>Sunrise {new Date(sys.sunrise * 1000).getHours()}:{new Date(sys.sunrise * 1000).getMinutes()}</li>
-						<li>Sunset {new Date(sys.sunset * 1000).getHours()}:{new Date(sys.sunset * 1000).getMinutes()}</li>
+						<li>Sunrise {this.parseTime(new Date(sys.sunrise * 1000).getHours())}:{this.parseTime(new Date(sys.sunrise * 1000).getMinutes())}</li>
+						<li>Sunset {this.parseTime(new Date(sys.sunset * 1000).getHours())}:{this.parseTime(new Date(sys.sunset * 1000).getMinutes())}</li>
 					</ul>
 				</fieldset>
 			</div>

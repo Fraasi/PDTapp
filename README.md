@@ -2,7 +2,6 @@
 
 PDTapp is a 'little' *sideventure*<sup>tm</sup> to learn & build a little personal desktop app with electron.
 I have no idea what the end product will be like. I'm making this shit up as I go along.  
-edit: Looks like I'm dumping all my little projects inside electron here...
 
 ### dependencies so far
 * react
@@ -14,6 +13,8 @@ edit: Looks like I'm dumping all my little projects inside electron here...
 
 ### todo (or maybe not to, do):
 
+<!-- only calendar to go & move hang -->
+
 * [x] **Startpage**
   - [x] weather
     - [x] rotating arrow for wind
@@ -21,7 +22,6 @@ edit: Looks like I'm dumping all my little projects inside electron here...
   - [x] make random quote api in heroku & fetch a quote
   - [x] random image
   - [x] github notifications
-    - [ ] timer fetch every 30 mins, notificate?
 - [x] **Nav bar**
   - [x] hotkeys for views
 - [x] **Calendar** 
@@ -38,14 +38,13 @@ edit: Looks like I'm dumping all my little projects inside electron here...
   - [x] put gigs in app state so need only load once  
 - [x] **Notebook page**
   - [x] markdown support
-  - [ ] put to store to keep notes between launches 
+  - [x] put to store to keep notes between launches 
   - [x] hotkeys for save & views
-  - [ ] add example note with hotkeys & info
-  - [ ] test it out, complicated enough to have a bug somewhere
+  - [x] add example note with hotkeys & info on first launch
 - [x] **Settings page**
-  - [x] choose pic of the day folder & save it to store
-  - [ ] clear settings file button
-  - [ ] choose weather city
+  - [x] choose pic of the day folder
+  - [x] choose weather city
+  - [x] clear settings file button
 - [x] **Main.js + other**
 	- [ ] window.titleBar customation possible?
 	- [x] design an icon (preferably(?) a nice one?)

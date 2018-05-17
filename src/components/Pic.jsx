@@ -13,6 +13,7 @@ export default class Pic extends Component {
 		// dir in store = null, needs err handling
 		// if null, ask to set folder in settings & return
 		// need to think about this
+		if (!this.props.pictureFolder) return
 		const dir = this.props.pictureFolder
 		const files = []
 

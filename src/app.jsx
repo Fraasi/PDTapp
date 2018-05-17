@@ -28,7 +28,8 @@ export default class App extends Component {
 		this.state = {
 			view: 'settings',
 			loading: true,
-			weatherData: null,
+			weatherCity: null,
+			weatherData: store.get('weatherCity'),
 			dailyQuote: { quote: null, author: null },
 			pictureFolder: store.get('pictureFolder'),
 			gigsObject: {
@@ -42,6 +43,7 @@ export default class App extends Component {
 		}
 
 		this.handleStateChange = this.handleStateChange.bind(this)
+		this.fetchWeather = this.fetchWeather.bind(this)
 
 		ipcRenderer.on('switchView', (sender, msg) => {
 			this.setState({
@@ -60,10 +62,10 @@ export default class App extends Component {
 		this.fetchQuote()
 	}
 
-	fetchWeather() {
-		if (this.state.weatherData) return
+	fetchWeather(city) {
+		// if (this.state.weatherData.name) return
 		// forecast api.openweathermap.org/data/2.5/forecast?id=524901
-		const url = `http://api.openweathermap.org/data/2.5/weather?lat=${61.5}&lon=${23.75}&appid=${process.env.OPENWEATHER_APIKEY}&units=metric`
+		const url = `http://api.openweathermap.org/data/2.5/weather?q=${city || this.state.weatherCity}&appid=${process.env.OPENWEATHER_APIKEY}&units=metric`
 		// eslint-disable-next-line
 		fetch(url).then((data) => data.json())
 			.then((json) => {
@@ -107,6 +109,8 @@ export default class App extends Component {
 					weatherData={this.state.weatherData}
 					dailyQuote={this.state.dailyQuote}
 					pictureFolder={this.state.pictureFolder}
+					fetchWeather={this.fetchWeather}
+					weatherCity={this.state.weatherCity}
 				/>
 			</div>);
 	}
