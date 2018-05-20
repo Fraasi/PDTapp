@@ -10,7 +10,14 @@ export default class Github extends Component {
 		}
 	}
 	componentDidMount() {
-		// if (this.state.gitNotifications) return
+		if (!process.env.GIT_OAUTH_TOKEN) {
+			// eslint-disable-next-line
+			this.setState({
+				gitNotifications: null
+			})
+			return
+		}
+
 		const now = new Date()
 		const monthAgo = new Date(now.setMonth(now.getMonth() - 1))
 		// eslint-disable-next-line
@@ -19,6 +26,7 @@ export default class Github extends Component {
 		})
 			.then(resp => resp.json())
 			.then((json) => {
+				console.log('Git fetched', json)
 				this.setState({
 					gitNotifications: json,
 				})
@@ -34,7 +42,7 @@ export default class Github extends Component {
 			return (
 				<div className="gits">
 					<fieldset>
-						<legend>Fetching notifications</legend>
+						<legend>No git token :(</legend>
 						<img src="./assets/img/spinner.svg" alt="spinner.svg" id="spinner" style={{ position: 'inherit' }} />
 					</fieldset>
 				</div>

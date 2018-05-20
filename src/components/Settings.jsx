@@ -22,7 +22,6 @@ export default class Settings extends Component {
 	submitCity() {
 		// eslint-disable-next-line
 		const city = document.getElementById('city').value
-		console.log(city)
 		this.saveChanges('weatherCity', city)
 		this.props.fetchWeather(city)
 	}
@@ -32,9 +31,9 @@ export default class Settings extends Component {
 		store.set('pictureFolder', null)
 		const win = remote.getCurrentWindow()
 		win.center()
-		console.log(this.props)
 		this.props.handleStateChange({
 			weatherCity: null,
+			weatherData: null,
 			pictureFolder: null
 		})
 	}
@@ -85,7 +84,6 @@ export default class Settings extends Component {
 						</button>
 					</fieldset>
 				</div>
-
 
 				<div id="atomspinner">
 					<div id="dot1" />

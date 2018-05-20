@@ -22,10 +22,6 @@
 	border-color: white;
 }
 
-.fc-time-grid .fc-slats td {
-	height: 27px; /*2.5em in fc css, 'almost' fixes agendaweek gutter */
-}
-
 .fc-unthemed .fc-list-heading td {
 	background-color: rgb(163, 163, 163);
 	color: #000;
@@ -34,9 +30,16 @@
 .fc-unthemed .fc-list-item:hover td {
 	background-color: var(--color-dark);
 }
-/* jhj */
+
 .fc-row.fc-week.fc-widget-content {
 	min-height: 40px;
-	height: 44px !important;
-	/* height: 64px !important; */
+}
+
+/* .fc-time-grid .fc-slats td { */
+	/* height: 27px; */
+	 /*2.5em in fc css, 'almost' fixes agendaweek gutter */
+/* } */
+
+hr.fc-divider.fc-widget-header {
+	display: none !important;
 }

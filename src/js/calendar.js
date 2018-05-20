@@ -25,22 +25,6 @@ export default () => {
 
 	$('#calendar').fullCalendar({
 
-		customButtons: {
-			addEventButton: {
-				text: 'Add event',
-				click() {
-					alert('clicked the custom button!');
-				},
-			},
-			homeButton: {
-				text: 'home',
-				click() {
-					alert('clicked the home button!');
-				},
-			},
-
-		},
-		// header: { center: 'addEventButton' },
 		footer: {
 			left: 'homeButton',
 			center: 'month, agendaWeek, list',
@@ -49,19 +33,14 @@ export default () => {
 		views: {
 			month: {
 				titleFormat: 'YYYY, MMMM',
-				weekNumbers: true,
-				// contentHeight: 'auto'
+				weekNumbers: true
 			},
 			agendaWeek: {
 				minTime: '11:00:00',
 				maxTime: '23:00:00',
 				allDaySlot: false,
 				slotDuration: '01:00:00',
-				displayEventTime: false,
-				// height: 200,
-				// contentHeight: () => {
-				// 	return document.querySelector('.fc-agendaWeek-view').getClientRects()[0].height - 255
-				// }
+				displayEventTime: false
 			},
 			list: {
 				// show all year from now
@@ -74,13 +53,12 @@ export default () => {
 			},
 		},
 	
-		defaultView: 'month',
-		editable: false,
-		firstDay: 1,
-		// aspectRatio: 1.6,		
 		height: () => {
 			return document.getElementById('calendar').getClientRects()[0].height - 20
 		},
+		defaultView: 'month',
+		editable: false,
+		firstDay: 1,
 		eventBackgroundColor: '#dddd',
 		events: calendarData,
 
@@ -119,4 +97,3 @@ export default () => {
 		},
 	});
 }
-

@@ -3,8 +3,8 @@ const path = require('path')
 // only in reneder process
 exports.notify = (title, body) => {
 	const notification = {
-		title: title || 'PDapp says...',
-		body: body || 'PDapp ready to go',
+		title: title || 'PDTapp says...',
+		body: body || 'PDTapp ready to go',
 		detail: 'Details go here',
 		icon: path.join(__dirname, '../assets/img/32x32.png')
 	}

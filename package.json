@@ -1,7 +1,7 @@
 {
   "name": "pdtapp",
   "productName": "PDTapp",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Personal Desktop app",
   "author": "Fraasi <fraasi.gh@gmail.com>",
   "main": "src/main.js",

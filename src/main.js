@@ -1,4 +1,3 @@
-// $ .\node_modules\.bin\electron .
 import path from 'path'
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer'
 import { enableLiveReload } from 'electron-compile'
@@ -10,8 +9,8 @@ const store = new Store({
 	defaults: {
 		storePath: app.getPath('userData'),
 		bounds: {
-			width: 900,
-			height: 600,
+			width: 700,
+			height: 550,
 			x: 250,
 			y: 70,
 		},
@@ -25,15 +24,9 @@ const store = new Store({
 	}
 })
 
-// const nodeConsole = require('console');
-// const myConsole = new nodeConsole.Console(process.stdout, process.stderr);
-// myConsole.log('Hello World!');
-
-
 const isDevMode = process.execPath.match(/[\\/]electron/);
 if (isDevMode) {
 	enableLiveReload({ strategy: 'react-hmr' });
-	// comment 'electron-context-menu' before build
 	require('electron-context-menu')({
 		prepend: params => [{
 			label: 'Rainbow',
@@ -47,25 +40,14 @@ let trayIcon
 const launchedAt = new Date().toLocaleString('de', { hour12: false }).replace(/\./g, '/')
 
 async function createWindow() {
-	// frgot this one...? wtf are these again?
-	app.setAppUserModelId('app.setAppUserModelId')
-	app.setUserTasks([
-		{
-			program: process.execPath,
-			arguments: '--new-window',
-			iconPath: process.execPath,
-			iconIndex: 0,
-			title: 'New Window',
-			description: 'Create a new window'
-		}
-	])
+	app.setAppUserModelId('PDTapp')
 
 	win = new BrowserWindow({
-		width: store.get('bounds.width'), // 900,
-		height: store.get('bound.height'), // 600,
+		width: store.get('bounds.width'),
+		height: store.get('bound.height'),
 		minWidth: 600,
-		x: store.get('bounds.x'), // 0,
-		y: store.get('bounds.y'), // 140,
+		x: store.get('bounds.x'),
+		y: store.get('bounds.y'),
 		title: `${app.getName()} launched at ${launchedAt}`,
 		resizable: true,
 		backgroundColor: '#525252',
@@ -86,9 +68,9 @@ async function createWindow() {
 	win.on('closed', () => {
 		win = null;
 	});
+
 	// eslint-disable-next-line
 	const menu = Menu.buildFromTemplate(menuTemplate);
-	// const menu = Menu.buildFromTemplate(menuTemplate);
 	Menu.setApplicationMenu(menu);
 
 	globalShortcut.register('CommandOrControl+Alt+P', () => {
@@ -126,23 +108,30 @@ async function createWindow() {
 		if (process.platform !== 'darwin') app.quit();
 	});
 
-	win.webContents.on('did-finish-load', () => {
+	// win.webContents.on('did-finish-load', () => {
 		// notify('main sez', 'webcontents finished loading')
-	})
+	// })
+
+	let timer
+	function debounced() {
+		clearTimeout(timer)
+		timer = setTimeout(() => {
+			win.webContents.send('windowMove/Resize', {
+				store: store.store
+			})
+		}, 1000)
+	}
 
 	win.on('move', () => {
-		win.webContents.send('windowMove/Resize', {
-			store: store.store,
-		})
-	});
+		debounced()
+	})
+
 	win.on('resize', () => {
-		win.webContents.send('windowMove/Resize', {
-			store: store.store,
-		})
-	});
+		debounced()
+	})
 }
 
-app.on('ready', createWindow);
+app.on('ready', createWindow)
 
 
 function switchView(item) {
@@ -215,7 +204,7 @@ var menuTemplate = [
 					}
 					dialog.showMessageBox(focusedWindow, options, (response) => {
 						if (response === 1) {
-							shell.openExternal('https://github.com/fraasi')
+							shell.openExternal('https://github.com/Fraasi/PDTapp')
 						}
 					})
 				}

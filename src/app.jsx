@@ -8,11 +8,7 @@ import Settings from './components/Settings.jsx';
 import Notebook from './components/Notebook.jsx';
 import Gigs from './components/Gigs.jsx';
 
-
 const store = new Store({ name: 'pdtapp-config' })
-// store.openInEditor()
-// console.log(store.store)
-// console.log(store.get('bounds.width'))
 
 const components = {
 	home: Home,
@@ -26,10 +22,10 @@ export default class App extends Component {
 	constructor() {
 		super()
 		this.state = {
-			view: 'settings',
+			view: 'home',
 			loading: true,
-			weatherCity: null,
-			weatherData: store.get('weatherCity'),
+			weatherCity: store.get('weatherCity'),
+			weatherData: null,
 			dailyQuote: { quote: null, author: null },
 			pictureFolder: store.get('pictureFolder'),
 			gigsObject: {
@@ -80,7 +76,7 @@ export default class App extends Component {
 		if (this.state.dailyQuote.quote) return
 		// eslint-disable-next-line
 		fetch('https://ms-rq-api.herokuapp.com/')
-			.then(d => d.json())
+			.then(data => data.json())
 			.then((json) => {
 				console.log('Quote fetched:', json)
 				this.setState({
@@ -106,11 +102,11 @@ export default class App extends Component {
 					loading={this.state.loading}
 					handleStateChange={this.handleStateChange}
 					gigsObject={this.state.gigsObject}
+					weatherCity={this.state.weatherCity}
 					weatherData={this.state.weatherData}
 					dailyQuote={this.state.dailyQuote}
 					pictureFolder={this.state.pictureFolder}
 					fetchWeather={this.fetchWeather}
-					weatherCity={this.state.weatherCity}
 				/>
 			</div>);
 	}
