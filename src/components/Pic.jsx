@@ -10,18 +10,15 @@ export default class Pic extends Component {
 	}
 
 	componentDidMount() {
-		// dir in store = null, needs err handling
-		// if null, ask to set folder in settings & return
-		// need to think about this
 		if (!this.props.pictureFolder) return
 		const dir = this.props.pictureFolder
 		const files = []
 
 		fs.readdir(dir, (err, list) => {
 			if (err) throw err
-			list.forEach((el) => {
-				if (path.extname(el) === '.png' || path.extname(el) === '.jpg') {
-					files.push(el);
+			list.forEach((file) => {
+				if (path.extname(file) === '.png' || path.extname(file) === '.jpg') {
+					files.push(file);
 				}
 			});
 			const randomPic = files[Math.floor(Math.random() * files.length)]
