@@ -6,7 +6,8 @@ export default class Github extends Component {
 	constructor() {
 		super()
 		this.state = {
-			gitNotifications: []
+			gitNotifications: [],
+			loading: true
 		}
 	}
 	componentDidMount() {
@@ -29,6 +30,7 @@ export default class Github extends Component {
 				console.log('Git fetched', json)
 				this.setState({
 					gitNotifications: json,
+					loading: false
 				})
 			})
 	}
@@ -43,6 +45,16 @@ export default class Github extends Component {
 				<div className="gits">
 					<fieldset>
 						<legend>No git token :(</legend>
+						<img src="./assets/img/spinner.svg" alt="spinner.svg" id="spinner" style={{ position: 'inherit' }} />
+					</fieldset>
+				</div>
+			)
+		}
+		if (this.state.loading) {
+			return (
+				<div className="gits">
+					<fieldset>
+						<legend>Fetching git notifications</legend>
 						<img src="./assets/img/spinner.svg" alt="spinner.svg" id="spinner" style={{ position: 'inherit' }} />
 					</fieldset>
 				</div>

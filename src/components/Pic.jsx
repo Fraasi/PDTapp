@@ -6,7 +6,8 @@ import { shell } from 'electron'
 export default class Pic extends Component {
 	constructor() {
 		super()
-		this.state = { picPath: null }
+		this.state = { picPath: '', emptyDir: false }
+		this.handleImageClick = this.handleImageClick.bind(this)
 	}
 
 	componentDidMount() {
@@ -18,22 +19,40 @@ export default class Pic extends Component {
 			if (err) throw err
 			list.forEach((file) => {
 				if (path.extname(file) === '.png' || path.extname(file) === '.jpg') {
-					files.push(file);
+					files.push(file)
 				}
-			});
+			})
 			const randomPic = files[Math.floor(Math.random() * files.length)]
+			if (!randomPic) {
+				this.setState({
+					emptyDir: true
+				})
+				return
+			}
 			this.setState({
-				picPath: path.join(dir, randomPic)
+				picPath: `local://${path.join(dir, randomPic)}`,
+				emptyDir: false
 			})
 		})
 	}
 
-	handleImageClick(picPath) {
-		shell.openExternal(picPath)
+	handleImageClick() {
+		shell.openExternal(this.state.picPath.substring(8))
 	}
 
 	render() {
-		if (this.state.picPath === null) {
+		if (this.state.emptyDir) {
+			return (
+				<div className="pic">
+					<fieldset>
+						<legend>404</legend>
+						No .jpg or .png files in current directory
+					</fieldset>
+				</div>
+			)
+		}
+
+		if (this.state.picPath === '') {
 			return (
 				<div className="pic">
 					<fieldset>
@@ -43,11 +62,12 @@ export default class Pic extends Component {
 				</div>
 			)
 		}
+
 		return (
 			<div className="pic">
 				<fieldset>
 					<legend>Pic of the day</legend>
-					<img src={this.state.picPath} alt="pic" style={{ maxWidth: '100%', maxHeight: '100%' }} onClick={this.handleImageClick.bind(this, this.state.picPath)} />
+					<img src={this.state.picPath} alt="pic" style={{ maxWidth: '100%', maxHeight: '100%' }} onClick={this.handleImageClick} />
 				</fieldset>
 			</div>
 		)

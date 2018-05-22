@@ -1,7 +1,7 @@
 import path from 'path'
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer'
 import { enableLiveReload } from 'electron-compile'
-import { app, BrowserWindow, Menu, dialog, globalShortcut, Tray, shell } from 'electron'
+import { app, BrowserWindow, Menu, dialog, globalShortcut, Tray, shell, protocol } from 'electron'
 import Store from 'electron-store'
 
 const store = new Store({
@@ -109,7 +109,7 @@ async function createWindow() {
 	});
 
 	// win.webContents.on('did-finish-load', () => {
-		// notify('main sez', 'webcontents finished loading')
+	// notify('main sez', 'webcontents finished loading')
 	// })
 
 	let timer
@@ -129,6 +129,15 @@ async function createWindow() {
 	win.on('resize', () => {
 		debounced()
 	})
+
+	protocol.registerFileProtocol('local', (request, callback) => {
+		const url = request.url.substr(8)
+		callback({ path: path.normalize(url) })
+	}, (error) => {
+		if (error) {
+			console.log('failed to register protocol')
+		}
+	});
 }
 
 app.on('ready', createWindow)
@@ -138,8 +147,7 @@ function switchView(item) {
 	win.webContents.send('switchView', item)
 }
 
-// eslint-disable-next-line
-var menuTemplate = [
+const menuTemplate = [
 	{
 		label: 'Views',
 		submenu: [{

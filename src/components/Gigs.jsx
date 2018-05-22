@@ -11,7 +11,6 @@ export default class Gigs extends Component {
 			dataLoaded: (this.props.gigsObject.dogs.length > 1),
 		}
 		this.scrapeGigs = this.scrapeGigs.bind(this)
-		// this.handleClick = this.handleClick.bind(this)
 	}
 
 	componentDidMount() {
@@ -50,7 +49,6 @@ export default class Gigs extends Component {
 	}
 
 	handleClick(url) {
-		console.log(url, typeof url)
 		shell.openExternal(url)
 	}
 

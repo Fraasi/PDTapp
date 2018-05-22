@@ -23,7 +23,7 @@ export default class Weather extends Component {
 					<fieldset>
 						<legend>{this.props.weatherData.cod} weather</legend>
 						{this.props.weatherData.message} <br />
-						Choose a city in settings
+						{ this.props.weatherData.cod === '400' ? 'Choose a city in settings' : ''}
 					</fieldset>
 				</div>
 			)

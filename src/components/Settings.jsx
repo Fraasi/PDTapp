@@ -52,7 +52,11 @@ export default class Settings extends Component {
 				<div className="folder-dialog">
 					<fieldset>
 						<legend>Current folder for pic of the day</legend>
-						{this.props.pictureFolder ? this.props.pictureFolder.match(/\\[a-zA-Z0-9_ ]+$/)[0] : 'Not set'}
+						{
+						this.props.pictureFolder.match(/\\[a-zA-Z0-9_ ]+$/) ?
+						this.props.pictureFolder.match(/\\[a-zA-Z0-9_ ]+$/)[0]
+						: this.props.pictureFolder
+						}
 						<br />
 						<button className="button" onClick={this.chooseFolder}>
 							Choose a folder
