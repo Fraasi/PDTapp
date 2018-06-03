@@ -76,13 +76,17 @@ export default class App extends Component {
 		if (this.state.dailyQuote.quote) return
 		// eslint-disable-next-line
 		fetch('https://ms-rq-api.herokuapp.com/')
-			.then(data => data.json())
+			.then((data) => {
+				console.log('qdata: ', data)
+				if (data.status !== 200) return data
+				return data.json()
+			})
 			.then((json) => {
 				console.log('Quote fetched:', json)
 				this.setState({
 					dailyQuote: {
-						quote: json[Object.keys(json)[0]],
-						author: Object.keys(json)[0]
+						quote: json.statusText || json[Object.keys(json)[0]],
+						author: json.status || Object.keys(json)[0]
 					}
 				})
 			})

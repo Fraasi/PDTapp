@@ -134,8 +134,10 @@ export function handleScrapedData(dataObject) {
 	})
 
 	dataObject.kujis.forEach((kuji) => {
-		if (!kuji.gig.includes('visa')) {
+		if (kuji.gig && !kuji.gig.includes('visa')) {
 			kujis.innerHTML += `<li>${kuji.time.replace(/\(|\)/g, '')} - ${kuji.gig}</li>`;
+		} else {
+			kujis.innerHTML += `<li>${kuji}</li>`;
 		}
 	})
 
