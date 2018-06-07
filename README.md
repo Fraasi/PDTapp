@@ -18,6 +18,8 @@ I have no idea what the end product will be like. I'm making this shit up as I g
   - [x] make random quote api in heroku & fetch a quote
   - [x] random image
   - [x] github notifications
+  - [ ] mooninfo
+  - [ ] better grid layout
 - [x] **Nav bar**
   - [x] hotkeys for views
 - [x] **Calendar** 

@@ -2,8 +2,11 @@
 	display: grid;
 	grid-template: "lastvisit lastvisit" 30px
 					"gits weather"
-					"quote pic" ;
+					"pic mooninfo"
+					"quote quote" ;
 	grid-template-columns: 50% 50%;
+	/* grid-template-rows: 20px repeat(auto-fill, minmax(100px, 1fr)); */
+	/* grid-auto-flow: dense; */
 	grid-gap: 10px 0px;
 }
 .lastvisit {
@@ -20,4 +23,8 @@
 }
 .pic {
 	grid-area: pic;
+	grid-row: 1 / span 2;
+}
+.mooninfo {
+	grid-area: mooninfo;
 }

@@ -5,6 +5,7 @@ import Weather from './Weather.jsx'
 import Github from './Github.jsx'
 import Quote from './Quote.jsx'
 import Pic from './Pic.jsx'
+import Moon from './Moon.jsx'
 dotenv.config()
 
 const store = new Store({ name: 'pdtapp-config' })
@@ -22,6 +23,7 @@ export default class Home extends Component {
 				<Weather weatherData={this.props.weatherData} weatherCity={this.props.weatherCity} />
 				<Quote dailyQuote={this.props.dailyQuote} />
 				<Pic pictureFolder={this.props.pictureFolder} />
+				<Moon />
 			</div>
 		)
 	}
