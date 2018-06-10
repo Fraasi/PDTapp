@@ -1,8 +1,16 @@
 import React, { Component } from 'react'
+import { shell } from 'electron';
 
 export default class Weather extends Component {
+	constructor() {
+		super()
+		this.handleClick = this.handleClick.bind(this)
+	}
 	parseTime(time) {
 		return (time < 10) ? `0${time}` : time;
+	}
+	handleClick() {
+		shell.openExternal(`https://openweathermap.org/city/${this.props.weatherData.id}`)
 	}
 
 	render() {
@@ -17,13 +25,14 @@ export default class Weather extends Component {
 			)
 		}
 
-		if (this.props.weatherData.message) {
+		if (this.props.weatherData.ok === false) {
 			return (
 				<div className="weather">
 					<fieldset>
-						<legend>{this.props.weatherData.cod} weather</legend>
-						{this.props.weatherData.message} <br />
-						{ this.props.weatherData.cod === '400' ? 'Choose a city in settings' : ''}
+						<legend>{this.props.weatherData.status} weather</legend>
+						{`Error: ${this.props.weatherData.statusText}`}
+						<br />
+						{'Check your city in the settings!'}
 					</fieldset>
 				</div>
 			)
@@ -36,7 +45,7 @@ export default class Weather extends Component {
 		return (
 			<div className="weather">
 				<fieldset>
-					<legend>{name} weather</legend>
+					<legend onClick={this.handleClick}>{name} weather</legend>
 					<ul className="w-list">
 						<li>Temp {main.temp.toFixed(1)}&deg;C</li>
 						{

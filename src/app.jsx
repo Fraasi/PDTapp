@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { ipcRenderer, remote } from 'electron';
+import SunCalc from 'suncalc'
 import Store from 'electron-store';
 import Calendar from './components/Calendar.jsx';
 import Navbar from './components/Navbar.jsx';
@@ -26,7 +27,7 @@ export default class App extends Component {
 			loading: true,
 			weatherCity: store.get('weatherCity'),
 			weatherData: null,
-			dailyQuote: { quote: null, author: null },
+			dailyQuote: { quote: 'Without dreams you can\'t fucking live.', author: 'Ann' },
 			pictureFolder: store.get('pictureFolder'),
 			gigsObject: {
 				dogs: [],
@@ -55,19 +56,48 @@ export default class App extends Component {
 
 	componentDidMount() {
 		this.fetchWeather()
-		this.fetchQuote()
+		// this.fetchQuote()
+	}
+
+	getMoondata(lat, lon) {
+		const date = new Date()
+		return {
+			illumination: SunCalc.getMoonIllumination(date),
+			moonTimes: SunCalc.getMoonTimes(date, lat, lon),
+			moonPosition: SunCalc.getMoonPosition(date, lat, lon)
+		}
+	}
+
+	getSundata(lat, lon) {
+		return SunCalc.getTimes(new Date(), lat, lon)
 	}
 
 	fetchWeather(city) {
 		// if (this.state.weatherData.name) return
-		// forecast api.openweathermap.org/data/2.5/forecast?id=524901
 		const url = `http://api.openweathermap.org/data/2.5/weather?q=${city || this.state.weatherCity}&appid=${process.env.OPENWEATHER_APIKEY}&units=metric`
 		// eslint-disable-next-line
-		fetch(url).then((data) => data.json())
+		fetch(url)
+			.then((response) => {
+				if (!response.ok) throw response
+				return response.json()
+			})
 			.then((json) => {
-				console.log('Weather fetched:', json)
+				const data = Object.assign(
+					json,
+					{
+						Sun: this.getSundata(json.coord.lat, json.coord.lon),
+						Moon: this.getMoondata(json.coord.lat, json.coord.lon)
+					}
+				)
+				console.log('Weather fetched:', data)
 				this.setState({
-					weatherData: json
+					weatherData: data
+				})
+			})
+			.catch((err) => {
+				console.error(err)
+				this.setState({
+					weatherData: err
 				})
 			})
 	}

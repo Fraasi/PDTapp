@@ -51,4 +51,14 @@ I have no idea what the end product will be like. I'm making this shit up as I g
   - [x] (esLint, airBnB) => new Promise().resolve(hell)  
 
 #### Screenshot of the home page so far  
-![2018-05-02_0951.png](src/assets/img/2018-05-13_2350.png)
+![2018-06-10_2009.png](src/assets/img/2018-06-10_2009.png)
+
+### Note!
+If you want to try this, just clone the repo and do `npm install`,  
+but you need to make .env file at the root and put these inside
+```
+GIT_OAUTH_TOKEN=<your github token>
+OPENWEATHER_APIKEY=<your openweather api key>
+```
+to make the weather and github notifications work.
+After that just `npm start`.

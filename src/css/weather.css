@@ -1,15 +1,21 @@
 fieldset > ul {
 	list-style-type: none;
-    padding-left: 20px;
+	padding-left: 5px;
+	margin: 10px 0px;
+}
+fieldset > p {
+	margin: 10px 0px;
 }
 
 li > img {
 	position: relative;
-	top: -8px;
+	top: -10px;
+	right: -7px;
 	float: right;
-	width: 40px;
+	width: 50px;
 }
 .fa-icon.long-arrow-alt-down {
 	width: 30px;
 	height: 25px;
+	right: 5px;
 }

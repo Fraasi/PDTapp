@@ -22,9 +22,9 @@ export default class Quote extends Component {
 					<p>
 						{quote}
 					</p>
-						<p style={{ textAlign: 'right', fontStyle: 'italic' }}>
+						<span style={{ display: 'block', textAlign: 'right', fontStyle: 'italic' }}>
 							- {author}
-						</p>
+						</span>
 				</fieldset>
 			</div>
 		)
