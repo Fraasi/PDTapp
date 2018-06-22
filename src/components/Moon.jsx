@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { shell } from 'electron';
+import { shell } from 'electron'
+
 
 function getZodiacSign(day, month) {
 	if ((month === 1 && day <= 20) || (month === 12 && day >= 22)) {
@@ -60,7 +61,7 @@ export default class Moon extends Component {
 	calculateMoon(angle, num, start1, stop1, start2, stop2) {
 		let mapped = this.p5Map(num, start1, stop1, start2, stop2)
 		const isWaning = Math.sign(angle) > 0
-		// const isWaning = false
+		// const isWaning = true
 		const result = isWaning ? mapped : mapped = -(mapped)
 
 		// console.log('isw', isWaning)
@@ -91,9 +92,10 @@ export default class Moon extends Component {
 		const { rise, set } = this.props.weatherData.Moon.moonTimes
 		const { parallacticAngle } = this.props.weatherData.Moon.moonPosition
 		const illumination = this.calculateMoon(angle, fraction, 0, 1, 0, 30) // moon 30px wide
-		const zenithAngle = angle - parallacticAngle
-		// const rotation = this.calculateMoon(angle, fraction, 0, 1, 0, 150) // 150 looks good in F
-		// const rotation = (angle - parallacticAngle) * (180 / Math.PI) // radians to degrees
+		// const zenithAngle = Math.abs(angle) - Math.abs(parallacticAngle)
+		const zenithAngle = parallacticAngle // noup, but best
+		// const zenithAngle = this.calculateMoon(angle, fraction, 0, 1, 0, 150) // 150 looks good in F
+
 		// console.log('angle', angle)
 		// console.log('parangle', parallacticAngle)
 		// console.log('rot', zenithAngle)
@@ -110,7 +112,7 @@ export default class Moon extends Component {
 						Morning golden hour: <br />{sunriseEnd.toLocaleTimeString()} - {goldenHourEnd.toLocaleTimeString()}<br />
 						Evening golden hour: <br />{goldenHour.toLocaleTimeString()} - {sunsetStart.toLocaleTimeString()} <br />
 						Moonrise: {rise.toLocaleTimeString()} <br />
-						Moonset: {set.toLocaleTimeString()} <br />
+						Moonset: {set ? set.toLocaleTimeString() : 'N/A'} <br />
 						Zodiac: {this.zodiac} <br />
 					</p>
 				</fieldset>

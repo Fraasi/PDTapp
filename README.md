@@ -10,6 +10,7 @@ I have no idea what the end product will be like. I'm making this shit up as I g
 * electron-store
 * dotenv
 * showdown
+* suncalc
 
 ### todo (or maybe not to, do):
 
@@ -62,3 +63,16 @@ OPENWEATHER_APIKEY=<your openweather api key>
 ```
 to make the weather and github notifications work.
 After that just `npm start`.
+If you want to have stuff in the calendar, you need to make calendar-data.js file in src\assets\ folder and read about fullcalendar.js.  
+Example:
+```
+exports.calendarData = [
+	{
+		title: 'title',
+	 	start: '11:00',
+	 	end: '13:00',
+	 	dow: [1, 2, 3, 4, 5],
+		className: 'weekly'
+	}
+]
+```
