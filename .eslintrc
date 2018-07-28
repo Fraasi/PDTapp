@@ -1,10 +1,22 @@
 {
-  "extends": "eslint-config-airbnb",
-  "rules": {
-    "import/extensions": 0,
-    "import/no-extraneous-dependencies": 0,
-    "import/no-unresolved": [2, { "ignore": ["electron"] }],
-    "linebreak-style": 0,
+	"extends": "eslint-config-airbnb",
+	"env": {
+		"browser": true,
+		"node": true,
+		"es6": true
+	},
+	"rules": {
+		"import/extensions": 0,
+		"import/no-extraneous-dependencies": 0,
+		"import/no-unresolved": [
+			2,
+			{
+				"ignore": [
+					"electron"
+				]
+			}
+		],
+		"linebreak-style": 0,
 		"react/prefer-stateless-function": 0,
 		"no-console": 0,
 		"no-tabs": 0,
@@ -12,7 +24,7 @@
 		"global-require": 0,
 		"react/jsx-indent": 0,
 		"import/newline-after-import": 0,
-		"semi":0,
+		"semi": 0,
 		"space-before-function-paren": 0,
 		"comma-dangle": 0,
 		"consistent-return": 0,
@@ -32,6 +44,7 @@
 		"jsx-a11y/no-noninteractive-element-interactions": 0,
 		"jsx-a11y/no-autofocus": 0,
 		"no-nested-ternary": 0,
-		"no-mixed-operators": 0
-  }
+		"no-mixed-operators": 0,
+		"react/no-did-mount-set-state": 0
+	}
 }

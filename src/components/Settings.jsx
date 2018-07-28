@@ -4,7 +4,7 @@ import Store from 'electron-store'
 import { uptime, networkInterfaces } from 'os'
 const store = new Store({ name: 'pdtapp-config' })
 
-console.log(networkInterfaces())
+// console.log('networkInterfaces', networkInterfaces())
 
 export default class Settings extends Component {
 	constructor() {
@@ -18,7 +18,7 @@ export default class Settings extends Component {
 	secondsToDhms(secs) {
 		if (Number.isNaN(secs)) return 'secondsToHms param not a number!';
 		const d = Math.floor(secs / (3600 * 24));
-		const h = Math.floor(secs / 3600);
+		const h = Math.floor(secs / 3600 % 24);
 		const m = Math.floor(secs % 3600 / 60);
 		const s = Math.floor(secs % 3600 % 60);
 
@@ -36,7 +36,6 @@ export default class Settings extends Component {
 	}
 
 	submitCity() {
-		// eslint-disable-next-line
 		const city = document.getElementById('city').value
 		this.saveChanges('weatherCity', city)
 		this.props.fetchWeather(city)
@@ -62,7 +61,7 @@ export default class Settings extends Component {
 	}
 
 	render() {
-		const { address, mac, family } = networkInterfaces().Cellular[0]
+		const { address, mac, family } = networkInterfaces()['Cellular 2'][0]
 		return (
 			<div className="view-container" id="settings">
 

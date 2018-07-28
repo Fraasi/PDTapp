@@ -111,7 +111,7 @@ export default class Moon extends Component {
 						Illumination: {(fraction * 100).toFixed(1)}% <br />
 						Morning golden hour: <br />{sunriseEnd.toLocaleTimeString()} - {goldenHourEnd.toLocaleTimeString()}<br />
 						Evening golden hour: <br />{goldenHour.toLocaleTimeString()} - {sunsetStart.toLocaleTimeString()} <br />
-						Moonrise: {rise.toLocaleTimeString()} <br />
+						Moonrise: {rise ? rise.toLocaleTimeString() : 'N/A'} <br />
 						Moonset: {set ? set.toLocaleTimeString() : 'N/A'} <br />
 						Zodiac: {this.zodiac} <br />
 					</p>

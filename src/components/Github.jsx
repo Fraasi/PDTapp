@@ -12,7 +12,6 @@ export default class Github extends Component {
 	}
 	componentDidMount() {
 		if (!process.env.GIT_OAUTH_TOKEN) {
-			// eslint-disable-next-line
 			this.setState({
 				gitNotifications: null
 			})
@@ -21,7 +20,6 @@ export default class Github extends Component {
 
 		const now = new Date()
 		const monthAgo = new Date(now.setMonth(now.getMonth() - 1))
-		// eslint-disable-next-line
 		fetch(`https://api.github.com/notifications?since=${monthAgo.toISOString()}`, {
 			headers: { Authorization: `token ${process.env.GIT_OAUTH_TOKEN}` }
 		})
@@ -72,11 +70,17 @@ export default class Github extends Component {
 							this.state.gitNotifications.length < 1 ?
 								null :
 								this.state.gitNotifications.map((el, i) => {
-									const url = el.subject.url.replace(/api\.|repos\//g, '')
+									const url = el.subject.url.replace(/api\.|repos\//g, '').replace('pulls', 'pull')
 									return (
 										<li key={i + 1}>
 											{i + 1}. <br />Repo: {el.repository.full_name}<br />
-											{el.subject.type}: <span className="linkstyle" onClick={this.handleClick.bind(this, url)}>{el.subject.title}</span><br />
+											{/* eslint-disable-next-line */}
+											{el.subject.type}:
+											<span
+												className="linkstyle"
+												onClick={() => this.handleClick(url)}
+											>{el.subject.title}
+											</span><br />
 											Reason: {el.reason}
 										</li>
 									)
