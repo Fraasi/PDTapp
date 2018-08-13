@@ -88,6 +88,11 @@ export default class Gigs extends Component {
 					<ul id="maanis" />
 				</div>
 
+				<div>
+					<a href="#" onClick={this.handleClick.bind(this, 'https://visittampere.fi/tapahtumakalenteri/')}>Visit Tampere kohokohdat</a>
+					<ul id="visittre" />
+				</div>
+
 				{this.state.loading && <img src="./assets/img/spinner.svg" alt="spinner.svg" id="spinner" />}
 			</div >
 		)

@@ -51,6 +51,16 @@ export const scrapeInfo = {
 			gig: '.event_title',
 			link: '.event_desc @href'
 		}
+	},
+	visitTre: {
+		Url: 'https://visittampere.fi/tapahtumakalenteri/',
+		Find: '.event-block',
+		Set: {
+			date: '.event-date',
+			happening: 'h4',
+			link: '@href',
+			location: '.event-location'
+		}
 	}
 };
 
@@ -80,17 +90,17 @@ export default function scrape(url, find, set, pub) {
 }
 
 export function handleScrapedData(dataObject) {
-	/* eslint-disable */
-	function id(id) {
+	function _id(id) {
 		return document.getElementById(id);
 	}
 
-	const dogs = id('dogs');
-	const vastis = id('vastis');
-	const huurus = id('huurus');
-	const kujis = id('kujis');
-	const hietis = id('hietis');
-	const maanis = id('maanis');
+	const dogs = _id('dogs');
+	const vastis = _id('vastis');
+	const huurus = _id('huurus');
+	const kujis = _id('kujis');
+	const hietis = _id('hietis');
+	const maanis = _id('maanis');
+	const visitTre = _id('visittre');
 	const date = new Date();
 	// const monthName = date.toLocaleString('en-us', {month: 'short'});
 	const regDate = new RegExp(/^\d+\.\d+/);
@@ -100,7 +110,7 @@ export function handleScrapedData(dataObject) {
 		if (regDate.test(str)) {
 			const strMonth = regDate.exec(str)[0].match(/\d\d?$/)[0];
 			const gigDate = new Date(date.getFullYear(), strMonth - 1, str.match(/\d\d?/));
-			if (gigDate > date) {
+			if (gigDate >= date) {
 				dogs.innerHTML += `<li>${str.replace(/\.\s/, '. - ')}</li>`;
 			}
 		}
@@ -108,11 +118,11 @@ export function handleScrapedData(dataObject) {
 
 	let prevDate;
 	dataObject.vastis.forEach((vasta) => {
-		if (vasta.date == undefined) vasta.date = prevDate;
+		if (vasta.date === undefined) vasta.date = prevDate;
 		prevDate = vasta.date;
-		if (vasta.time == undefined) vasta.time = '';
-		if (vasta.details == undefined) vasta.details = '';
-		if (vasta.loc == undefined) vasta.loc = '';
+		if (vasta.time === undefined) vasta.time = '';
+		if (vasta.details === undefined) vasta.details = '';
+		if (vasta.loc === undefined) vasta.loc = '';
 
 		vastis.innerHTML += `<li>${vasta.date} - ${vasta.gig} - ${vasta.loc} ${vasta.time} - ${vasta.details}</li>`;
 	})
@@ -123,13 +133,11 @@ export function handleScrapedData(dataObject) {
 
 	dataObject.hietis.forEach((hieti) => {
 		if (Object.keys(hieti).length === 0) return;
-
 		const splitted = hieti.gig.split(' ');
 		const gigDate = splitted.shift().slice(0, -1);
 		const gig = splitted.join(' ');
 		hieti.target = '_blank'
 		const link = hieti.aHref.replace(/\d\d?\..*(?=<)/, gig);
-
 		hietis.innerHTML += `<li>${gigDate} - ${link}</li>`;
 	})
 
@@ -143,12 +151,19 @@ export function handleScrapedData(dataObject) {
 
 	dataObject.maanis.forEach((maani) => {
 		if (typeof maani === 'string') {
-			maanis.innerHTML += `<li>${maani}</li>`;	
+			maanis.innerHTML += `<li>${maani}</li>`;
 		} else {
-			maanis.innerHTML += `<li>${maani.date} - <a href="${maani.link}">${maani.gig}</a></li>`;
+			maanis.innerHTML += `<li>${maani.date} - <a target="_blank" href="${maani.link}">${maani.gig}</a></li>`;
 		}
 	})
+
+	const visits = dataObject.visitTre.sort((a, b) => {
+		const aDate = new Date(a.date.slice(6, 10), a.date.slice(3, 5), a.date.slice(0, 2))
+		const bDate = new Date(b.date.slice(6, 10), b.date.slice(3, 5), b.date.slice(0, 2))
+		return aDate - bDate
+	})
+
+	visits.forEach((visit) => {
+		visitTre.innerHTML += `<li>${visit.date} - <a target="_blank" href="${visit.link}">${visit.happening}</a> (${visit.location})</li>`
+	})
 }
-
-
-

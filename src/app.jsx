@@ -35,7 +35,8 @@ export default class App extends Component {
 				huurus: [],
 				kujis: [],
 				hietis: [],
-				maanis: []
+				maanis: [],
+				visitTre: []
 			}
 		}
 
@@ -75,7 +76,6 @@ export default class App extends Component {
 	fetchWeather(city) {
 		// if (this.state.weatherData.name) return
 		const url = `http://api.openweathermap.org/data/2.5/weather?q=${city || this.state.weatherCity}&appid=${process.env.OPENWEATHER_APIKEY}&units=metric`
-		// eslint-disable-next-line
 		fetch(url)
 			.then((response) => {
 				if (!response.ok) throw response
@@ -104,7 +104,6 @@ export default class App extends Component {
 
 	fetchQuote() {
 		if (this.state.dailyQuote.quote) return
-		// eslint-disable-next-line
 		fetch('https://ms-rq-api.herokuapp.com/')
 			.then((data) => {
 				console.log('qdata: ', data)

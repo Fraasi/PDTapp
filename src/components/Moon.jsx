@@ -61,11 +61,7 @@ export default class Moon extends Component {
 	calculateMoon(angle, num, start1, stop1, start2, stop2) {
 		let mapped = this.p5Map(num, start1, stop1, start2, stop2)
 		const isWaning = Math.sign(angle) > 0
-		// const isWaning = true
 		const result = isWaning ? mapped : mapped = -(mapped)
-
-		// console.log('isw', isWaning)
-		// console.log('illumination', mapped)
 		return result
 	}
 
