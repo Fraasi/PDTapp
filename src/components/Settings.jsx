@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { remote } from 'electron'
 import Store from 'electron-store'
 import { uptime, networkInterfaces } from 'os'
+import { secondsToDhms } from 'futility'
 const store = new Store({ name: 'pdtapp-config' })
 
 // console.log('networkInterfaces', networkInterfaces())
@@ -13,20 +14,6 @@ export default class Settings extends Component {
 		this.submitCity = this.submitCity.bind(this)
 		this.saveChanges = this.saveChanges.bind(this)
 		this.clearSettings = this.clearSettings.bind(this)
-	}
-
-	secondsToDhms(secs) {
-		if (Number.isNaN(secs)) return 'secondsToHms param not a number!';
-		const d = Math.floor(secs / (3600 * 24));
-		const h = Math.floor(secs / 3600 % 24);
-		const m = Math.floor(secs % 3600 / 60);
-		const s = Math.floor(secs % 3600 % 60);
-
-		const dDisplay = d > 0 ? d + (d === 1 ? ' day, ' : ' days, ') : '';
-		const hDisplay = h > 0 ? h + (h === 1 ? ' hour, ' : ' hours, ') : '';
-		const mDisplay = m > 0 ? m + (m === 1 ? ' minute, ' : ' minutes, ') : '';
-		const sDisplay = s > 0 ? s + (s === 1 ? ' second' : ' seconds') : '';
-		return dDisplay + hDisplay + mDisplay + sDisplay;
 	}
 
 	chooseFolder() {
@@ -114,7 +101,7 @@ export default class Settings extends Component {
 					</div>
 					<div>
 						{`${family}: ${address}  -  ${mac}`} <br />
-						{`Uptime: ${this.secondsToDhms(uptime())}`}
+						{`Uptime: ${secondsToDhms(uptime(), true)}`}
 					</div>
 				</div>
 
