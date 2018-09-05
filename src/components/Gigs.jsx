@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { shell } from 'electron';
-import scrape, { scrapeInfo, handleScrapedData } from '../js/gigscraper.js';
+import React, { Component } from 'react'
+import { shell } from 'electron'
+import scrape, { scrapeInfo, handleScrapedData } from '../js/gigscraper.js'
 process.setMaxListeners(15) // some err comes from gigscraper promises,  default 10 exceeded
 
 export default class Gigs extends Component {
@@ -22,11 +22,11 @@ export default class Gigs extends Component {
 			loading: true
 		}, () => {
 			const promises = []
-			const pubs = Object.keys(this.props.gigsObject);
+			const pubs = Object.keys(this.props.gigsObject)
 			pubs.forEach((pub) => {
-				const url = scrapeInfo[pub].Url;
-				const find = scrapeInfo[pub].Find;
-				const set = scrapeInfo[pub].Set;
+				const url = scrapeInfo[pub].Url
+				const find = scrapeInfo[pub].Find
+				const set = scrapeInfo[pub].Set
 				promises.push(scrape(url, find, set, pub, this.props.gigsObject))
 			})
 			Promise.all(promises)

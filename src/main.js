@@ -24,15 +24,15 @@ const store = new Store({
 	}
 })
 
-const isDevMode = process.execPath.match(/[\\/]electron/);
+const isDevMode = process.execPath.match(/[\\/]electron/)
 if (isDevMode) {
-	enableLiveReload({ strategy: 'react-hmr' });
+	enableLiveReload({ strategy: 'react-hmr' })
 	require('electron-context-menu')({
 		prepend: params => [{
 			label: 'Rainbow',
 			visible: params.mediaType === 'image',
 		}],
-	});
+	})
 }
 
 let win
@@ -55,41 +55,40 @@ async function createWindow() {
 		show: false,
 		titleBarStyle: 'hidden',
 	}).on('ready-to-show', () => {
-		win.show();
-		win.focus();
+		win.show()
+		win.focus()
 	})
 
-	win.loadURL(`file://${__dirname}/index.html`);
+	win.loadURL(`file://${__dirname}/index.html`)
 	if (isDevMode) {
-		await installExtension(REACT_DEVELOPER_TOOLS);
-		win.webContents.openDevTools({ mode: 'right' });
+		await installExtension(REACT_DEVELOPER_TOOLS)
+		win.webContents.openDevTools({ mode: 'right' })
 	}
 
 	win.on('closed', () => {
-		win = null;
-	});
+		win = null
+	})
 
-	// eslint-disable-next-line
-	const menu = Menu.buildFromTemplate(menuTemplate);
-	Menu.setApplicationMenu(menu);
+	const menu = Menu.buildFromTemplate(menuTemplate)
+	Menu.setApplicationMenu(menu)
 
 	globalShortcut.register('CommandOrControl+Alt+P', () => {
 		win.focus()
-	});
+	})
 
 	app.on('will-quit', () => {
-		globalShortcut.unregisterAll();
+		globalShortcut.unregisterAll()
 		store.set('lastLaunched', launchedAt)
-	});
+	})
 
 	const trayIconPath = path.join(__dirname, './assets/icons/32x32.png')
-	trayIcon = new Tray(trayIconPath);
+	trayIcon = new Tray(trayIconPath)
 
 	const trayIconContextMenu = Menu.buildFromTemplate([
 		{
 			label: 'Remove tray icon',
 			click: () => {
-				trayIcon.destroy();
+				trayIcon.destroy()
 			},
 		}, {
 			label: 'Quit app',
@@ -98,15 +97,15 @@ async function createWindow() {
 				app.quit()
 			}
 		}
-	]);
+	])
 
-	trayIcon.setToolTip('PDTapp');
-	trayIcon.setContextMenu(trayIconContextMenu);
+	trayIcon.setToolTip('PDTapp')
+	trayIcon.setContextMenu(trayIconContextMenu)
 
 	app.on('window-all-closed', () => {
-		if (trayIcon) trayIcon.destroy();
-		if (process.platform !== 'darwin') app.quit();
-	});
+		if (trayIcon) trayIcon.destroy()
+		if (process.platform !== 'darwin') app.quit()
+	})
 
 	// win.webContents.on('did-finish-load', () => {
 	// notify('main sez', 'webcontents finished loading')
@@ -137,7 +136,7 @@ async function createWindow() {
 		if (error) {
 			console.log('failed to register protocol')
 		}
-	});
+	})
 }
 
 app.on('ready', createWindow)
@@ -236,9 +235,9 @@ const menuTemplate = [
 			type: 'separator',
 		}, {
 			label: 'Electron docs',
-			click() { shell.openExternal('https://electronjs.org/docs'); },
+			click() { shell.openExternal('https://electronjs.org/docs') },
 		},
 		],
 	},
-];
+]
 

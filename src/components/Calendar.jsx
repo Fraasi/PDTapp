@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import calendar from '../js/calendar.js'
 
 export default class Calendar extends Component {

@@ -1,8 +1,8 @@
-/* eslint-disable */
-import { existsSync } from 'fs';
-import path from 'path';
-import { shell } from 'electron';
-import $ from 'jquery';
+/* eslint-disable no-unused-vars, prefer-destructuring */
+import { existsSync } from 'fs'
+import path from 'path'
+import { shell } from 'electron'
+import $ from 'jquery'
 import fullCalendar from 'fullcalendar'
 
 let calendarData = []
@@ -11,17 +11,17 @@ if (existsSync(path.join(__dirname, '../assets/calendar-data.js'))) {
 }
 
 export default () => {
-	const tooltip = $('#tooltip');
+	const tooltip = $('#tooltip')
 
 	// recurring yearly
-	const today = new Date();
-	const currYear = today.getFullYear();
+	const today = new Date()
+	const currYear = today.getFullYear()
 	calendarData.forEach((event, i) => {
 		if (event.className === 'yearly' && new Date(event.start) < today) {
-			calendarData[i].start = new Date(event.start).setFullYear(currYear + 1);
-			calendarData[i].end = new Date(event.end).setFullYear(currYear + 1);
+			calendarData[i].start = new Date(event.start).setFullYear(currYear + 1)
+			calendarData[i].end = new Date(event.end).setFullYear(currYear + 1)
 		}
-	});
+	})
 
 	$('#calendar').fullCalendar({
 
@@ -48,14 +48,12 @@ export default () => {
 					return {
 						start: currentDate.clone().subtract(1, 'days'),
 						end: currentDate.clone().add(1, 'year'), // exclusive end, so 3
-					};
+					}
 				},
 			},
 		},
-	
-		height: () => {
-			return document.getElementById('calendar').getClientRects()[0].height - 20
-		},
+
+		height: () => document.getElementById('calendar').getClientRects()[0].height - 20,
 		defaultView: 'month',
 		editable: false,
 		firstDay: 1,
@@ -64,8 +62,8 @@ export default () => {
 
 		eventClick(event) {
 			if (event.url) {
-				shell.openExternal(event.url);
-				return false;
+				shell.openExternal(event.url)
+				return false
 			}
 		},
 
@@ -73,27 +71,27 @@ export default () => {
 			if (!(view.type === 'list')) {
 				const html = view.type === 'agendaWeek' ?
 					`${event.title}<br><br>${$.fullCalendar.moment(event.start).format('k:mm')} - ${$.fullCalendar.moment(event.end).format('k:mm')}` :
-					`${event.title}<br><br>date: ${$.fullCalendar.moment(event.start).format('MMM, Do')}<br>${$.fullCalendar.moment(event.start).format('k:mm')} - ${$.fullCalendar.moment(event.end).format('k:mm')}`;
+					`${event.title}<br><br>date: ${$.fullCalendar.moment(event.start).format('MMM, Do')}<br>${$.fullCalendar.moment(event.start).format('k:mm')} - ${$.fullCalendar.moment(event.end).format('k:mm')}`
 
-				tooltip.html(html);
+				tooltip.html(html)
 				tooltip.css({
 					display: 'block',
 					left: jsEvent.clientX - 120,
 					top: jsEvent.clientY - 75,
-				});
+				})
 			}
 		},
 
 		eventMouseout(event, jsEvent, view) {
 			if (!(view.type === 'list')) {
-				$('#tooltip').css('display', 'none');
+				$('#tooltip').css('display', 'none')
 			}
 		},
 
 		eventRender(event, element, view) {
 			if ((view.type === 'month' || view.type === 'list') && event.className.includes('weekly')) {
-				return false;
+				return false
 			}
 		},
-	});
+	})
 }

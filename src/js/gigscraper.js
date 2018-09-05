@@ -62,7 +62,7 @@ export const scrapeInfo = {
 			location: '.event-location'
 		}
 	}
-};
+}
 
 export default function scrape(url, find, set, pub) {
 	return new Promise((resolve) => {
@@ -78,12 +78,12 @@ export default function scrape(url, find, set, pub) {
 			// .log(console.log)
 			// .debug(console.log)
 			.error((err) => {
-				dataArr[pub].push(`${err.replace(/"/g, '\\"')}`);
-				console.log('Osmosis Err', err);
+				dataArr[pub].push(`${err.replace(/"/g, '\\"')}`)
+				console.log('Osmosis Err', err)
 				// reject('osmosis err', err)
 			})
 			.done(() => {
-				console.log(`Pushed ${pub} data!`);
+				console.log(`Pushed ${pub} data!`)
 				resolve(dataArr)
 			})
 	})
@@ -91,69 +91,69 @@ export default function scrape(url, find, set, pub) {
 
 export function handleScrapedData(dataObject) {
 	function _id(id) {
-		return document.getElementById(id);
+		return document.getElementById(id)
 	}
 
-	const dogs = _id('dogs');
-	const vastis = _id('vastis');
-	const huurus = _id('huurus');
-	const kujis = _id('kujis');
-	const hietis = _id('hietis');
-	const maanis = _id('maanis');
-	const visitTre = _id('visittre');
-	const date = new Date();
-	// const monthName = date.toLocaleString('en-us', {month: 'short'});
-	const regDate = new RegExp(/^\d+\.\d+/);
+	const dogs = _id('dogs')
+	const vastis = _id('vastis')
+	const huurus = _id('huurus')
+	const kujis = _id('kujis')
+	const hietis = _id('hietis')
+	const maanis = _id('maanis')
+	const visitTre = _id('visittre')
+	const date = new Date()
+	// const monthName = date.toLocaleString('en-us', {month: 'short'})
+	const regDate = new RegExp(/^\d+\.\d+/)
 
 	dataObject.dogs.forEach((dog) => {
-		const str = dog.html || '';
+		const str = dog.html || ''
 		if (regDate.test(str)) {
-			const strMonth = regDate.exec(str)[0].match(/\d\d?$/)[0];
-			const gigDate = new Date(date.getFullYear(), strMonth - 1, str.match(/\d\d?/));
+			const strMonth = regDate.exec(str)[0].match(/\d\d?$/)[0]
+			const gigDate = new Date(date.getFullYear(), strMonth - 1, str.match(/\d\d?/))
 			if (gigDate >= date) {
-				dogs.innerHTML += `<li>${str.replace(/\.\s/, '. - ')}</li>`;
+				dogs.innerHTML += `<li>${str.replace(/\.\s/, '. - ')}</li>`
 			}
 		}
 	})
 
-	let prevDate;
+	let prevDate
 	dataObject.vastis.forEach((vasta) => {
-		if (vasta.date === undefined) vasta.date = prevDate;
-		prevDate = vasta.date;
-		if (vasta.time === undefined) vasta.time = '';
-		if (vasta.details === undefined) vasta.details = '';
-		if (vasta.loc === undefined) vasta.loc = '';
+		if (vasta.date === undefined) vasta.date = prevDate
+		prevDate = vasta.date
+		if (vasta.time === undefined) vasta.time = ''
+		if (vasta.details === undefined) vasta.details = ''
+		if (vasta.loc === undefined) vasta.loc = ''
 
-		vastis.innerHTML += `<li>${vasta.date} - ${vasta.gig} - ${vasta.loc} ${vasta.time} - ${vasta.details}</li>`;
+		vastis.innerHTML += `<li>${vasta.date} - ${vasta.gig} - ${vasta.loc} ${vasta.time} - ${vasta.details}</li>`
 	})
 
 	dataObject.huurus.forEach((huuru) => {
-		huurus.innerHTML += `<li>${huuru.date} - <a href="${huuru.url}" target="_blank">${huuru.hap}</a></li>`;
+		huurus.innerHTML += `<li>${huuru.date} - <a href="${huuru.url}" target="_blank">${huuru.hap}</a></li>`
 	})
 
 	dataObject.hietis.forEach((hieti) => {
-		if (Object.keys(hieti).length === 0) return;
-		const splitted = hieti.gig.split(' ');
-		const gigDate = splitted.shift().slice(0, -1);
-		const gig = splitted.join(' ');
+		if (Object.keys(hieti).length === 0) return
+		const splitted = hieti.gig.split(' ')
+		const gigDate = splitted.shift().slice(0, -1)
+		const gig = splitted.join(' ')
 		hieti.target = '_blank'
-		const link = hieti.aHref.replace(/\d\d?\..*(?=<)/, gig);
-		hietis.innerHTML += `<li>${gigDate} - ${link}</li>`;
+		const link = hieti.aHref.replace(/\d\d?\..*(?=<)/, gig)
+		hietis.innerHTML += `<li>${gigDate} - ${link}</li>`
 	})
 
 	dataObject.kujis.forEach((kuji) => {
 		if (kuji.gig && !kuji.gig.includes('visa')) {
-			kujis.innerHTML += `<li>${kuji.time.replace(/\(|\)/g, '')} - ${kuji.gig}</li>`;
+			kujis.innerHTML += `<li>${kuji.time.replace(/\(|\)/g, '')} - ${kuji.gig}</li>`
 		} else {
-			kujis.innerHTML += `<li>${kuji}</li>`;
+			kujis.innerHTML += `<li>${kuji}</li>`
 		}
 	})
 
 	dataObject.maanis.forEach((maani) => {
 		if (typeof maani === 'string') {
-			maanis.innerHTML += `<li>${maani}</li>`;
+			maanis.innerHTML += `<li>${maani}</li>`
 		} else {
-			maanis.innerHTML += `<li>${maani.date} - <a target="_blank" href="${maani.link}">${maani.gig}</a></li>`;
+			maanis.innerHTML += `<li>${maani.date} - <a target="_blank" href="${maani.link}">${maani.gig}</a></li>`
 		}
 	})
 

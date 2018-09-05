@@ -27,7 +27,7 @@ export default class App extends Component {
 			loading: true,
 			weatherCity: store.get('weatherCity'),
 			weatherData: null,
-			dailyQuote: { quote: 'Without dreams you can\'t fucking live.', author: 'Ann' },
+			dailyQuote: { quote: 'Without dreams you can\'t fucking live.', author: '' },
 			pictureFolder: store.get('pictureFolder'),
 			gigsObject: {
 				dogs: [],
@@ -57,7 +57,7 @@ export default class App extends Component {
 
 	componentDidMount() {
 		this.fetchWeather()
-		// this.fetchQuote()
+		this.fetchQuote()
 	}
 
 	getMoondata(lat, lon) {
@@ -103,7 +103,7 @@ export default class App extends Component {
 	}
 
 	fetchQuote() {
-		if (this.state.dailyQuote.quote) return
+		if (this.state.dailyQuote.author) return
 		fetch('https://ms-rq-api.herokuapp.com/')
 			.then((data) => {
 				console.log('qdata: ', data)

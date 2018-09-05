@@ -24,12 +24,10 @@ export default class Notebook extends Component {
 	}
 
 	componentDidMount() {
-		// eslint-disable-next-line
 		document.addEventListener('keyup', this.handleHotKeys)
 	}
 
 	componentWillUnmount() {
-		// eslint-disable-next-line
 		document.removeEventListener('keyup', this.handleHotKeys)
 	}
 
@@ -76,7 +74,6 @@ export default class Notebook extends Component {
 		e.persist()
 		const temp = this.state.notes
 		temp[this.state.currentNote].rawText = e.target.value
-		// eslint-disable-next-line
 		temp[this.state.currentNote].title = e.target.value.match(/\w\w+/)[0]
 		this.setState({
 			notes: temp
@@ -87,7 +84,6 @@ export default class Notebook extends Component {
 		const text = '<!-- Untitled -->'
 
 		if (this.state.noteView === 'edit') {
-			// eslint-disable-next-line
 			document.querySelector('.note-editbox').value = text
 		}
 		const newNote = {
@@ -103,7 +99,6 @@ export default class Notebook extends Component {
 	}
 
 	deleteNote() {
-		// eslint-disable-next-line
 		const conf = confirm('Are you sure you want to delete this note?')
 		if (!conf) return
 
@@ -168,7 +163,6 @@ export default class Notebook extends Component {
 					}
 					{
 						this.state.noteView === 'note' &&
-						// eslint-disable-next-line
 						<div className="note-text" dangerouslySetInnerHTML={{ __html: converter.makeHtml(this.state.notes[this.state.currentNote].rawText) }} />
 					}
 					{

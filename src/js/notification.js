@@ -8,7 +8,7 @@ exports.notify = (title, body) => {
 		detail: 'Details go here',
 		icon: path.join(__dirname, '../assets/img/32x32.png')
 	}
-	// eslint-disable-next-line
+
 	const myNotification = new window.Notification(notification.title, notification)
 
 	myNotification.onclick = () => {

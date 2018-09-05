@@ -17,7 +17,6 @@ export default class Home extends Component {
 				<div className="lastvisit">
 					{`Home, last visit was ${store.get('lastLaunched')}`}
 				</div>
-				{/* <br /> */}
 				<div className="grid left">
 					<Github />
 					<Pic pictureFolder={this.props.pictureFolder} />

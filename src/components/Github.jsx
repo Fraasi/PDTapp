@@ -74,7 +74,6 @@ export default class Github extends Component {
 									return (
 										<li key={i + 1}>
 											{i + 1}. <br />Repo: {el.repository.full_name}<br />
-											{/* eslint-disable-next-line */}
 											{el.subject.type}:
 											<span
 												className="linkstyle"

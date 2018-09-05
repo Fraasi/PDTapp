@@ -5,8 +5,6 @@ import { uptime, networkInterfaces } from 'os'
 import { secondsToDhms } from 'futility'
 const store = new Store({ name: 'pdtapp-config' })
 
-// console.log('networkInterfaces', networkInterfaces())
-
 export default class Settings extends Component {
 	constructor() {
 		super()
@@ -48,7 +46,8 @@ export default class Settings extends Component {
 	}
 
 	render() {
-		const { address, mac, family } = networkInterfaces()['Cellular 2'][0]
+		const { address, mac, family } = networkInterfaces().Cellular ? networkInterfaces().Cellular[0] : networkInterfaces()['Cellular 2'][0]
+
 		return (
 			<div className="view-container" id="settings">
 
