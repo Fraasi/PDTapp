@@ -226,7 +226,7 @@ const menuTemplate = [
 					buttons: ['Ok'],
 					browserWindow: true,
 					title: 'Shortcuts',
-					message: 'Views\n Ctrl+H: Home\n Ctrl+C: Calendar\n Ctrl+N: Notebook\n Ctrl+G: Gigs\n Ctrl+S: Settings\n\n In notebook view\n Ctrl+Shift+N: Add new note\n Ctrl+L: All notes list\n Ctrl+Enter: Close/open editmode\n 1-9: Quick jump to note\n Saves automaticly',
+					message: 'Views\n Ctrl+H: Home\n Ctrl+C: Calendar\n Ctrl+N: Notebook\n Ctrl+G: Gigs\n Ctrl+S: Settings\n\nIn notebook view\n Ctrl+Shift+N: Add new note\n Ctrl+L: All notes list\n 1-9: Quick jump to note\n Ctrl+D: Delete open note\n Ctrl+Enter: Close/open editmode\n Saves automaticly',
 
 				}
 				dialog.showMessageBox(options)

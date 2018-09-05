@@ -12,7 +12,7 @@ export default class Notebook extends Component {
 		super()
 		this.state = {
 			notes: store.get('notes'),
-			noteView: 'list',
+			noteView: 'list',						// 'list', 'note', 'edit'
 			currentNote: null,
 		}
 		this.changeEditMode = this.changeEditMode.bind(this)
@@ -40,9 +40,10 @@ export default class Notebook extends Component {
 			this.changeEditMode()
 		} else if (Number(e.key) > 0 && Number(e.key) <= 9 && Number(e.key) <= this.state.notes.length) {
 			this.selectedNote(Number(e.key) - 1)
+		} else if ((this.state.noteView === 'edit' || this.state.noteView === 'note') && e.ctrlKey && e.key === 'd') {
+			this.deleteNote()
 		}
 	}
-
 
 	listBarsClick() {
 		this.setState({
@@ -82,7 +83,6 @@ export default class Notebook extends Component {
 
 	addNewNote() {
 		const text = '<!-- Untitled -->'
-
 		if (this.state.noteView === 'edit') {
 			document.querySelector('.note-editbox').value = text
 		}
