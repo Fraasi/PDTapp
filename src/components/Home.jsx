@@ -6,6 +6,7 @@ import Github from './Github.jsx'
 import Quote from './Quote.jsx'
 import Pic from './Pic.jsx'
 import Moon from './Moon.jsx'
+import NextGigs from './nextGigs.jsx'
 dotenv.config()
 
 const store = new Store({ name: 'pdtapp-config' })
@@ -19,13 +20,14 @@ export default class Home extends Component {
 				</div>
 				<div className="grid left">
 					<Github />
+					<NextGigs gigsObject={this.props.gigsObject} />
 					<Pic pictureFolder={this.props.pictureFolder} />
 				</div>
 				<div className="grid right">
 					<Weather weatherData={this.props.weatherData} weatherCity={this.props.weatherCity} />
 					<Moon weatherData={this.props.weatherData} />
+					<Quote dailyQuote={this.props.dailyQuote} />
 				</div>
-				<Quote dailyQuote={this.props.dailyQuote} />
 			</div>
 		)
 	}

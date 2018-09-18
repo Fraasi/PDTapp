@@ -3,9 +3,12 @@
 	grid-template-columns: 1fr 1fr;  
 	grid-gap: 10px 0px;
 }
-.lastvisit, .quote {
+.lastvisit {
 	grid-column: 1 / -1;
 }
+/* .lastvisit, .quote {
+	grid-column: 1 / -1;
+} */
 .lastvisit {
 	display: grid;
 	grid-template-columns: 1fr auto 1fr;
@@ -21,6 +24,13 @@
 }
 .lastvisit:after {
 	background: linear-gradient(to right, #C7C7C7, transparent)
+}
+.next-gigs ul{
+  /* overflow-x: scroll; */
+  margin-left: 5px;
+}
+.next-gigs li {
+  list-style-type: circle;
 }
 .grid {
 	display: grid;

@@ -51,6 +51,7 @@
 		"no-restricted-globals": 0,
 		"react/no-danger": 0,
 		"no-use-before-define": 0,
-		"prefer-destructuring": 0
+		"prefer-destructuring": 0,
+		"no-shadow": 0
 	}
 }

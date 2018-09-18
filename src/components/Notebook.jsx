@@ -28,6 +28,7 @@ export default class Notebook extends Component {
 	}
 
 	componentWillUnmount() {
+		this.saveToStore()
 		document.removeEventListener('keyup', this.handleHotKeys)
 	}
 
@@ -38,7 +39,7 @@ export default class Notebook extends Component {
 			this.listBarsClick()
 		} else if ((this.state.noteView === 'edit' || this.state.noteView === 'note') && e.ctrlKey && e.key === 'Enter') {
 			this.changeEditMode()
-		} else if (Number(e.key) > 0 && Number(e.key) <= 9 && Number(e.key) <= this.state.notes.length) {
+		} else if (this.state.noteView !== 'edit' && Number(e.key) > 0 && Number(e.key) <= 9 && Number(e.key) <= this.state.notes.length) {
 			this.selectedNote(Number(e.key) - 1)
 		} else if ((this.state.noteView === 'edit' || this.state.noteView === 'note') && e.ctrlKey && e.key === 'd') {
 			this.deleteNote()

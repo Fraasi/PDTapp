@@ -6,7 +6,7 @@ I have no idea what the end product will be like. I'm making this shit up as I g
 ### dependencies so far
 * react
 * fullcalendar.js
-* node-osmosis
+* puppeteer
 * electron-store
 * dotenv
 * showdown
@@ -19,8 +19,8 @@ I have no idea what the end product will be like. I'm making this shit up as I g
   - [x] make random quote api in heroku & fetch a quote
   - [x] random image
   - [x] github notifications
-  - [x] mooninfo
- - [x] **Nav bar**
+  - [x] mooninfo  
+- [x] **Nav bar**
   - [x] hotkeys for views
 - [x] **Calendar** 
   - [x] week month tooltip full text
@@ -34,7 +34,7 @@ I have no idea what the end product will be like. I'm making this shit up as I g
 - [x] **Notebook page**
   - [x] markdown support
   - [x] put to store to keep notes between launches 
-  - [x] hotkeys for save & views
+  - [x] hotkeys for save, delete & views
   - [x] add example note with info on first launch
 - [x] **Settings page**
   - [x] choose pic of the day folder

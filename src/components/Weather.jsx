@@ -47,7 +47,7 @@ export default class Weather extends Component {
 				<fieldset>
 					<legend onClick={this.handleClick}>{name} weather</legend>
 					<ul className="w-list">
-						<li>Temp {main.temp.toFixed(1)}&degC</li>
+						<li>Temp {main.temp.toFixed(1)}&deg;C</li>
 						{
 							weather.map((el, i) => (
 								<li key={i}>{el.description}
@@ -56,7 +56,7 @@ export default class Weather extends Component {
 						}
 						<li>Clouds {clouds.all}%</li>
 						<li>Visibility {visibility}m</li>
-						<li>Wind {wind.speed} m/s @ {Math.round(wind.deg)}&deg
+						<li>Wind {wind.speed} m/s @ {Math.round(wind.deg)}&deg;
 						<img className="fa-icon long-arrow-alt-down" src="./assets/img/long-arrow-alt-down.svg" alt="long-arrow-alt-down.svg" style={{ transform: `rotate(${wind.deg}deg)` }} />
 						</li>
 						<li>Humidity {main.humidity}%</li>

@@ -46,7 +46,8 @@ export default class Settings extends Component {
 	}
 
 	render() {
-		const { address, mac, family } = networkInterfaces().Cellular ? networkInterfaces().Cellular[0] : networkInterfaces()['Cellular 2'][0]
+		const cell = Object.keys(networkInterfaces())[0]
+		const { address, mac, family } = networkInterfaces()[cell][0]
 
 		return (
 			<div className="view-container" id="settings">

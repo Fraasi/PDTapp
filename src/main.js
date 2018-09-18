@@ -17,7 +17,7 @@ const store = new Store({
 		notes: [{
 			title: 'Untitled',
 			dateCreated: 0,
-			rawText: '<!-- Untitled, first word on first line will be the title -->  \n- [x] github flavored markdown supported  \n* saves automaticly  \n* check About -> Shortcuts for hotkeys'
+			rawText: '<!-- Untitled, first word on first line will be the title -->  \n- [x] github flavored markdown supported  \n- [x] saves automaticly  \n- [ ] check About -> Shortcuts for hotkeys'
 		}],
 		pictureFolder: app.getPath('pictures'),
 		weatherCity: null,
@@ -157,7 +157,7 @@ const menuTemplate = [
 			}
 		}, {
 			label: 'Calendar',
-			accelerator: 'Shift+CmdOrCtrl+C',
+			accelerator: 'CmdOrCtrl+K',
 			click(item) {
 				switchView(item)
 			}
@@ -226,7 +226,7 @@ const menuTemplate = [
 					buttons: ['Ok'],
 					browserWindow: true,
 					title: 'Shortcuts',
-					message: 'Views\n Ctrl+H: Home\n Ctrl+C: Calendar\n Ctrl+N: Notebook\n Ctrl+G: Gigs\n Ctrl+S: Settings\n\nIn notebook view\n Ctrl+Shift+N: Add new note\n Ctrl+L: All notes list\n 1-9: Quick jump to note\n Ctrl+D: Delete open note\n Ctrl+Enter: Close/open editmode\n Saves automaticly',
+					message: 'Views\n Ctrl+H: Home\n Ctrl+K: Calendar\n Ctrl+N: Notebook\n Ctrl+G: Gigs\n Ctrl+S: Settings\n\nIn notebook view\n Ctrl+Shift+N: Add new note\n Ctrl+L: All notes list\n 1-9: Quick jump to note\n Ctrl+D: Delete open note\n Ctrl+Enter: Close/open editmode\n Saves automaticly',
 
 				}
 				dialog.showMessageBox(options)

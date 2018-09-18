@@ -8,6 +8,8 @@ import Home from './components/Home.jsx';
 import Settings from './components/Settings.jsx';
 import Notebook from './components/Notebook.jsx';
 import Gigs from './components/Gigs.jsx';
+// import scrape, { scrapeInfo } from './js/gigscraper.js'
+import pupScrape from './js/puppet-scraper.js'
 
 const store = new Store({ name: 'pdtapp-config' })
 
@@ -42,7 +44,7 @@ export default class App extends Component {
 
 		this.handleStateChange = this.handleStateChange.bind(this)
 		this.fetchWeather = this.fetchWeather.bind(this)
-
+		console.count('App constructor runs...')
 		ipcRenderer.on('switchView', (sender, msg) => {
 			this.setState({
 				view: msg.label.toLowerCase(),
@@ -58,6 +60,7 @@ export default class App extends Component {
 	componentDidMount() {
 		this.fetchWeather()
 		this.fetchQuote()
+		if (this.state.gigsObject.visitTre[0] === undefined) pupScrape(this.handleStateChange)
 	}
 
 	getMoondata(lat, lon) {
@@ -106,7 +109,7 @@ export default class App extends Component {
 		if (this.state.dailyQuote.author) return
 		fetch('https://ms-rq-api.herokuapp.com/')
 			.then((data) => {
-				console.log('qdata: ', data)
+				// console.log('qdata: ', data)
 				if (data.status !== 200) return data
 				return data.json()
 			})

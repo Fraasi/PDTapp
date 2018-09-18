@@ -55,7 +55,7 @@
     "fullcalendar": "^3.9.0",
     "futility": "github:fraasi/futility",
     "jquery": "^3.3.1",
-    "osmosis": "^1.1.6",
+    "puppeteer-core": "^1.8.0",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-hot-loader": "^4.2.0",
