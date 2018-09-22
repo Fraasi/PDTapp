@@ -75,9 +75,10 @@ export default class Notebook extends Component {
 	handleEditing(e) {
 		e.persist()
 		const temp = this.state.notes
-		console.log('title: ', e.target.value)
+		const firstLine = e.target.value.match(/^(.*)$/m)[1]
+		const title = firstLine.match(/\w+/) === null ? 'Untitled' : firstLine.match(/\w+/)
 		temp[this.state.currentNote].rawText = e.target.value
-		temp[this.state.currentNote].title = e.target.value.match(/\w+/)[0] ? e.target.value.match(/\w\w+/)[0] : 'tit'
+		temp[this.state.currentNote].title = title
 		this.setState({
 			notes: temp
 		})
