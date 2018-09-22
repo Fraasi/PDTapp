@@ -1,7 +1,7 @@
 ## PDTapp personal desktop app 1.0.0
 
 PDTapp is a 'little' *sideventure*<sup>tm</sup> to learn & build a little personal desktop app with electron.
-I have no idea what the end product will be like. I'm making this shit up as I go along.  
+I have no idea what the end product will be like. I'm making this shit up as I go along & modifying/changing things as I see fit.  
 
 ### dependencies so far
 * react

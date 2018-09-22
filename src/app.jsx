@@ -9,7 +9,7 @@ import Settings from './components/Settings.jsx';
 import Notebook from './components/Notebook.jsx';
 import Gigs from './components/Gigs.jsx';
 // import scrape, { scrapeInfo } from './js/gigscraper.js'
-import pupScrape from './js/puppet-scraper.js'
+import gigScrape from './js/gigscraper.js'
 
 const store = new Store({ name: 'pdtapp-config' })
 
@@ -31,15 +31,7 @@ export default class App extends Component {
 			weatherData: null,
 			dailyQuote: { quote: 'Without dreams you can\'t fucking live.', author: '' },
 			pictureFolder: store.get('pictureFolder'),
-			gigsObject: {
-				dogs: [],
-				vastis: [],
-				huurus: [],
-				kujis: [],
-				hietis: [],
-				maanis: [],
-				visitTre: []
-			}
+			gigsObject: null,
 		}
 
 		this.handleStateChange = this.handleStateChange.bind(this)
@@ -60,7 +52,7 @@ export default class App extends Component {
 	componentDidMount() {
 		this.fetchWeather()
 		this.fetchQuote()
-		if (this.state.gigsObject.visitTre[0] === undefined) pupScrape(this.handleStateChange)
+		if (this.state.gigsObject === null) gigScrape(this.handleStateChange)
 	}
 
 	getMoondata(lat, lon) {

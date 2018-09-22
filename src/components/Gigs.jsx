@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { shell } from 'electron'
-import { handleScrapedData } from '../js/puppet-scraper'
-process.setMaxListeners(15) // some err comes from gigscraper promises,  default 10 exceeded
+import { handleScrapedData } from '../js/gigscraper'
+// process.setMaxListeners(15) // some err comes from gigscraper promises,  default 10 exceeded
 
 export default class Gigs extends Component {
 	constructor(props) {
@@ -24,7 +24,7 @@ export default class Gigs extends Component {
 		return (
 			<div className="view-container" id="gigscraper">
 
-				<div id="time">Puppeteer crawl time: {this.props.gigsObject.puppeteerTime} min</div><br />
+				<div id="puppeteertime">Puppeteer crawl time: {this.props.gigsObject.puppeteerTime} min</div><br />
 
 				<div>
 					<a href="#" onClick={this.handleClick.bind(this, 'http://dogshome.fi/index.php?id=4')}>Dogshome</a>
