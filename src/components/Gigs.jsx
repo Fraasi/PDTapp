@@ -13,7 +13,7 @@ export default class Gigs extends Component {
 	}
 
 	componentDidMount() {
-		handleScrapedData(this.props.gigsObject)
+		if (this.props.gigsObject) handleScrapedData(this.props.gigsObject)
 	}
 
 	handleClick(url) {
@@ -24,7 +24,7 @@ export default class Gigs extends Component {
 		return (
 			<div className="view-container" id="gigscraper">
 
-				<div id="puppeteertime">Puppeteer crawl time: {this.props.gigsObject.puppeteerTime} min</div><br />
+				<div id="puppeteertime">Puppeteer crawl time: {this.props.gigsObject !== null ? this.props.gigsObject.puppeteerTime : ''} min</div><br />
 
 				<div>
 					<a href="#" onClick={this.handleClick.bind(this, 'http://dogshome.fi/index.php?id=4')}>Dogshome</a>
