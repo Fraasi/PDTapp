@@ -1,19 +1,14 @@
 import React, { Component } from 'react'
 import { shell } from 'electron'
 import { handleScrapedData } from '../js/gigscraper'
-// process.setMaxListeners(15) // some err comes from gigscraper promises,  default 10 exceeded
 
 export default class Gigs extends Component {
-	constructor(props) {
-		super(props)
-		this.state = {
-			loading: false,
-			// dataLoaded: (this.props.gigsObject.dogs.length > 1),
-		}
-	}
-
 	componentDidMount() {
 		if (this.props.gigsObject) handleScrapedData(this.props.gigsObject)
+	}
+
+	componentDidUpdate(prevProps) {
+		if (this.props.gigsObject !== prevProps.gigsObject) handleScrapedData(this.props.gigsObject)
 	}
 
 	handleClick(url) {
@@ -25,6 +20,8 @@ export default class Gigs extends Component {
 			<div className="view-container" id="gigscraper">
 
 				<div id="puppeteertime">Puppeteer crawl time: {this.props.gigsObject !== null ? this.props.gigsObject.puppeteerTime : ''} min</div><br />
+
+				{(this.props.gigsObject === null) && <img src="./assets/img/spinner.svg" alt="spinner.svg" id="spinner" />}
 
 				<div>
 					<a href="#" onClick={this.handleClick.bind(this, 'http://dogshome.fi/index.php?id=4')}>Dogshome</a>
@@ -61,7 +58,6 @@ export default class Gigs extends Component {
 					<ul id="visitTre" />
 				</div>
 
-				{this.state.loading && <img src="./assets/img/spinner.svg" alt="spinner.svg" id="spinner" />}
 			</div >
 		)
 	}
