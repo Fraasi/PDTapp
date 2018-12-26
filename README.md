@@ -15,11 +15,10 @@ I have no idea what the end product will be like. I'm making this shit up as I g
 ### todo (or maybe not to, do):
 
 * [x] **Startpage**
-  - [ ] ~~weather~~, remove, see [Saeae](https://github.com/Fraasi/Saeae)
+  - [x] ~~weather & moon info~~, removed because I built [Saeae](https://github.com/Fraasi/Saeae)
   - [x] make random quote api in heroku & fetch a quote
   - [x] random image
   - [x] github notifications
-  - [x] mooninfo  
 - [x] **Nav bar**
   - [x] hotkeys for views
 - [x] **Calendar** 
@@ -27,7 +26,7 @@ I have no idea what the end product will be like. I'm making this shit up as I g
   - [x] monthview recurring shit
   - [x] fit height fix
   - [ ] listview, events coming month with diff color
-  - [ ] add google calendar support (if possible?)
+  - [ ] add google calendar support (if possible?, or maybe find a different calendar)
 - [x] **Gigs page**
   - [x] styling
   - [x] promises promises...
@@ -56,12 +55,11 @@ I have no idea what the end product will be like. I'm making this shit up as I g
 
 ### Note!
 If you want to try this, just clone the repo and do `npm install`,  
-but you need to make .env file at the root and put these inside
+but you need to make .env file at the root and put this inside
 ```
 GIT_OAUTH_TOKEN=<your github token>
-OPENWEATHER_APIKEY=<your openweather api key>
 ```
-to make the weather and github notifications work.
+to make the github notifications work.
 After that just `npm start`.
 If you want to have stuff in the calendar, you need to make calendar-data.js file in src\assets\ folder and read about fullcalendar.js.  
 Example:

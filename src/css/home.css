@@ -6,6 +6,7 @@
 
 .lastvisit {
 	grid-column: 1 / -1; /* keep this on first line to line up things prperly */
+	height: 20px;
 	display: grid;
 	grid-template-columns: 1fr auto 1fr;
 	grid-gap: 10px;

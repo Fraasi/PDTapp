@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { remote } from 'electron'
 import Store from 'electron-store'
 import { uptime, networkInterfaces } from 'os'
-import { secondsToDhms } from 'futility'
+import { secondsToDHMS } from 'futility'
 const store = new Store({ name: 'pdtapp-config' })
 
 export default class Settings extends Component {
@@ -62,7 +62,7 @@ export default class Settings extends Component {
 					<fieldset>
 						<legend>Clear settings</legend>
 						Located at {store.get('storePath')} <br />
-						(picFolder, weatherCity & window position & size, does NOT erase notes)
+						(picFolder & window position & size, does NOT erase notes)
 						<br />
 						<button className="button" onClick={this.clearSettings}>
 							Clear
@@ -77,9 +77,10 @@ export default class Settings extends Component {
 						<div id="circle1" />
 						<div id="circle2" />
 					</div>
+					<br />
 					<div>
 						{`${family}: ${address}  -  ${mac}`} <br />
-						{`Uptime: ${secondsToDhms(uptime(), true)}`}
+						{`Uptime: ${secondsToDHMS(uptime(), true)}`}
 					</div>
 				</div>
 

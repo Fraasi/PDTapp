@@ -33,7 +33,7 @@ export default class NextGigs extends Component {
 		return (
 			<div className="next-gigs">
 				<fieldset>
-					<legend>Next gigs</legend>
+					<legend>Next happenings</legend>
 					<ul>
 						{
 							nextGigs.map((gig, i) => <li key={i} dangerouslySetInnerHTML={{ __html: gig }} />)
