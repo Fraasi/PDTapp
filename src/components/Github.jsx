@@ -33,8 +33,12 @@ export default class Github extends Component {
 			})
 	}
 
-	handleClick(url) {
+	handlePicClick(url) {
 		shell.openExternal(url)
+	}
+
+	handleGitClick() {
+		shell.openExternal('https://github.com/Fraasi/')
 	}
 
 	render() {
@@ -42,7 +46,7 @@ export default class Github extends Component {
 			return (
 				<div className="gits">
 					<fieldset>
-						<legend>No git token :(</legend>
+						<legend onClick={this.handleGitClick}>No git token :(</legend>
 						<img src="./assets/img/spinner.svg" alt="spinner.svg" id="spinner" style={{ position: 'inherit' }} />
 					</fieldset>
 				</div>
@@ -52,7 +56,7 @@ export default class Github extends Component {
 			return (
 				<div className="gits">
 					<fieldset>
-						<legend>Fetching git notifications</legend>
+						<legend onClick={this.handleGitClick}>Fetching git notifications</legend>
 						<img src="./assets/img/spinner.svg" alt="spinner.svg" id="spinner" style={{ position: 'inherit' }} />
 					</fieldset>
 				</div>
@@ -62,7 +66,7 @@ export default class Github extends Component {
 		return (
 			<div className="gits">
 				<fieldset>
-					<legend>
+					<legend onClick={this.handleGitClick} title='Github'>
 						Notifications at GH: {this.state.gitNotifications.length}
 					</legend>
 					<ul>
@@ -77,7 +81,7 @@ export default class Github extends Component {
 											{el.subject.type}:
 											<span
 												className="linkstyle"
-												onClick={() => this.handleClick(url)}
+												onClick={() => this.handlePicClick(url)}
 											>{el.subject.title}
 											</span><br />
 											Reason: {el.reason}

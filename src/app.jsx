@@ -8,7 +8,7 @@ import Settings from './components/Settings.jsx';
 import Notebook from './components/Notebook.jsx';
 import Gigs from './components/Gigs.jsx';
 // import scrape, { scrapeInfo } from './js/gigscraper.js'
-import gigScrape from './js/gigscraper.js'
+// import gigScrape from './js/gigscraper.js'
 
 const store = new Store({ name: 'pdtapp-config' })
 
@@ -26,7 +26,7 @@ export default class App extends Component {
 		this.state = {
 			view: 'home',
 			loading: true,
-			dailyQuote: { quote: 'Without dreams you can\'t fucking live.', author: '' },
+			dailyQuote: { quote: 'Without dreams you can\'t fucking live.', author: 'Ann' },
 			pictureFolder: store.get('pictureFolder'),
 			gigsObject: null,
 		}
@@ -46,8 +46,8 @@ export default class App extends Component {
 	}
 
 	componentDidMount() {
-		this.fetchQuote()
-		if (this.state.gigsObject === null) gigScrape(this.handleStateChange)
+		// this.fetchQuote()
+		// if (this.state.gigsObject === null) gigScrape(this.handleStateChange)
 	}
 
 	fetchQuote() {

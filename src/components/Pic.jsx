@@ -6,7 +6,11 @@ import { shell } from 'electron'
 export default class Pic extends Component {
 	constructor() {
 		super()
-		this.state = { picPath: '', emptyDir: false }
+		this.state = {
+			picPath: '',
+			randomPic: '',
+			emptyDir: false
+		}
 		this.handleImageClick = this.handleImageClick.bind(this)
 	}
 
@@ -31,6 +35,7 @@ export default class Pic extends Component {
 			}
 			this.setState({
 				picPath: `local://${path.join(dir, randomPic)}`,
+				randomPic: randomPic,
 				emptyDir: false
 			})
 		})
@@ -46,7 +51,7 @@ export default class Pic extends Component {
 				<div className="pic">
 					<fieldset>
 						<legend>404</legend>
-						No .jpg or .png files in current directory
+						No .jpg or .png files in currently chosen directory
 					</fieldset>
 				</div>
 			)
@@ -67,7 +72,7 @@ export default class Pic extends Component {
 			<div className="pic">
 				<fieldset>
 					<legend>Pic of the day</legend>
-					<img src={this.state.picPath} alt="pic" style={{ maxWidth: '100%', maxHeight: '100%' }} onClick={this.handleImageClick} />
+					<img src={this.state.picPath} title={this.state.randomPic} alt="pic" style={{ maxWidth: '100%', maxHeight: '100%', cursor: 'pointer' }} onClick={this.handleImageClick} />
 				</fieldset>
 			</div>
 		)
