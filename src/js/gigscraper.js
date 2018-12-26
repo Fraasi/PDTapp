@@ -9,9 +9,7 @@ const dataToSave = {
     vastis: [],
     visitTre: []
   },
-  twitApi: {
-
-  }
+  twitApi: {}
 }
 
 const pupScrapeInfo = {
@@ -68,13 +66,16 @@ export default async function gigScrape(handleStateChange) {
         } else if (url.includes('hiedanranta')) {
           const arr = Array.from(happenings).map(e => e.innerText).filter(string => /\d/.test(string))
           return arr
+          // return 'hietis'
         } else if (url.includes('tampere')) {
           const arr = Array.from(happenings).map((el) => {
             const link = el.querySelector('a').href
             const title = el.querySelector('h4').innerText
             const date = el.querySelector('.event-date').innerText
-            const location = el.querySelector('.event-location').innerText.split(',')
-            const string = `${date} <a href="${link}" class="linkstyle">${title}</a>, ${location[0]}`
+            const location = el.querySelector('.event-location')
+              ? el.querySelector('.event-location').innerText.split(',')
+              : ''
+            const string = `${date} <a href="${link}" class="linkstyle">${title}</a>, ${location}`
             return string
           })
           const sorted = arr.sort((a, b) => {
@@ -86,6 +87,9 @@ export default async function gigScrape(handleStateChange) {
           return sorted
         }
       }, url, selector)
+      .catch((err) => {
+        console.log('caught: ', err)
+      })
 
       await page.close()
       dataToSave.puppeteer[pub] = result
@@ -119,8 +123,8 @@ export default async function gigScrape(handleStateChange) {
     fetch('https://www.facebook.com/api/graphql/', apiOptions[pub])
       .then(blob => blob.json())
       .then((json) => {
-        const data = json.data.page.upcoming_events.edges
         const tempArr = []
+        const data = json.data.page.upcoming_events.edges
         data.forEach((event) => {
           const result = {
             event: event.node.name,
@@ -131,11 +135,6 @@ export default async function gigScrape(handleStateChange) {
           tempArr.push(result)
         })
         dataToSave.twitApi[pub] = tempArr
-        // twitCount++
-        // console.log(`Twitbook'd ${pub} ${twitCount}/${twitCountTo}`)
-        // if (twitCount >= twitCountTo) {
-        //   console.log('gigObject', dataToSave)
-        // }
       })
       .catch((err) => {
         console.log('scrapeTwitApi err', err.toString())

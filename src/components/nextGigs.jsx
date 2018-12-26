@@ -15,10 +15,10 @@ export default class NextGigs extends Component {
 		}
 
 		const nextGigs = []
-		Object.keys(gigsObject).forEach((pub) => {
-			if (pub !== 'puppeteerTime') {
-				Object.keys(gigsObject[pub]).forEach((name) => {
-					gigsObject[pub][name].forEach((el, i) => {
+		Object.keys(gigsObject).forEach((scrape) => {
+			if (scrape !== 'puppeteerTime') {
+				Object.keys(gigsObject[scrape]).forEach((pub) => {
+					gigsObject[scrape][pub].forEach((el, i) => {
 						if (typeof el === 'string' && i === 0) {
 							nextGigs.push(el)
 						} else if (typeof el === 'object' && i === 0) {

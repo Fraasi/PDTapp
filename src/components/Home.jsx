@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
 import Store from 'electron-store'
 import dotenv from 'dotenv'
-import Weather from './Weather.jsx'
 import Github from './Github.jsx'
 import Quote from './Quote.jsx'
 import Pic from './Pic.jsx'
-import Moon from './Moon.jsx'
 import NextGigs from './nextGigs.jsx'
 dotenv.config()
 
@@ -21,13 +19,12 @@ export default class Home extends Component {
 				<div className="grid left">
 					<Github />
 					<NextGigs gigsObject={this.props.gigsObject} />
-					<Pic pictureFolder={this.props.pictureFolder} />
 				</div>
 				<div className="grid right">
-					<Weather weatherData={this.props.weatherData} weatherCity={this.props.weatherCity} />
-					<Moon weatherData={this.props.weatherData} />
+					<Pic pictureFolder={this.props.pictureFolder} />
 					<Quote dailyQuote={this.props.dailyQuote} />
 				</div>
+
 			</div>
 		)
 	}

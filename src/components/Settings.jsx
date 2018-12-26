@@ -9,7 +9,6 @@ export default class Settings extends Component {
 	constructor() {
 		super()
 		this.chooseFolder = this.chooseFolder.bind(this)
-		this.submitCity = this.submitCity.bind(this)
 		this.saveChanges = this.saveChanges.bind(this)
 		this.clearSettings = this.clearSettings.bind(this)
 	}
@@ -20,20 +19,11 @@ export default class Settings extends Component {
 		this.saveChanges('pictureFolder', pathArray[0])
 	}
 
-	submitCity() {
-		const city = document.getElementById('city').value
-		this.saveChanges('weatherCity', city)
-		this.props.fetchWeather(city)
-	}
-
 	clearSettings() {
-		store.set('weatherCity', null)
 		store.set('pictureFolder', null)
 		const win = remote.getCurrentWindow()
 		win.center()
 		this.props.handleStateChange({
-			weatherCity: null,
-			weatherData: null,
 			pictureFolder: null
 		})
 	}
@@ -47,6 +37,7 @@ export default class Settings extends Component {
 
 	render() {
 		const cell = Object.keys(networkInterfaces())[0]
+		console.log('networkInterfaces', networkInterfaces());
 		const { address, mac, family } = networkInterfaces()[cell][0]
 
 		return (
@@ -63,19 +54,6 @@ export default class Settings extends Component {
 						<br />
 						<button className="button" onClick={this.chooseFolder}>
 							Choose a folder
-						</button>
-					</fieldset>
-				</div>
-
-				<div className="weather-dialog">
-					<fieldset>
-						<legend>Current city for weather</legend>
-						{this.props.weatherCity ? this.props.weatherCity : 'Not set'}
-						<br />
-						<input id="city" type="text" placeholder="city" />
-						<br />
-						<button className="button" onClick={this.submitCity}>
-							Submit
 						</button>
 					</fieldset>
 				</div>

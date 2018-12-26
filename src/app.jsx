@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { ipcRenderer, remote } from 'electron';
-import SunCalc from 'suncalc'
 import Store from 'electron-store';
 import Calendar from './components/Calendar.jsx';
 import Navbar from './components/Navbar.jsx';
@@ -27,15 +26,12 @@ export default class App extends Component {
 		this.state = {
 			view: 'home',
 			loading: true,
-			weatherCity: store.get('weatherCity'),
-			weatherData: null,
 			dailyQuote: { quote: 'Without dreams you can\'t fucking live.', author: '' },
 			pictureFolder: store.get('pictureFolder'),
 			gigsObject: null,
 		}
 
 		this.handleStateChange = this.handleStateChange.bind(this)
-		this.fetchWeather = this.fetchWeather.bind(this)
 		console.count('App constructor runs...')
 		ipcRenderer.on('switchView', (sender, msg) => {
 			this.setState({
@@ -50,51 +46,8 @@ export default class App extends Component {
 	}
 
 	componentDidMount() {
-		this.fetchWeather()
 		this.fetchQuote()
 		if (this.state.gigsObject === null) gigScrape(this.handleStateChange)
-	}
-
-	getMoondata(lat, lon) {
-		const date = new Date()
-		return {
-			illumination: SunCalc.getMoonIllumination(date),
-			moonTimes: SunCalc.getMoonTimes(date, lat, lon),
-			moonPosition: SunCalc.getMoonPosition(date, lat, lon)
-		}
-	}
-
-	getSundata(lat, lon) {
-		return SunCalc.getTimes(new Date(), lat, lon)
-	}
-
-	fetchWeather(city) {
-		// if (this.state.weatherData.name) return
-		const url = `http://api.openweathermap.org/data/2.5/weather?q=${city || this.state.weatherCity}&appid=${process.env.OPENWEATHER_APIKEY}&units=metric`
-		fetch(url)
-			.then((response) => {
-				if (!response.ok) throw response
-				return response.json()
-			})
-			.then((json) => {
-				const data = Object.assign(
-					json,
-					{
-						Sun: this.getSundata(json.coord.lat, json.coord.lon),
-						Moon: this.getMoondata(json.coord.lat, json.coord.lon)
-					}
-				)
-				console.log('Weather fetched:', data)
-				this.setState({
-					weatherData: data
-				})
-			})
-			.catch((err) => {
-				console.error(err)
-				this.setState({
-					weatherData: err
-				})
-			})
 	}
 
 	fetchQuote() {
@@ -130,11 +83,8 @@ export default class App extends Component {
 					loading={this.state.loading}
 					handleStateChange={this.handleStateChange}
 					gigsObject={this.state.gigsObject}
-					weatherCity={this.state.weatherCity}
-					weatherData={this.state.weatherData}
 					dailyQuote={this.state.dailyQuote}
 					pictureFolder={this.state.pictureFolder}
-					fetchWeather={this.fetchWeather}
 				/>
 			</div>);
 	}

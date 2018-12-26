@@ -15,7 +15,7 @@ I have no idea what the end product will be like. I'm making this shit up as I g
 ### todo (or maybe not to, do):
 
 * [x] **Startpage**
-  - [x] weather
+  - [ ] ~~weather~~, remove, see [Saeae](https://github.com/Fraasi/Saeae)
   - [x] make random quote api in heroku & fetch a quote
   - [x] random image
   - [x] github notifications
@@ -27,6 +27,7 @@ I have no idea what the end product will be like. I'm making this shit up as I g
   - [x] monthview recurring shit
   - [x] fit height fix
   - [ ] listview, events coming month with diff color
+  - [ ] add google calendar support (if possible?)
 - [x] **Gigs page**
   - [x] styling
   - [x] promises promises...
@@ -75,3 +76,5 @@ exports.calendarData = [
 	}
 ]
 ```
+
+<!-- Cool little app you've got there, the design is kinda boring I would've changed fonts, colors and try to setup a structored way to display data, removed the borders and made background colors instead, removed the top "Home" and putting the date at the bottom since it should not be the key focus. -->
