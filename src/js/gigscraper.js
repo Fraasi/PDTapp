@@ -1,18 +1,22 @@
-const puppeteer = require('puppeteer-core')
-const apiOptions = require('./apiOptions.js')
 const fetch = require('node-fetch')
+const cheerio = require('cheerio')
+const apiOptions = require('./apiOptions.js')
+
 
 const dataToSave = {
-  puppeteer: {
+  cheerio: {
     hietis: [],
     kujis: [],
     vastis: [],
-    visitTre: []
+    visitTre: [],
+    hirvis: [],
+    huurus: []
   },
-  twitApi: {}
+  twitBook: {},
+  scrapeTime: null
 }
 
-const pupScrapeInfo = {
+const cheerioScrapeInfo = {
   hietis: {
     Url: 'https://valiaikainenhiedanranta.fi/tapahtumat/tulevat-tapahtumat',
     Selector: 'article a',
@@ -29,55 +33,51 @@ const pupScrapeInfo = {
     Url: 'https://visittampere.fi/tapahtumakalenteri/',
     Selector: '.events-container .event-block',
   },
+  hirvis: {
+    Url: 'https://www.facebook.com/Hirvitalo-Pispalan-Nykytaiteen-Keskus-202287073132009/',
+    Selector: '.userContentWrapper'
+  },
+  huurus: {
+    Url: 'http://www.huurupiilo.fi/tapahtumat-events/',
+    Selector: '.events-table tr',
+  }
 }
 
+let cheerioCount = 0
+const cheerioCountTo = Object.keys(dataToSave.cheerio).length
+let twitCount = 0
+const twitCountTo = Object.keys(apiOptions).length
 
-export default async function gigScrape(handleStateChange) {
+export default function gigScrape(handleStateChange) {
   const startTime = new Date()
-  puppeteer.launch({
-    // these args seems to resolve all errors
-    args: ["--proxy-server='direct://'", '--proxy-bypass-list=*'],
-    executablePath: 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe'
-  }).then(async (browser) => {
-    let pupCount = 0
-    const pupToCount = Object.keys(dataToSave.puppeteer).length
-    async function puppeteer(url, selector, pub) {
-      const page = await browser.newPage()
-      page.setDefaultNavigationTimeout(60000 * 5)
-      page.addListener('pageerror', (err) => {
-        console.log('pageError', err.toString())
-      })
-      page.addListener('error', (err) => {
-        console.log(`Error: ${err.toString()}`)
-      })
-      await page.goto(url)
-
-      const result = await page.evaluate((url, selector) => {
-        const happenings = document.querySelectorAll(selector)
+  async function cheerioi(url, selector, pub) {
+    const result = await fetch(url)
+      .then(data => data.text())
+      .then((html) => {
+        const $ = cheerio.load(html)
         if (url.includes('kujakolli')) {
-          const arr = Array.from(happenings).map((e) => {
-            const s = e.innerText.split('(')
-            return `${s[1].slice(0, -2)} ${s[0]}`
-          })
+          const arr = $(selector).map((i, el) => {
+            const s = $(el).text().replace(/\n\t/g, '').split('(')
+            return `${s[1].slice(0, -1)} ${s[0]}`
+          }).get()
           return arr
         } else if (url.includes('vastavirta')) {
-          const arr = Array.from(happenings).map(e => e.innerText)
+          const arr = $(selector).map((i, el) => $(el).text()).get()
           return arr
         } else if (url.includes('hiedanranta')) {
-          const arr = Array.from(happenings).map(e => e.innerText).filter(string => /\d/.test(string))
+          const arr = $(selector).map((i, el) => $(el).text()).get().filter(string => !(isNaN(string[0]) || string[0] === '\n'))
           return arr
-          // return 'hietis'
         } else if (url.includes('tampere')) {
-          const arr = Array.from(happenings).map((el) => {
-            const link = el.querySelector('a').href
-            const title = el.querySelector('h4').innerText
-            const date = el.querySelector('.event-date').innerText
-            const location = el.querySelector('.event-location')
-              ? el.querySelector('.event-location').innerText.split(',')
+          const arr = $(selector).map((i, el) => {
+            const link = $('a', el).attr('href')
+            const title = $('h4', el).text()
+            const date = $('.event-date', el).text()
+            const location = $('.event-location', el)
+              ? $('.event-location', el).text().split(',')
               : ''
-            const string = `${date} <a href="${link}" class="linkstyle">${title}</a>, ${location}`
+            const string = `${date} <a href="${link}">${title}</a>, ${location}`
             return string
-          })
+          }).get()
           const sorted = arr.sort((a, b) => {
             // a & b are e.g '12.09.2018 etc...', turn to '20180912' to compare
             const aa = a.slice(0, 10).split('.').reverse().join('')
@@ -85,78 +85,84 @@ export default async function gigScrape(handleStateChange) {
             return aa - bb
           })
           return sorted
+        } else if (url.includes('Hirvi')) {
+          // const arr = $(selector).text()
+          const date = $('[data-testid="story-subtitle"] a abbr').attr('data-utime')
+          const hap = $('[data-ad-preview="message"]').text()
+          const nDate = new Date()
+          const arr = new Date(date * 1000) > nDate.setDate(nDate.getDate() - 7)
+          ? [`${new Date(date * 1000).toLocaleString('en-GB')} - ${hap}`]
+          : ['No recent post from Hirvari']
+          console.log('arr', arr);
+
+          return arr
+
+          // return [arr.replace('SpSonsSoroSituS', ' ')]
+        } else if (url.includes('huuru')) {
+          const arr = $(selector).map((i, el) => $(el).text()).get()
+          arr.shift()
+          return arr
         }
-      }, url, selector)
-      .catch((err) => {
-        console.log('caught: ', err)
+      }).catch((err) => {
+        console.log('scrapeCheerioData err', err.toString())
       })
 
-      await page.close()
-      dataToSave.puppeteer[pub] = result
-      pupCount++
-    //  console.log(`Puppeteered ${pub}, ${pupCount}/${pupToCount}`);
-      if (pupCount === pupToCount) {
-        browser.close()
-        const stopTime = new Date()
-        const time = new Date(stopTime - startTime)
-        const took = time.toLocaleTimeString('us', { hour12: false }).slice(4)
-        dataToSave.puppeteerTime = took
-        console.log('puppeteering took: ', took, dataToSave)
-        handleStateChange({
-          gigsObject: dataToSave
-        })
-      }
-    }
-
-    Object.keys(dataToSave.puppeteer).forEach((pub) => {
-      const url = pupScrapeInfo[pub].Url
-      const selector = pupScrapeInfo[pub].Selector
-      puppeteer(url, selector, pub)
-    })
-
-
-  // twitbook scrape
-  // let twitCount = 0
-  // const twitCountTo = Object.keys(apiOptions).length
+    dataToSave.cheerio[pub] = result
+    cheerioCount++
+    if (cheerioCount === cheerioCountTo) writeDataToFile('Cheerio')
+  }
 
   function scrapeTwitApi(pub) {
     fetch('https://www.facebook.com/api/graphql/', apiOptions[pub])
       .then(blob => blob.json())
       .then((json) => {
         const tempArr = []
-        const data = json.data.page.upcoming_events.edges
-        data.forEach((event) => {
-          const result = {
-            event: event.node.name,
-            startingDateTime: new Date(event.node.startTimestampForDisplay * 1000).toLocaleString('us', { hour12: false }).slice(0, -3),
-            guests: event.node.suggested_event_context_sentence.text,
-            shortTime: event.node.shortTimeLabel,
-          }
-          tempArr.push(result)
-        })
-        dataToSave.twitApi[pub] = tempArr
+        if (json.data.page.upcoming_events === undefined) {
+          tempArr.push({
+            event: `No upcoming events at ${pub}`,
+            startingDateTime: '',
+            guests: '',
+            shortTime: '',
+          })
+        } else {
+          const data = json.data.page.upcoming_events.edges
+          data.forEach((event) => {
+            const result = {
+              event: event.node.name,
+              startingDateTime: new Date(event.node.startTimestampForDisplay * 1000).toLocaleString('en-GB').slice(0, -3),
+              guests: event.node.suggested_event_context_sentence.text,
+              shortTime: event.node.shortTimeLabel,
+            }
+            tempArr.push(result)
+          })
+        }
+
+        dataToSave.twitBook[pub] = tempArr
+        twitCount++
+        if (twitCount === twitCountTo) writeDataToFile('Twitbook')
       })
       .catch((err) => {
-        console.log('scrapeTwitApi err', err.toString())
+        console.log('scrapeTwitApi err', err.toString());
       })
   }
-    Object.keys(apiOptions).forEach((pub) => {
-      scrapeTwitApi(pub)
-    })
-  })
-}
 
-export function handleScrapedData({ twitApi, puppeteer }) {
-	Object.keys(twitApi).forEach((pub) => {
-      const pubEl = document.getElementById(pub)
-      twitApi[pub].forEach((event) => {
-        pubEl.innerHTML += `<li>${event.startingDateTime} ${event.shortTime.includes('-') ? `<b>(${event.shortTime}) </b>` : '-'} ${event.event} - ${event.guests}</li>`
+  Object.keys(dataToSave.cheerio)
+    .forEach((pub) => {
+      const url = cheerioScrapeInfo[pub].Url
+      const selector = cheerioScrapeInfo[pub].Selector
+      cheerioi(url, selector, pub)
+    })
+
+  Object.keys(apiOptions).forEach((pub) => { scrapeTwitApi(pub) })
+
+  function writeDataToFile() {
+    if ((cheerioCount === cheerioCountTo) && (twitCount === twitCountTo)) {
+      const stopTime = new Date()
+      dataToSave.scrapeTime = `${(stopTime - startTime) / 1000}s`
+      console.log(`Scraping done: ${dataToSave}`)
+      handleStateChange({
+        gigsObject: dataToSave
       })
-	})
-	Object.keys(puppeteer).forEach((pub) => {
-      const pubEl = document.getElementById(pub)
-      puppeteer[pub].forEach((happening) => {
-        pubEl.innerHTML += `<li>${happening}</li>`
-      })
-	})
+    }
+  }
 }

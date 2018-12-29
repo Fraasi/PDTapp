@@ -66,7 +66,7 @@ export default class Github extends Component {
 		return (
 			<div className="gits">
 				<fieldset>
-					<legend onClick={this.handleGitClick} title='Github'>
+					<legend onClick={this.handleGitClick} title="Github">
 						Notifications at GH: {this.state.gitNotifications.length}
 					</legend>
 					<ul>

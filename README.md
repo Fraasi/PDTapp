@@ -40,6 +40,7 @@ I have no idea what the end product will be like. I'm making this shit up as I g
   - [x] choose pic of the day folder
   - [x] choose weather city
   - [x] clear settings file button
+- [ ] **Quick links page**
 - [x] **Main.js + other**
   - [x] icon
   - [x] system tray

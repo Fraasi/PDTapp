@@ -7,33 +7,28 @@ export default class NextGigs extends Component {
 			return (
 				<div className="next-gigs">
 					<fieldset>
-						<legend>Fetching gigs (should take around 30 sec)</legend>
+						<legend>Fetching gigs (should take around 5-15 sec)</legend>
 						<img src="./assets/img/spinner.svg" alt="spinner.svg" id="spinner" style={{ position: 'inherit' }} />
 					</fieldset>
 				</div>
 			)
 		}
 
+		const { scrapeTime, cheerio, twitBook } = gigsObject
 		const nextGigs = []
-		Object.keys(gigsObject).forEach((scrape) => {
-			if (scrape !== 'puppeteerTime') {
-				Object.keys(gigsObject[scrape]).forEach((pub) => {
-					gigsObject[scrape][pub].forEach((el, i) => {
-						if (typeof el === 'string' && i === 0) {
-							nextGigs.push(el)
-						} else if (typeof el === 'object' && i === 0) {
-							const string = `${el.startingDateTime} ${el.shortTime.includes('-') ? `<b>(${el.shortTime}) </b>` : '-'} ${el.event} - ${el.guests}`
-							nextGigs.push(string)
-						}
-					})
-				})
-			}
+
+		Object.keys(cheerio).forEach((pub) => {
+			nextGigs.push(cheerio[pub][0])
+		})
+
+		Object.keys(twitBook).forEach((pub) => {
+			nextGigs.push(twitBook[pub][0].event)
 		})
 
 		return (
 			<div className="next-gigs">
 				<fieldset>
-					<legend>Next happenings</legend>
+					<legend>Next happenings, {scrapeTime}</legend>
 					<ul>
 						{
 							nextGigs.map((gig, i) => <li key={i} dangerouslySetInnerHTML={{ __html: gig }} />)
