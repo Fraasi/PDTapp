@@ -35,7 +35,7 @@ export default class Pic extends Component {
 			}
 			this.setState({
 				picPath: `local://${path.join(dir, randomPic)}`,
-				randomPic: randomPic,
+				randomPic,
 				emptyDir: false
 			})
 		})

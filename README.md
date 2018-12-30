@@ -40,7 +40,10 @@ I have no idea what the end product will be like. I'm making this shit up as I g
   - [x] choose pic of the day folder
   - [x] choose weather city
   - [x] clear settings file button
-- [ ] **Quick links page**
+- [x] **Laptop page**
+  - [ ] Quick links
+  - [ ] terminal
+  - [ ] hmm, node cli, spawn, exec?
 - [x] **Main.js + other**
   - [x] icon
   - [x] system tray
@@ -50,6 +53,7 @@ I have no idea what the end product will be like. I'm making this shit up as I g
   - [x] loader/spinner
   - [x] notification script  (propably waste of time)
   - [x] (esLint, airBnB) => new Promise().resolve(hell)  
+  - [ ] global shortcut to copy clipboard to a note
 
 #### Screenshot of the home page so far  
 ![2018-06-10_2009.png](src/assets/img/2018-06-10_2009.png)

@@ -8,8 +8,15 @@ export default class Gigs extends Component {
 	}
 
 	render() {
-		const { twitBook, cheerio } = this.props.gigsObject
+		if (this.props.gigsObject == null) {
+			return (
+				<div className="view-container" id="gigscraper">
+					Dev mode, gig fetch disabled.
+				</div>
+			)
+		}
 
+		const { twitBook, cheerio } = this.props.gigsObject
 		return (
 			<div className="view-container" id="gigscraper">
 

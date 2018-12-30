@@ -7,7 +7,7 @@ export default class NextGigs extends Component {
 			return (
 				<div className="next-gigs">
 					<fieldset>
-						<legend>Fetching gigs (should take around 5-15 sec)</legend>
+						<legend>Fetching gigs (5 ~ 15 sec)</legend>
 						<img src="./assets/img/spinner.svg" alt="spinner.svg" id="spinner" style={{ position: 'inherit' }} />
 					</fieldset>
 				</div>

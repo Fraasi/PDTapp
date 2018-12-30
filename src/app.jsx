@@ -1,13 +1,14 @@
-import React, { Component } from 'react';
-import { ipcRenderer, remote } from 'electron';
-import Store from 'electron-store';
-import Calendar from './components/Calendar.jsx';
-import Navbar from './components/Navbar.jsx';
-import Home from './components/Home.jsx';
-import Settings from './components/Settings.jsx';
-import Notebook from './components/Notebook.jsx';
-import Gigs from './components/Gigs.jsx';
-import gigScrape from './js/gigscraper.js'
+import React, { Component } from 'react'
+import { ipcRenderer, remote } from 'electron'
+import Store from 'electron-store'
+import Calendar from './components/Calendar.jsx'
+import Navbar from './components/Navbar.jsx'
+import Home from './components/Home.jsx'
+import Settings from './components/Settings.jsx'
+import Notebook from './components/Notebook.jsx'
+import Gigs from './components/Gigs.jsx'
+import Laptop from './components/Laptop.jsx'
+
 
 const store = new Store({ name: 'pdtapp-config' })
 
@@ -16,14 +17,15 @@ const components = {
 	calendar: Calendar,
 	notebook: Notebook,
 	gigs: Gigs,
-	settings: Settings
+	settings: Settings,
+	laptop: Laptop
 }
 
 export default class App extends Component {
 	constructor() {
 		super()
 		this.state = {
-			view: 'home',
+			view: 'laptop',
 			loading: true,
 			dailyQuote: { quote: 'Without dreams you can\'t fucking live.', author: 'Ann' },
 			pictureFolder: store.get('pictureFolder'),
@@ -46,7 +48,7 @@ export default class App extends Component {
 
 	componentDidMount() {
 		// this.fetchQuote()
-		if (this.state.gigsObject === null) gigScrape(this.handleStateChange)
+		// if (this.state.gigsObject === null) gigScrape(this.handleStateChange)
 	}
 
 	fetchQuote() {
@@ -85,7 +87,7 @@ export default class App extends Component {
 					dailyQuote={this.state.dailyQuote}
 					pictureFolder={this.state.pictureFolder}
 				/>
-			</div>);
+			</div>)
 	}
 }
 

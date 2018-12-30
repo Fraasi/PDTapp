@@ -174,6 +174,12 @@ const menuTemplate = [
 				switchView(item)
 			}
 		}, {
+			label: 'Laptop',
+			accelerator: 'CmdOrCtrl+L',
+			click(item) {
+				switchView(item)
+			}
+		}, {
 			label: 'Settings',
 			accelerator: 'CmdOrCtrl+S',
 			click(item) {
@@ -226,7 +232,7 @@ const menuTemplate = [
 					buttons: ['Ok'],
 					browserWindow: true,
 					title: 'Shortcuts',
-					message: 'Views\n Ctrl+H: Home\n Ctrl+K: Calendar\n Ctrl+N: Notebook\n Ctrl+G: Gigs\n Ctrl+S: Settings\n\nIn notebook view\n Ctrl+Shift+N: Add new note\n Ctrl+L: All notes list\n 1-9: Quick jump to note\n Ctrl+D: Delete open note\n Ctrl+Enter: Close/open editmode\n Saves automaticly',
+					message: 'Views\n Ctrl+H: Home\n Ctrl+K: Calendar\n Ctrl+N: Notebook\n Ctrl+G: Gigs\n Ctrl+L: Laptop\n Ctrl+S: Settings\n\nIn Notebook view\n Ctrl+Shift+N: Add new note\n Ctrl+L: All notes list\n 1-9: Quick jump to note\n Ctrl+D: Delete open note\n Ctrl+Enter: Close/open editmode\n Saves automatically\n\nIn Terminal view\n Ctrl+Enter: run code',
 
 				}
 				dialog.showMessageBox(options)

@@ -9,6 +9,7 @@
 @import 'atomspinner.css';
 @import 'moon.css';
 @import 'settings.css';
+@import 'laptop.css';
 
 /* global styles here */
 
@@ -57,5 +58,14 @@ body {
 	to {
 		transform: rotate(360deg);
 	}
+}
+
+fieldset {
+	border-radius: 5px;
+  border: 2px solid dimgrey;
+}
+
+legend {
+	padding: 0px 4px;
 }
 
