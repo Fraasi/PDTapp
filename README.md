@@ -17,7 +17,7 @@ I have no idea what the end product will be like. I'm making this shit up as I g
 * [x] **Startpage**
   - [x] ~~weather & moon info~~, removed because I built [Saeae](https://github.com/Fraasi/Saeae)
   - [x] make random quote api in heroku & fetch a quote
-  - [x] random image
+  - [x] random image from a folder
   - [x] github notifications
 - [x] **Nav bar**
   - [x] hotkeys for views
@@ -35,12 +35,13 @@ I have no idea what the end product will be like. I'm making this shit up as I g
   - [x] markdown support
   - [x] put to store to keep notes between launches 
   - [x] hotkeys for save, delete & views
+    - [ ] ctrl+L conflict
   - [x] add example note with info on first launch
 - [x] **Settings page**
   - [x] choose pic of the day folder
   - [x] choose weather city
   - [x] clear settings file button
-- [x] **Laptop page**
+- [x] **Laptop page** (rename to terminal?)
   - [ ] Quick links
   - [ ] terminal
   - [ ] hmm, node cli, spawn, exec?

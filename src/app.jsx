@@ -8,6 +8,7 @@ import Settings from './components/Settings.jsx'
 import Notebook from './components/Notebook.jsx'
 import Gigs from './components/Gigs.jsx'
 import Laptop from './components/Laptop.jsx'
+import notify from './js/notification'
 
 
 const store = new Store({ name: 'pdtapp-config' })
@@ -72,6 +73,7 @@ export default class App extends Component {
 
 	handleStateChange(newState) {
 		this.setState(newState)
+		notify('New state', newState.view)
 	}
 
 	render() {

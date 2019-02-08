@@ -54,6 +54,7 @@ async function createWindow() {
 		icon: path.join(__dirname, 'assets/icons/32x32.png'),
 		show: false,
 		titleBarStyle: 'hidden',
+		nodeIntegration: true,
 	}).on('ready-to-show', () => {
 		win.show()
 		win.focus()
@@ -128,6 +129,14 @@ async function createWindow() {
 	win.on('resize', () => {
 		debounced()
 	})
+
+	const ret = globalShortcut.register('CommandOrControl+X', () => {
+    console.log('CommandOrControl+X is pressed')
+  })
+
+  if (!ret) {
+    console.log('registration failed')
+  }
 
 	protocol.registerFileProtocol('local', (request, callback) => {
 		const url = request.url.substr(8)

@@ -1,7 +1,7 @@
 const path = require('path')
 
 // only in reneder process
-exports.notify = (title, body) => {
+export default (title, body) => {
 	const notification = {
 		title: title || 'PDTapp says...',
 		body: body || 'PDTapp ready to go',
