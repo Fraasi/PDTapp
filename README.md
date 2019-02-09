@@ -1,4 +1,4 @@
-## PDTapp personal desktop app 1.0.0
+## PDTapp personal desktop app 1.x.x
 
 PDTapp is a 'little' *sideventure*<sup>tm</sup> to learn & build a little personal desktop app with electron.
 I have no idea what the end product will be like. I'm making this shit up as I go along & modifying/changing things as I see fit.  
@@ -11,6 +11,8 @@ I have no idea what the end product will be like. I'm making this shit up as I g
 * dotenv
 * showdown
 * suncalc
+* cheerio
+* [futility](https://github.com/Fraasi/futility)
 
 ### todo (or maybe not to, do):
 
@@ -54,7 +56,7 @@ I have no idea what the end product will be like. I'm making this shit up as I g
   - [x] loader/spinner
   - [x] notification script  (propably waste of time)
   - [x] (esLint, airBnB) => new Promise().resolve(hell)  
-  - [ ] global shortcut to copy clipboard to a note
+  - [x] global shortcut to copy clipboard to a note
 
 #### Screenshot of the home page so far  
 ![2018-06-10_2009.png](src/assets/img/2018-06-10_2009.png)
