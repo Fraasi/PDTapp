@@ -1,7 +1,7 @@
 import path from 'path'
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer'
 import { enableLiveReload } from 'electron-compile'
-import { app, BrowserWindow, Menu, dialog, globalShortcut, Tray, shell, protocol } from 'electron'
+import { app, BrowserWindow, Menu, dialog, globalShortcut, Tray, shell, protocol, Notification, clipboard } from 'electron'
 import Store from 'electron-store'
 
 const store = new Store({
@@ -108,10 +108,6 @@ async function createWindow() {
 		if (process.platform !== 'darwin') app.quit()
 	})
 
-	// win.webContents.on('did-finish-load', () => {
-	// notify('main sez', 'webcontents finished loading')
-	// })
-
 	let timer
 	function debounced() {
 		clearTimeout(timer)
@@ -130,8 +126,25 @@ async function createWindow() {
 		debounced()
 	})
 
-	const ret = globalShortcut.register('CommandOrControl+X', () => {
-    console.log('CommandOrControl+X is pressed')
+	const ret = globalShortcut.register('CommandOrControl+B', () => {
+		const clipboardText = clipboard.readText()
+		const notif = new Notification({
+			title: 'Clipboard to note',
+			body: clipboardText,
+			icon: path.join(__dirname, 'assets/icons/32x32.png'),
+		})
+		notif.show()
+		const notes = store.get('notes')
+		notes.push({
+			title: clipboardText.match(/\w+/),
+			dateCreated: Date.now(),
+			rawText: clipboardText,
+		})
+		store.set('notes', notes)
+		notif.on('click', () => {
+			win.focus()
+			switchView({ label: 'Notebook' })
+		})
   })
 
   if (!ret) {
