@@ -7,7 +7,7 @@ import Home from './components/Home.jsx'
 import Settings from './components/Settings.jsx'
 import Notebook from './components/Notebook.jsx'
 import Gigs from './components/Gigs.jsx'
-import Laptop from './components/Laptop.jsx'
+import Terminal from './components/Terminal.jsx'
 
 
 const store = new Store({ name: 'pdtapp-config' })
@@ -18,14 +18,14 @@ const components = {
 	notebook: Notebook,
 	gigs: Gigs,
 	settings: Settings,
-	laptop: Laptop
+	terminal: Terminal
 }
 
 export default class App extends Component {
 	constructor() {
 		super()
 		this.state = {
-			view: 'laptop',
+			view: 'terminal',
 			loading: true,
 			dailyQuote: { quote: 'Without dreams you can\'t fucking live.', author: 'Ann' },
 			pictureFolder: store.get('pictureFolder'),

@@ -13,6 +13,7 @@ I have no idea what the end product will be like. I'm making this shit up as I g
 * suncalc
 * cheerio
 * [futility](https://github.com/Fraasi/futility)
+* xterm + node-pty
 
 ### todo (or maybe not to, do):
 
@@ -43,10 +44,9 @@ I have no idea what the end product will be like. I'm making this shit up as I g
   - [x] choose pic of the day folder
   - [x] choose weather city
   - [x] clear settings file button
-- [x] **Laptop page** (rename to terminal?)
+- [x] **Terminal page**
   - [ ] Quick links
-  - [ ] terminal
-  - [ ] hmm, node cli, spawn, exec?
+  - [x] terminal emulator
 - [x] **Main.js + other**
   - [x] icon
   - [x] system tray

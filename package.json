@@ -56,12 +56,14 @@
     "fullcalendar": "^3.9.0",
     "futility": "github:fraasi/futility",
     "jquery": "^3.3.1",
+    "node-pty": "^0.8.1",
     "puppeteer-core": "^1.8.0",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-hot-loader": "^4.2.0",
     "showdown": "^1.8.6",
-    "suncalc": "^1.8.0"
+    "suncalc": "^1.8.0",
+    "xterm": "^3.11.0"
   },
   "devDependencies": {
     "babel-plugin-transform-async-to-generator": "^6.24.1",
@@ -73,7 +75,7 @@
     "electron-prebuilt-compile": "4.0.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
-    "eslint-plugin-import": "^2.12.0",
+    "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.8.2",
     "node-fetch": "^2.1.2"

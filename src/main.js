@@ -54,7 +54,11 @@ async function createWindow() {
 		icon: path.join(__dirname, 'assets/icons/32x32.png'),
 		show: false,
 		titleBarStyle: 'hidden',
-		nodeIntegration: true,
+		webPreferences: {
+			nodeIntegration: true,
+			// webSecurity: true,
+			// contextIsolation: true,
+		}
 	}).on('ready-to-show', () => {
 		win.show()
 		win.focus()
@@ -196,8 +200,8 @@ const menuTemplate = [
 				switchView(item)
 			}
 		}, {
-			label: 'Laptop',
-			accelerator: 'CmdOrCtrl+L',
+			label: 'Terminal',
+			accelerator: 'CmdOrCtrl+T',
 			click(item) {
 				switchView(item)
 			}
@@ -254,7 +258,7 @@ const menuTemplate = [
 					buttons: ['Ok'],
 					browserWindow: true,
 					title: 'Shortcuts',
-					message: 'Views\n Ctrl+H: Home\n Ctrl+K: Calendar\n Ctrl+N: Notebook\n Ctrl+G: Gigs\n Ctrl+L: Laptop\n Ctrl+S: Settings\n\nIn Notebook view\n Ctrl+Shift+N: Add new note\n Ctrl+L: All notes list\n 1-9: Quick jump to note\n Ctrl+D: Delete open note\n Ctrl+Enter: Close/open editmode\n Saves automatically\n\nIn Terminal view\n Ctrl+Enter: run code',
+					message: 'Views\n Ctrl+H: Home\n Ctrl+K: Calendar\n Ctrl+N: Notebook\n Ctrl+G: Gigs\n Ctrl+T: Terminal\n Ctrl+S: Settings\n\nIn Notebook view\n Ctrl+Shift+N: Add new note\n Ctrl+L: All notes list\n 1-9: Quick jump to note\n Ctrl+D: Delete open note\n Ctrl+Enter: Close/open editmode\n Saves automatically\n\nIn Terminal view\n Ctrl+Enter: run code',
 
 				}
 				dialog.showMessageBox(options)

@@ -1,0 +1,14 @@
+#laptop {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+}
+
+.laptop-img {
+  height: 20px;
+  width: 20px;
+  margin: 0px 5px;
+}
+
+.links {
+  margin-bottom: 10px;
+}
