@@ -1,47 +1,56 @@
 import React, { Component } from 'react'
-// import { shell } from 'electron'
-// import { exec } from 'child_process'
+import { ipcRenderer } from 'electron'
 import { Terminal as XTerminal } from 'xterm'
 import * as fit from 'xterm/lib/addons/fit/fit'
 const pty = require('node-pty') // only require works
-
-// import fs from 'fs'
-// import path from 'path'
 
 
 export default class Terminal extends Component {
 	constructor() {
 		super()
-		this.state = {
-		}
 		this.xterm = new XTerminal({
 			cursorStyle: 'bar',
 			cursorBlink: true,
-			cols: 55,
-			rows: 20
+			cols: 60,
+			rows: 20,
 		})
 		XTerminal.applyAddon(fit)
 		this.ptyProcess = pty.spawn('bash.exe', [], {
 			name: 'xterm',
-			cols: 55,
+			cols: 60,
 			rows: 20,
 			cwd: process.cwd(),
 			env: process.env,
 		})
+		this.terminalRef = React.createRef()
+		ipcRenderer.on('windowMove/Resize', (s, d) => {
+			// console.log('d:', d)
+			// console.log(this.xterm._core.renderer.dimensions.actualCellWidth)
+			this.xterm.fit()
+		})
+		this.handlePaste = this.handlePaste.bind(this)
 	}
 
 	componentDidMount() {
-		this.xterm.open(document.getElementById('terminal'))
-		this.xterm.fit()
+		this.xterm.open(this.terminalRef.current)
+		this.xterm.focus()
+		console.log('xterm PID:', this.xterm.pid)
 		this.xterm.on('key', (key) => {
 			this.ptyProcess.write(key)
 		})
 		this.ptyProcess.on('data', (data) => {
 			this.xterm.write(data)
 		});
+	}
 
-		// ptyProcess.resize(100, 40);
-		// ptyProcess.write('ls\r');
+	componentWillUnmount() {
+		this.xterm.dispose()
+		this.ptyProcess.kill()
+	}
+
+	async handlePaste() {
+		const clipboard = await navigator.clipboard.readText()
+		this.ptyProcess.write(clipboard)
 	}
 
 	render() {
@@ -58,7 +67,7 @@ export default class Terminal extends Component {
 					<legend>
 						<img src="./assets/img/terminal.svg" alt="" className="laptop-img" />
 					</legend>
-					<div id="terminal" />
+					<div id="terminal" ref={this.terminalRef} onDoubleClick={this.handlePaste} />
 				</fieldset>
 			</div>
 		)
