@@ -1,14 +1,12 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-export default class Quote extends Component {
-	render() {
-		const { quote, author } = this.props.dailyQuote
+export default function Quote({ dailyQuote: { quote, author } }) {
 
-		if (quote === null) {
+		if (quote === undefined) {
 			return (
 				<div className="quote">
 					<fieldset>
-						<legend>Fetching quotes</legend>
+						<legend>Fetching quote</legend>
 						<img src="./assets/img/spinner.svg" alt="spinner.svg" id="spinner" style={{ position: 'inherit' }} />
 					</fieldset>
 				</div>
@@ -29,4 +27,3 @@ export default class Quote extends Component {
 			</div>
 		)
 	}
-}

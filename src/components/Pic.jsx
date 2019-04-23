@@ -15,8 +15,9 @@ export default class Pic extends Component {
 	}
 
 	componentDidMount() {
-		if (!this.props.pictureFolder) return
-		const dir = this.props.pictureFolder
+		const { pictureFolder } = this.props
+		if (!pictureFolder) return
+		const dir = pictureFolder
 		const files = []
 
 		fs.readdir(dir, (err, list) => {
@@ -42,11 +43,13 @@ export default class Pic extends Component {
 	}
 
 	handleImageClick() {
-		shell.openExternal(this.state.picPath.substring(8))
+		const { picPath } = this.state
+		shell.openExternal(picPath.substring(8))
 	}
 
 	render() {
-		if (this.state.emptyDir) {
+		const { emptyDir, picPath, randomPic } = this.state
+		if (emptyDir) {
 			return (
 				<div className="pic">
 					<fieldset>
@@ -57,11 +60,11 @@ export default class Pic extends Component {
 			)
 		}
 
-		if (this.state.picPath === '') {
+		if (picPath === '') {
 			return (
 				<div className="pic">
 					<fieldset>
-						<legend>Fetching pic</legend>
+						<legend>No folder selected</legend>
 						<img src="./assets/img/spinner.svg" alt="spinner.svg" id="spinner" style={{ position: 'inherit' }} />
 					</fieldset>
 				</div>
@@ -72,7 +75,7 @@ export default class Pic extends Component {
 			<div className="pic">
 				<fieldset>
 					<legend>Pic of the day</legend>
-					<img src={this.state.picPath} title={this.state.randomPic} alt="pic" style={{ maxWidth: '100%', maxHeight: '100%', cursor: 'pointer' }} onClick={this.handleImageClick} />
+					<img src={picPath} title={randomPic} alt="pic" style={{ maxWidth: '100%', maxHeight: '100%', cursor: 'pointer' }} onClick={this.handleImageClick} />
 				</fieldset>
 			</div>
 		)

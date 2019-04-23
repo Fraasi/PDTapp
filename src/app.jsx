@@ -2,12 +2,15 @@ import React, { Component } from 'react'
 import { ipcRenderer, remote } from 'electron'
 import Store from 'electron-store'
 // import Calendar from './components/Calendar.jsx'
+import dotenv from 'dotenv'
 import Navbar from './components/Navbar.jsx'
 import Home from './components/Home.jsx'
 import Settings from './components/Settings.jsx'
 import Notebook from './components/Notebook.jsx'
 import Gigs from './components/Gigs.jsx'
 import Terminal from './components/Terminal.jsx'
+dotenv.config()
+// import gigScrape from './js/gigscraper.js'
 
 
 const store = new Store({ name: 'pdtapp-config' })
@@ -30,7 +33,7 @@ export default class App extends Component {
 			view: store.get('storeView'),
 			storeView: store.get('storeView'),
 			loading: true,
-			dailyQuote: { quote: 'Without dreams you can\'t fucking live.', author: 'Ann' },
+			dailyQuote: {},
 			pictureFolder: store.get('pictureFolder'),
 			gigsObject: null,
 		}
@@ -50,12 +53,13 @@ export default class App extends Component {
 	}
 
 	componentDidMount() {
-		// this.fetchQuote()
+		this.fetchQuote()
 		// if (this.state.gigsObject === null) gigScrape(this.handleStateChange)
 	}
 
 	fetchQuote() {
-		if (this.state.dailyQuote.author) return
+		const { dailyQuote: { author } } = this.state
+		if (author) return
 		fetch('https://ms-rq-api.herokuapp.com/')
 			.then((data) => {
 				// console.log('qdata: ', data)
@@ -78,20 +82,24 @@ export default class App extends Component {
 	}
 
 	render() {
-		const View = components[this.state.view]
+		const {
+			view, loading, gigsObject, dailyQuote, pictureFolder, storeView
+		} = this.state
+		const View = components[view]
 
 		return (
 			<div id="app-container">
 				<Navbar handleStateChange={this.handleStateChange} />
 				<View
-					loading={this.state.loading}
+					loading={loading}
 					handleStateChange={this.handleStateChange}
-					gigsObject={this.state.gigsObject}
-					dailyQuote={this.state.dailyQuote}
-					pictureFolder={this.state.pictureFolder}
+					gigsObject={gigsObject}
+					dailyQuote={dailyQuote}
+					pictureFolder={pictureFolder}
 					views={views}
-					storeView={this.state.storeView}
+					storeView={storeView}
 				/>
-			</div>)
+			</div>
+		)
 	}
 }

@@ -4,7 +4,6 @@ import Store from 'electron-store'
 
 showdown.setFlavor('github')
 const converter = new showdown.Converter()
-// console.log(showdown.getOptions())
 const store = new Store({ name: 'pdtapp-config' })
 
 export default class Notebook extends Component {
@@ -33,15 +32,16 @@ export default class Notebook extends Component {
 	}
 
 	handleHotKeys(e) {
+		const { noteView, notes } = this.state
 		if (e.ctrlKey && e.shiftKey && e.key === 'N') {
 			this.addNewNote()
 		} else if (e.ctrlKey && e.key === 'l') {
 			this.listBarsClick()
-		} else if ((this.state.noteView === 'edit' || this.state.noteView === 'note') && e.ctrlKey && e.key === 'Enter') {
+		} else if ((noteView === 'edit' || noteView === 'note') && e.ctrlKey && e.key === 'Enter') {
 			this.changeEditMode()
-		} else if (this.state.noteView !== 'edit' && Number(e.key) > 0 && Number(e.key) <= 9 && Number(e.key) <= this.state.notes.length) {
+		} else if (noteView !== 'edit' && Number(e.key) > 0 && Number(e.key) <= 9 && Number(e.key) <= notes.length) {
 			this.selectedNote(Number(e.key) - 1)
-		} else if ((this.state.noteView === 'edit' || this.state.noteView === 'note') && e.ctrlKey && e.key === 'd') {
+		} else if ((noteView === 'edit' || noteView === 'note') && e.ctrlKey && e.key === 'd') {
 			this.deleteNote()
 		}
 	}
@@ -55,11 +55,12 @@ export default class Notebook extends Component {
 	}
 
 	changeEditMode() {
-		if (this.state.noteView === 'note') {
+		const { noteView } = this.state
+		if (noteView === 'note') {
 			this.setState({
 				noteView: 'edit'
 			})
-		} else if (this.state.noteView === 'edit') {
+		} else if (noteView === 'edit') {
 			this.setState({
 				noteView: 'note'
 			}, () => {
@@ -69,24 +70,27 @@ export default class Notebook extends Component {
 	}
 
 	saveToStore() {
-		store.set('notes', this.state.notes)
+		const { notes } = this.state
+		store.set('notes', notes)
 	}
 
 	handleEditing(e) {
 		e.persist()
-		const temp = this.state.notes
+		const { notes, currentNote } = this.state
+		const temp = [...notes]
 		const firstLine = e.target.value.match(/^(.*)$/m)[1]
 		const title = firstLine.match(/\w+/) === null ? 'Untitled' : firstLine.match(/\w+/)
-		temp[this.state.currentNote].rawText = e.target.value
-		temp[this.state.currentNote].title = title
+		temp[currentNote].rawText = e.target.value
+		temp[currentNote].title = title
 		this.setState({
 			notes: temp
 		})
 	}
 
 	addNewNote() {
+		const { notes, noteView } = this.state
 		const text = '<!-- Untitled -->'
-		if (this.state.noteView === 'edit') {
+		if (noteView === 'edit') {
 			document.querySelector('.note-editbox').value = text
 		}
 		const newNote = {
@@ -95,9 +99,9 @@ export default class Notebook extends Component {
 			rawText: text,
 		}
 		this.setState({
-			notes: [...this.state.notes, newNote],
+			notes: [...notes, newNote],
 			noteView: 'edit',
-			currentNote: this.state.notes.length
+			currentNote: notes.length
 		})
 	}
 
@@ -106,7 +110,8 @@ export default class Notebook extends Component {
 		if (!conf) return
 
 		this.setState((prevState) => {
-			prevState.notes.splice(this.state.currentNote, 1)
+			const { currentNote } = this.state
+			prevState.notes.splice(currentNote, 1)
 			return {
 				currentNote: null,
 				noteView: 'list',
@@ -127,12 +132,14 @@ export default class Notebook extends Component {
 	}
 
 	parseTitle() {
-		return this.state.noteView === 'list' ?
-			`${this.state.notes.length} notes - ${this.handleDate()}` :
-			`${this.state.notes[this.state.currentNote].title} - ${this.handleDate(this.state.notes[this.state.currentNote].dateCreated)}`
+		const { noteView, notes, currentNote } = this.state
+		return noteView === 'list'
+			? `${notes.length} notes - ${this.handleDate()}`
+			: `${notes[currentNote].title} - ${this.handleDate(notes[currentNote].dateCreated)}`
 	}
 
 	render() {
+		const { noteView, notes, currentNote } = this.state
 		return (
 			<div className="view-container" id="notebook">
 
@@ -146,31 +153,33 @@ export default class Notebook extends Component {
 						<img className="fa-icon bars" src="./assets/img/bars.svg" alt="bars.svg" title="Notes list" style={{ verticalAlign: 'baseline', float: 'left' }} onClick={this.listBarsClick} />
 
 						{
-							this.state.noteView !== 'list' &&
-							<img className="fa-icon minus-square" src="./assets/img/minus-square.svg" alt="minus-square.svg" title="Delete note" style={{ verticalAlign: '10%', float: 'right' }} onClick={this.deleteNote} />
+							noteView !== 'list'
+							&& <img className="fa-icon minus-square" src="./assets/img/minus-square.svg" alt="minus-square.svg" title="Delete note" style={{ verticalAlign: '10%', float: 'right' }} onClick={this.deleteNote} />
 						}
 
 						{
-							this.state.noteView !== 'list' &&
-							<img className="fa-icon edit" src="./assets/img/edit.svg" alt="edit.svg" title="Open/close edit" style={{ verticalAlign: '10%', float: 'right' }} onClick={this.changeEditMode} />
+							noteView !== 'list'
+							&& <img className="fa-icon edit" src="./assets/img/edit.svg" alt="edit.svg" title="Open/close edit" style={{ verticalAlign: '10%', float: 'right' }} onClick={this.changeEditMode} />
 						}
 
 					</h3>
 					{
-						this.state.noteView === 'list' &&
+						noteView === 'list'
+						&& (
 						<ol>
 							{
-								this.state.notes.map((note, i) => <li key={i} onClick={this.selectedNote.bind(this, i)}>{note.title} - {this.handleDate(note.dateCreated)}</li>)
+								notes.map((note, i) => <li key={i} onClick={this.selectedNote.bind(this, i)}>{note.title} - {this.handleDate(note.dateCreated)}</li>)
 							}
 						</ol>
+)
 					}
 					{
-						this.state.noteView === 'note' &&
-						<div className="note-text" dangerouslySetInnerHTML={{ __html: converter.makeHtml(this.state.notes[this.state.currentNote].rawText) }} />
+						noteView === 'note'
+						&& <div className="note-text" dangerouslySetInnerHTML={{ __html: converter.makeHtml(notes[currentNote].rawText) }} />
 					}
 					{
-						this.state.noteView === 'edit' &&
-						<textarea className="note-editbox" defaultValue={this.state.notes[this.state.currentNote].rawText} onChange={this.handleEditing} autoFocus />
+						noteView === 'edit'
+						&& <textarea className="note-editbox" defaultValue={notes[currentNote].rawText} onChange={this.handleEditing} autoFocus />
 					}
 
 				</div>

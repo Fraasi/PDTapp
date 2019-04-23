@@ -60,12 +60,14 @@
     "puppeteer-core": "^1.14.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "@hot-loader/react-dom": "^16.8.6",
     "react-hot-loader": "^4.8.4",
     "showdown": "^1.8.6",
     "suncalc": "^1.8.0",
     "xterm": "^3.12.2"
   },
   "devDependencies": {
+    "babel-eslint": "^10.0.1",
     "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-plugin-transform-es2015-classes": "^6.24.1",
     "babel-preset-env": "^1.7.0",

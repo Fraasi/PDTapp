@@ -1,7 +1,9 @@
 import path from 'path'
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer'
 import { enableLiveReload } from 'electron-compile'
-import { app, BrowserWindow, Menu, dialog, globalShortcut, Tray, shell, protocol, Notification, clipboard } from 'electron'
+import {
+ app, BrowserWindow, Menu, dialog, globalShortcut, Tray, shell, protocol, Notification, clipboard
+} from 'electron'
 import Store from 'electron-store'
 
 const store = new Store({
@@ -56,7 +58,7 @@ async function createWindow() {
 		titleBarStyle: 'hidden',
 		webPreferences: {
 			nodeIntegration: true,
-			// webSecurity: true,
+			webSecurity: true,
 			// contextIsolation: true,
 		}
 	}).on('ready-to-show', () => {
@@ -277,4 +279,3 @@ const menuTemplate = [
 		],
 	},
 ]
-
