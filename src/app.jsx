@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { ipcRenderer, remote } from 'electron'
 import Store from 'electron-store'
-import Calendar from './components/Calendar.jsx'
+// import Calendar from './components/Calendar.jsx'
 import Navbar from './components/Navbar.jsx'
 import Home from './components/Home.jsx'
 import Settings from './components/Settings.jsx'
@@ -14,7 +14,7 @@ const store = new Store({ name: 'pdtapp-config' })
 
 const components = {
 	home: Home,
-	calendar: Calendar,
+	// calendar: Calendar,
 	notebook: Notebook,
 	gigs: Gigs,
 	terminal: Terminal,
@@ -95,4 +95,3 @@ export default class App extends Component {
 			</div>)
 	}
 }
-
