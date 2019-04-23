@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 export default class Navbar extends Component {
 	handleClick(e) {
 		if (e.target.classList[1] !== undefined) {
-			console.log('view', e.target.classList[1])
+			// console.log('view', e.target.classList[1])
 			this.props.handleStateChange({
 				view: e.target.classList[1]
 			})

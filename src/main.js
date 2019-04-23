@@ -20,7 +20,7 @@ const store = new Store({
 			rawText: '<!-- Untitled, first word on first line will be the title -->  \n\n- [x] github flavored markdown supported  \n- [x] saves automaticly  \n- [ ] check About -> Shortcuts for hotkeys'
 		}],
 		pictureFolder: app.getPath('pictures'),
-		weatherCity: null,
+		storeView: 'home',
 	}
 })
 
@@ -130,7 +130,7 @@ async function createWindow() {
 		debounced()
 	})
 
-	const ret = globalShortcut.register('CommandOrControl+B', () => {
+	const ret = globalShortcut.register('CommandOrControl+Alt+V', () => {
 		const clipboardText = clipboard.readText()
 		const notif = new Notification({
 			title: 'Clipboard to note',
@@ -152,7 +152,12 @@ async function createWindow() {
   })
 
   if (!ret) {
-    console.log('registration failed')
+		const notif = new Notification({
+			title: 'Clipboard to note',
+			body: 'Shortcut registration failed!',
+			icon: path.join(__dirname, 'assets/icons/32x32.png'),
+		})
+		notif.show()
   }
 
 	protocol.registerFileProtocol('local', (request, callback) => {
@@ -258,7 +263,7 @@ const menuTemplate = [
 					buttons: ['Ok'],
 					browserWindow: true,
 					title: 'Shortcuts',
-					message: 'Views\n Ctrl+H: Home\n Ctrl+K: Calendar\n Ctrl+N: Notebook\n Ctrl+G: Gigs\n Ctrl+T: Terminal\n Ctrl+S: Settings\n\nIn Notebook view\n Ctrl+Shift+N: Add new note\n Ctrl+L: All notes list\n 1-9: Quick jump to note\n Ctrl+D: Delete open note\n Ctrl+Enter: Close/open editmode\n Saves automatically\n\nIn Terminal view\n Ctrl+Enter: run code',
+					message: 'Views\n Ctrl+H: Home\n Ctrl+K: Calendar\n Ctrl+N: Notebook\n Ctrl+G: Gigs\n Ctrl+T: Terminal\n Ctrl+S: Settings\n\nIn Notebook view\n Ctrl+Shift+N: Add new note\n Ctrl+L: All notes list\n 1-9: Quick jump to note\n Ctrl+D: Delete open note\n Ctrl+Enter: Close/open edit mode\n Saves automatically\n\nIn Terminal view\n Ctrl+Enter: Run code\n\nGlobal\n Ctrl+Alt+V: Paste clipboard to a new note\n Ctrl+Alt+P: Focus app',
 
 				}
 				dialog.showMessageBox(options)

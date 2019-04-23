@@ -23,18 +23,16 @@ export default class Terminal extends Component {
 			env: process.env,
 		})
 		this.terminalRef = React.createRef()
-		ipcRenderer.on('windowMove/Resize', (s, d) => {
-			// console.log('d:', d)
-			// console.log(this.xterm._core.renderer.dimensions.actualCellWidth)
+		ipcRenderer.on('windowMove/Resize', () => {
 			this.xterm.fit()
 		})
 		this.handlePaste = this.handlePaste.bind(this)
 	}
 
 	componentDidMount() {
+		console.log('pty PID:', this.ptyProcess.pid)
 		this.xterm.open(this.terminalRef.current)
 		this.xterm.focus()
-		console.log('xterm PID:', this.xterm.pid)
 		this.xterm.on('key', (key) => {
 			this.ptyProcess.write(key)
 		})
@@ -65,7 +63,7 @@ export default class Terminal extends Component {
 
 				<fieldset className="terminal">
 					<legend>
-						<img src="./assets/img/terminal.svg" alt="" className="laptop-img" />
+						<img src="./assets/img/terminal.svg" alt="" className="laptop-img" /> <span className="pid">pty PID: {this.ptyProcess.pid}</span>
 					</legend>
 					<div id="terminal" ref={this.terminalRef} onDoubleClick={this.handlePaste} />
 				</fieldset>

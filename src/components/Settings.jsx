@@ -11,6 +11,11 @@ export default class Settings extends Component {
 		this.chooseFolder = this.chooseFolder.bind(this)
 		this.saveChanges = this.saveChanges.bind(this)
 		this.clearSettings = this.clearSettings.bind(this)
+		this.onViewChange = this.onViewChange.bind(this)
+	}
+
+	onViewChange(event) {
+		this.saveChanges('storeView', event.target.value)
 	}
 
 	chooseFolder() {
@@ -20,11 +25,12 @@ export default class Settings extends Component {
 	}
 
 	clearSettings() {
-		store.set('pictureFolder', null)
 		const win = remote.getCurrentWindow()
 		win.center()
+		store.set('pictureFolder', null)
 		this.props.handleStateChange({
-			pictureFolder: null
+			pictureFolder: null,
+			storeView: 'home'
 		})
 	}
 
@@ -37,8 +43,8 @@ export default class Settings extends Component {
 
 	render() {
 		const cell = Object.keys(networkInterfaces())[0]
-		console.log('networkInterfaces', networkInterfaces());
 		const { address, mac, family } = networkInterfaces()[cell][0]
+		const { pictureFolder, views, storeView } = this.props
 
 		return (
 			<div className="view-container" id="settings">
@@ -47,14 +53,31 @@ export default class Settings extends Component {
 					<fieldset>
 						<legend>Current folder for pic of the day</legend>
 						{
-							this.props.pictureFolder.match(/\\[a-zA-Z0-9_ ]+$/) ?
-								this.props.pictureFolder.match(/\\[a-zA-Z0-9_ ]+$/)[0]
-								: this.props.pictureFolder
+							pictureFolder.match(/\\[a-zA-Z0-9_ ]+$/)
+								? pictureFolder.match(/\\[a-zA-Z0-9_ ]+$/)[0]
+								: pictureFolder
 						}
 						<br />
 						<button className="button" onClick={this.chooseFolder}>
 							Choose a folder
 						</button>
+					</fieldset>
+				</div>
+
+				<div className="view-setting">
+					<fieldset>
+						<legend>Opened view on app launch</legend>
+						{storeView.charAt(0).toUpperCase() + storeView.slice(1)}
+						<br />
+						<select id="view-select" defaultValue={storeView} onChange={this.onViewChange}>
+							{
+								views.map(view => (
+									<option key={view} value={view}>
+										{view.charAt(0).toUpperCase() + view.slice(1)}
+									</option>
+								))
+							}
+						</select>
 					</fieldset>
 				</div>
 

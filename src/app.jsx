@@ -17,15 +17,18 @@ const components = {
 	calendar: Calendar,
 	notebook: Notebook,
 	gigs: Gigs,
+	terminal: Terminal,
 	settings: Settings,
-	terminal: Terminal
 }
+
+const views = Object.keys(components)
 
 export default class App extends Component {
 	constructor() {
 		super()
 		this.state = {
-			view: 'terminal',
+			view: store.get('storeView'),
+			storeView: store.get('storeView'),
 			loading: true,
 			dailyQuote: { quote: 'Without dreams you can\'t fucking live.', author: 'Ann' },
 			pictureFolder: store.get('pictureFolder'),
@@ -86,6 +89,8 @@ export default class App extends Component {
 					gigsObject={this.state.gigsObject}
 					dailyQuote={this.state.dailyQuote}
 					pictureFolder={this.state.pictureFolder}
+					views={views}
+					storeView={this.state.storeView}
 				/>
 			</div>)
 	}
