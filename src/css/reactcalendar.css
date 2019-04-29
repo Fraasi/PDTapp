@@ -1,0 +1,28 @@
+.rbc-calendar {
+  padding: 10px;
+  height: calc(100% - 0px);
+  background-color: #35363A;
+  color: #c7c7c7;
+}
+
+.rbc-now {
+  /* box-sizing: border-box; */
+  border-left: 1px solid white;
+  border-right: 1px solid white;
+}
+
+.rbc-now, .rbc-today {
+  background-color: #525252;
+}
+
+.rbc-btn-group button {
+  color: #c7c7c7;
+}
+
+.rbc-btn-group button.rbc-active {
+  color: #252525;
+}
+
+.rbc-off-range-bg {
+  background-color: #1c1e22;
+}

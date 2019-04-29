@@ -3,21 +3,22 @@ import { ipcRenderer, remote } from 'electron'
 import Store from 'electron-store'
 // import Calendar from './components/Calendar.jsx'
 import dotenv from 'dotenv'
+import Calendar from './components/ReactCalendar.jsx'
 import Navbar from './components/Navbar.jsx'
 import Home from './components/Home.jsx'
 import Settings from './components/Settings.jsx'
 import Notebook from './components/Notebook.jsx'
 import Gigs from './components/Gigs.jsx'
 import Terminal from './components/Terminal.jsx'
-dotenv.config()
 // import gigScrape from './js/gigscraper.js'
+dotenv.config()
 
 
 const store = new Store({ name: 'pdtapp-config' })
 
 const components = {
 	home: Home,
-	// calendar: Calendar,
+	calendar: Calendar,
 	notebook: Notebook,
 	gigs: Gigs,
 	terminal: Terminal,
@@ -68,6 +69,8 @@ export default class App extends Component {
 			})
 			.then((json) => {
 				console.log('Quote fetched:', json)
+				// fallback quote
+				// {quote: 'Without dreams you can\'t fucking live.', author: 'Ann'}
 				this.setState({
 					dailyQuote: {
 						quote: json.statusText || json[Object.keys(json)[0]],

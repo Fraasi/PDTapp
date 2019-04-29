@@ -1,0 +1,51 @@
+.ReactModal__Overlay {
+  z-index: 5;
+  background-color: rgba(31, 31, 31, 0.75) !important;
+  opacity: 0;
+  transition: opacity 250ms ease-in-out;
+}
+
+.ReactModal__Overlay--after-open{
+  opacity: 1;
+}
+
+.ReactModal__Overlay--before-close{
+  opacity: 0;
+}
+
+.form-wrapper {
+  width: 300px;
+  margin: 20px auto;
+}
+
+.date-input-button, .modal-buttons > button, input[type="text"], input[type="submit"] {
+  padding: 5px 10px;
+  background-color: lightgrey;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+input, .react-datepicker-wrapper {
+  float: right;
+}
+
+.modal-buttons {
+  width: max-content;
+  margin: 40px auto;
+}
+
+.modal-buttons > button {
+  margin: 5px;
+}
+
+input {
+  text-align: center;
+  border: 0.5px solid grey;
+}
+
+textarea {
+  width: 100%;
+  height: 100px;
+  resize: none;
+  border: 0.5px solid grey;
+}

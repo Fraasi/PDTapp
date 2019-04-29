@@ -10,6 +10,7 @@ export default class Github extends Component {
 			loading: true
 		}
 	}
+
 	componentDidMount() {
 		if (!process.env.GIT_OAUTH_TOKEN) {
 			this.setState({
@@ -25,7 +26,6 @@ export default class Github extends Component {
 		})
 			.then(resp => resp.json())
 			.then((json) => {
-				console.log('Git fetched', json)
 				this.setState({
 					gitNotifications: json,
 					loading: false
@@ -33,16 +33,17 @@ export default class Github extends Component {
 			})
 	}
 
-	handlePicClick(url) {
+	handleIssueClick(url) {
 		shell.openExternal(url)
 	}
 
-	handleGitClick() {
+	handleTitleClick() {
 		shell.openExternal('https://github.com/Fraasi/')
 	}
 
 	render() {
-		if (this.state.gitNotifications === null) {
+		const { loading, gitNotifications } = this.state
+		if (gitNotifications === null) {
 			return (
 				<div className="gits">
 					<fieldset>
@@ -52,7 +53,7 @@ export default class Github extends Component {
 				</div>
 			)
 		}
-		if (this.state.loading) {
+		if (loading) {
 			return (
 				<div className="gits">
 					<fieldset>
@@ -66,14 +67,14 @@ export default class Github extends Component {
 		return (
 			<div className="gits">
 				<fieldset>
-					<legend onClick={this.handleGitClick} title="Github">
-						Notifications at GH: {this.state.gitNotifications.length}
+					<legend onClick={this.handleTitleClick} title="Github">
+						Notifications at GH: {gitNotifications.length}
 					</legend>
 					<ul>
 						{
-							this.state.gitNotifications.length < 1 ?
-								null :
-								this.state.gitNotifications.map((el, i) => {
+							gitNotifications.length < 1
+								? null
+								: gitNotifications.map((el, i) => {
 									const url = el.subject.url.replace(/api\.|repos\//g, '').replace('pulls', 'pull')
 									return (
 										<li key={i + 1}>
@@ -81,7 +82,7 @@ export default class Github extends Component {
 											{el.subject.type}:
 											<span
 												className="linkstyle"
-												onClick={() => this.handlePicClick(url)}
+												onClick={() => this.handleIssueClick(url)}
 											>{el.subject.title}
 											</span><br />
 											Reason: {el.reason}
