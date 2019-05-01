@@ -1,6 +1,6 @@
 import React from 'react'
 import Store from 'electron-store'
-import Github from './Github.jsx'
+import Github from './Github'
 import Quote from './Quote.jsx'
 import Pic from './Pic.jsx'
 import NextGigs from './NextGigs.jsx'

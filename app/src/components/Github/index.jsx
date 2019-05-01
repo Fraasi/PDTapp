@@ -1,5 +1,7 @@
+/* eslint-disable import/no-unresolved */
 import React, { Component } from 'react'
 import { shell } from 'electron'
+import spinner from 'Images/spinner.svg'
 
 
 export default class Github extends Component {
@@ -48,7 +50,7 @@ export default class Github extends Component {
 				<div className="gits">
 					<fieldset>
 						<legend onClick={this.handleGitClick}>No git token :(</legend>
-						<img src="./assets/img/spinner.svg" alt="spinner.svg" id="spinner" style={{ position: 'inherit' }} />
+						<img src={spinner} alt="spinner.svg" id="spinner" style={{ position: 'inherit' }} />
 					</fieldset>
 				</div>
 			)
@@ -58,7 +60,7 @@ export default class Github extends Component {
 				<div className="gits">
 					<fieldset>
 						<legend onClick={this.handleGitClick}>Fetching git notifications</legend>
-						<img src="./assets/img/spinner.svg" alt="spinner.svg" id="spinner" style={{ position: 'inherit' }} />
+						<img src={spinner} alt="spinner.svg" id="spinner" style={{ position: 'inherit' }} />
 					</fieldset>
 				</div>
 			)

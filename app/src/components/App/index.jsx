@@ -3,14 +3,17 @@ import { ipcRenderer, remote } from 'electron'
 import Store from 'electron-store'
 // import Calendar from './components/Calendar.jsx'
 import dotenv from 'dotenv'
-import Calendar from './components/ReactCalendar.jsx'
-import Navbar from './components/Navbar.jsx'
-import Home from './components/Home.jsx'
-import Settings from './components/Settings.jsx'
-import Notebook from './components/Notebook.jsx'
-import Gigs from './components/Gigs.jsx'
-import Terminal from './components/Terminal.jsx'
+// import Gigs from 'components/Gigs.jsx'
+import Calendar from '../ReactCalendar.jsx'
+import Navigation from '../Navigation'
+import Home from '../Home.jsx'
+import Settings from '../Settings.jsx'
+import Notebook from '../Notebook.jsx'
+import Compass from '../Compass'
+// import Terminal from './components/Terminal.jsx'
 // import gigScrape from './js/gigscraper.js'
+import styles from './styles.css'
+// import './styles.css'
 dotenv.config()
 
 
@@ -20,8 +23,8 @@ const components = {
 	home: Home,
 	calendar: Calendar,
 	notebook: Notebook,
-	gigs: Gigs,
-	terminal: Terminal,
+	gigs: Compass,
+	// terminal: Terminal,
 	settings: Settings,
 }
 
@@ -91,8 +94,8 @@ export default class App extends Component {
 		const View = components[view]
 
 		return (
-			<div id="app-container">
-				<Navbar handleStateChange={this.handleStateChange} />
+			<div className={styles.appContainer}>
+				<Navigation handleStateChange={this.handleStateChange} views={views} />
 				<View
 					loading={loading}
 					handleStateChange={this.handleStateChange}

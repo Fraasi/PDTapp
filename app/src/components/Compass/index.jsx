@@ -1,7 +1,9 @@
 import React from 'react'
 import { shell } from 'electron'
+import styles from './styles.css'
+// import './styles.css'
 
-export default function Gigs({ gigsObject }) {
+export default function Compass({ gigsObject }) {
 
 	const handleClick = (url) => {
 		shell.openExternal(url)
@@ -9,7 +11,7 @@ export default function Gigs({ gigsObject }) {
 
 	if (gigsObject == null) {
 		return (
-			<div className="view-container" id="gigscraper">
+			<div className={`view-container ${styles.gigscraper}`}>
 				Dev mode, gig fetch disabled.
 			</div>
 		)
@@ -17,7 +19,7 @@ export default function Gigs({ gigsObject }) {
 
 	const { twitBook, cheerio, scrapeTime } = gigsObject
 	return (
-		<div className="view-container" id="gigscraper">
+		<div className={`view-container ${styles.gigscraper}`}>
 			<div id="scrapeTime">
 				Crawl time: {gigsObject !== null ? scrapeTime : ''}
 			</div><br />

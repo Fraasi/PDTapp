@@ -1,13 +1,15 @@
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const path = require('path')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
-const ENV = process.env.NODE_ENV || 'development';
+const ENV = process.env.NODE_ENV || 'development'
+// console.log('__dirname:', __dirname)
 
 module.exports = {
   watch: ENV === 'development',
   target: 'electron-renderer',
-  entry: './app/src/renderer_process.js',
+  entry: ['./app/renderer.jsx', '.app/global.css'],
   output: {
-    path: __dirname + '/app/build',
+    path: `${__dirname}/app/build`,
     publicPath: 'build/',
     filename: 'bundle.js'
   },
@@ -20,7 +22,7 @@ module.exports = {
         options: {
           presets: [
             '@babel/preset-env',
-            "@babel/preset-react"
+            '@babel/preset-react'
           ],
           plugins: [
             '@babel/plugin-proposal-class-properties'
@@ -32,15 +34,17 @@ module.exports = {
         loader: ExtractTextPlugin.extract({
           loader: 'css-loader',
           options: {
-            modules: true
+            modules: true,
+            camelCase: 'dashes',
           }
         })
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
         loader: 'file-loader',
-        query: {
-          name: '[name].[ext]?[hash]'
+        options: {
+          name: '[name].[ext]?[hash]',
+          outputPath: 'images',
         }
       }
     ]
@@ -55,6 +59,9 @@ module.exports = {
   ],
 
   resolve: {
-    extensions: ['.js', '.json', '.jsx']
+    extensions: ['.js', '.json', '.jsx', '.css', '.svg'],
+    alias: {
+      Images: path.resolve(__dirname, 'app/src/assets/images/'),
+    }
   }
-};
+}

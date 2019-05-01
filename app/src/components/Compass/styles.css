@@ -1,9 +1,9 @@
 
-#gigscraper li > a{
+.gigscraper li > a{
 	color: darkseagreen;
 }
 
-#gigscraper div > a {
+.gigscraper div > a {
 	font-size: 1.2em;
 	color: darkseagreen;
 }

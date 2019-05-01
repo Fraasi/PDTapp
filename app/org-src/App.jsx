@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { render } from 'react-dom'
-import Logo from './components/Logo/'
-import Link from './components/Link/'
+import Logo from './components/Logo'
+import Link from './components/Link'
 
 import ElectronImg from './assets/electron.png'
 import ReactImg from './assets/react.png'

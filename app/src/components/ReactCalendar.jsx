@@ -56,7 +56,7 @@ export default class Calendar extends Component {
       allDay = false
     }
 
-    const updatedEvent = {...event, start, end, allDay }
+    const updatedEvent = { ...event, start, end, allDay }
     const nextEvents = [...events]
     nextEvents.splice(idx, 1, updatedEvent)
 
