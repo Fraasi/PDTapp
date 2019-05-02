@@ -7,7 +7,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css'
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.css'
 import moment from 'moment'
-import Modal from './Modal'
+import Modal from './Modal.jsx'
 import events from '../../assets/events.js'
 import './styles.css'
 
@@ -43,9 +43,7 @@ export default class Calendar extends Component {
     }
   }
 
-  moveEvent({
-    event, start, end, isAllDay: droppedOnAllDaySlot
-  }) {
+  moveEvent = ({ event, start, end, isAllDay: droppedOnAllDaySlot }) => {
     const { events } = this.state
     const idx = events.indexOf(event)
     let allDay = event.allDay
@@ -65,31 +63,31 @@ export default class Calendar extends Component {
     })
   }
 
-  resizeEvent({ event, start, end }) {
+  resizeEvent = ({ event, start, end }) => {
     const { events } = this.state
 
     const nextEvents = events.map(existingEvent => (existingEvent.id === event.id
-      ? { ...existingEvent, start, end }
-      : existingEvent))
+        ? { ...existingEvent, start, end }
+        : existingEvent))
 
     this.setState({
       events: nextEvents,
     })
   }
 
-  selectSlot(event) {
+  selectSlot = (event) => {
     this.setState({ isNewEvent: true })
     event.start = event.slots[0]
     event.end = event.slots[event.slots.length - 1]
     this.openModal(event)
   }
 
-  selectEvent(event) {
+  selectEvent = (event) => {
     this.setState({ isNewEvent: false })
     this.openModal(event)
   }
 
-  openModal(event) {
+  openModal = (event) => {
     const id = event.id ? event.id : Date.now()
     this.setState({
       modalIsOpen: true,
@@ -118,11 +116,11 @@ export default class Calendar extends Component {
     return { style }
   }
 
-  closeModal() {
+  closeModal = () => {
     this.setState({ modalIsOpen: false });
   }
 
-  handleModalEventEdit(key, newValue) {
+  handleModalEventEdit = (key, newValue) => {
     const newData = { ...this.state.modalEvent }
     newData[key] = newValue
     this.setState({
@@ -130,7 +128,7 @@ export default class Calendar extends Component {
     })
   }
 
-  handleEventSave(newEvent) {
+  handleEventSave = (newEvent) => {
     const index = this.state.events.findIndex(event => event.id === newEvent.id)
     if (index > -1) {
       const newEvents = this.state.events
@@ -148,7 +146,7 @@ export default class Calendar extends Component {
     }
   }
 
-  handleEventDelete() {
+  handleEventDelete = () => {
     const index = this.state.events.findIndex(event => event.id === this.state.modalEvent.id)
     if (index > -1) {
       const newEvents = this.state.events
@@ -161,9 +159,9 @@ export default class Calendar extends Component {
 
   render() {
     return (
-      <>
+      <div className="view-container">
         <DragAndDropCalendar
-          style={{ height: '100vh' }}
+          style={{ height: '94vh' }}
           localizer={localizer}
           formats={formats}
           events={this.state.events}
@@ -193,7 +191,7 @@ export default class Calendar extends Component {
           isNewEvent={this.state.isNewEvent}
           key={this.state.modalEvent.id}
         />
-      </>
+      </div>
     )
   }
 }

@@ -11,7 +11,7 @@ delete process.env.ELECTRON_ENABLE_SECURITY_WARNINGS
 process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = true
 
 const {
-	app, BrowserWindow, Menu, dialog, globalShortcut, Tray, shell, protocol, Notification, clipboard
+	app, BrowserWindow, Menu, dialog, globalShortcut, Tray, shell, Notification, clipboard
 } = require('electron')
 const Store = require('electron-store')
 
