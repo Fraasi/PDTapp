@@ -1,26 +1,15 @@
-@import 'src/css/fullcalendar.css';
-@import 'src/css/calendar.css';
-@import 'src/css/notebook.css';
-@import 'src/css/weather.css';
-@import 'src/css/home.css';
-@import 'src/css/atomspinner.css';
-@import 'src/css/moon.css';
-@import 'src/css/settings.css';
-@import 'src/css/terminal.css';
-@import 'src/css/xterm.css';
-
 /* global styles here */
 
-:global body {
+body {
 	background-color: #525252;
 }
 
-:global #App {
+#App {
 	display: grid;
 	grid-template-columns: 25px 1fr;
 }
 
-:global .view-container {
+.view-container {
 	box-sizing: border-box;
 	width: calc(100vw - 50px - 15px);
 	height: calc(100vh - 16px);
@@ -32,16 +21,16 @@
 	overflow: auto;
 }
 
-:global .linkstyle {
+a, .linkstyle {
 	text-decoration: underline;
 	color: darkseagreen;
 }
 
-:global .linkstyle:hover {
+.linkstyle:hover {
 	cursor: pointer;
 }
 
-:global #spinner {
+#spinner {
 	width: 50px;
 	position: fixed;
 	top: 50%;
@@ -58,12 +47,11 @@
 	}
 }
 
-:global fieldset {
+fieldset {
 	border-radius: 5px;
   border: 2px solid dimgrey;
 }
 
-:global legend {
+legend {
 	padding: 0px 4px;
 }
-

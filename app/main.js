@@ -1,8 +1,17 @@
+// require("@babel/polyfill")
+process.on('unhandledRejection', (err) => {
+	console.log('unhandledRejection', err)
+	// throw err;
+})
 const path = require('path')
-// const installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer'
-// const { enableLiveReload } from 'electron-compile'
+const { default: installExtension, REACT_DEVELOPER_TOOLS } = require('electron-devtools-installer');
+require('electron-reload')(__dirname)
+
+delete process.env.ELECTRON_ENABLE_SECURITY_WARNINGS
+process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = true
+
 const {
- app, BrowserWindow, Menu, dialog, globalShortcut, Tray, shell, protocol, Notification, clipboard
+	app, BrowserWindow, Menu, dialog, globalShortcut, Tray, shell, protocol, Notification, clipboard
 } = require('electron')
 const Store = require('electron-store')
 
@@ -28,7 +37,6 @@ const store = new Store({
 
 const isDevMode = process.execPath.match(/[\\/]electron/)
 if (isDevMode) {
-	// enableLiveReload({ strategy: 'react-hmr' })
 	require('electron-context-menu')({
 		prepend: params => [{
 			label: 'Rainbow',
@@ -53,12 +61,12 @@ async function createWindow() {
 		title: `${app.getName()} launched at ${launchedAt}`,
 		resizable: true,
 		backgroundColor: '#525252',
-		icon: path.join(__dirname, 'assets/icons/32x32.png'),
+		icon: path.join(__dirname, 'src/assets/icons/32x32.png'),
 		show: false,
 		titleBarStyle: 'hidden',
 		webPreferences: {
 			nodeIntegration: true,
-			webSecurity: true,
+			webSecurity: false,
 			// contextIsolation: true,
 		}
 	}).on('ready-to-show', () => {
@@ -68,7 +76,7 @@ async function createWindow() {
 
 	win.loadURL(`file://${__dirname}/index.html`)
 	if (isDevMode) {
-		// await installExtension(REACT_DEVELOPER_TOOLS)
+		await installExtension(REACT_DEVELOPER_TOOLS)
 		win.webContents.openDevTools({ mode: 'right' })
 	}
 
@@ -88,7 +96,7 @@ async function createWindow() {
 		store.set('lastLaunched', launchedAt)
 	})
 
-	const trayIconPath = path.join(__dirname, './assets/icons/32x32.png')
+	const trayIconPath = path.join(__dirname, 'src/assets/icons/32x32.png')
 	trayIcon = new Tray(trayIconPath)
 
 	const trayIconContextMenu = Menu.buildFromTemplate([
@@ -151,25 +159,25 @@ async function createWindow() {
 			win.focus()
 			switchView({ label: 'Notebook' })
 		})
-  })
+	})
 
-  if (!ret) {
+	if (!ret) {
 		const notif = new Notification({
 			title: 'Clipboard to note',
 			body: 'Shortcut registration failed!',
 			icon: path.join(__dirname, 'assets/icons/32x32.png'),
 		})
 		notif.show()
-  }
+	}
 
-	protocol.registerFileProtocol('local', (request, callback) => {
-		const url = request.url.substr(8)
-		callback({ path: path.normalize(url) })
-	}, (error) => {
-		if (error) {
-			console.log('failed to register protocol')
-		}
-	})
+	// protocol.registerFileProtocol('local', (request, callback) => {
+	// 	const url = request.url.substr(8)
+	// 	callback({ path: path.normalize(url) })
+	// }, (error) => {
+	// 	if (error) {
+	// 		console.log('failed to register protocol')
+	// 	}
+	// })
 }
 
 app.on('ready', createWindow)

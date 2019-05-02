@@ -159,7 +159,7 @@ export default function gigScrape(handleStateChange) {
     if ((cheerioCount === cheerioCountTo) && (twitCount === twitCountTo)) {
       const stopTime = new Date()
       dataToSave.scrapeTime = `${(stopTime - startTime) / 1000}s`
-      console.log(`Scraping done: ${dataToSave}`)
+      console.log('Scraping done:', dataToSave)
       handleStateChange({
         gigsObject: dataToSave
       })

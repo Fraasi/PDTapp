@@ -1,8 +1,8 @@
 node_modules
+.env
 out
 .eslintcache
 
-src/assets/calendar-data.js
-.env
-src/js/main-menu-template.js
-fuu-package.json
+app/src/assets/calendar-data.js
+app/src/assets/events.js
+app/build

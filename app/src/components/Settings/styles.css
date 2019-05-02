@@ -1,0 +1,11 @@
+.os {
+	position: fixed;
+    bottom: calc(1vh);
+    width: 88%;
+    margin: 10px auto;
+    text-align: center;
+}
+
+.button {
+    margin-top: 5px;
+}

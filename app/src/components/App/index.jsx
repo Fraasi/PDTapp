@@ -1,19 +1,16 @@
 import React, { Component } from 'react'
 import { ipcRenderer, remote } from 'electron'
 import Store from 'electron-store'
-// import Calendar from './components/Calendar.jsx'
 import dotenv from 'dotenv'
-// import Gigs from 'components/Gigs.jsx'
-import Calendar from '../ReactCalendar.jsx'
+import Home from '../Home'
 import Navigation from '../Navigation'
-import Home from '../Home.jsx'
-import Settings from '../Settings.jsx'
-import Notebook from '../Notebook.jsx'
+import Calendar from '../Calendar'
+import Settings from '../Settings'
+import Notebook from '../Notebook'
 import Compass from '../Compass'
-// import Terminal from './components/Terminal.jsx'
-// import gigScrape from './js/gigscraper.js'
-import styles from './styles.css'
-// import './styles.css'
+// import Terminal from '../Terminal'
+import gigScrape from '../../js/gigscraper.js'
+import './styles.css'
 dotenv.config()
 
 
@@ -23,7 +20,7 @@ const components = {
 	home: Home,
 	calendar: Calendar,
 	notebook: Notebook,
-	gigs: Compass,
+	compass: Compass,
 	// terminal: Terminal,
 	settings: Settings,
 }
@@ -39,7 +36,7 @@ export default class App extends Component {
 			loading: true,
 			dailyQuote: {},
 			pictureFolder: store.get('pictureFolder'),
-			gigsObject: null,
+			gigsObject: 'noscrape',
 		}
 
 		this.handleStateChange = this.handleStateChange.bind(this)
@@ -58,7 +55,13 @@ export default class App extends Component {
 
 	componentDidMount() {
 		this.fetchQuote()
-		// if (this.state.gigsObject === null) gigScrape(this.handleStateChange)
+		if (this.state.gigsObject === null) {
+			try {
+				gigScrape(this.handleStateChange)
+			} catch (err) {
+				console.error('gigscrape err: ', err)
+			}
+		}
 	}
 
 	fetchQuote() {
@@ -71,7 +74,7 @@ export default class App extends Component {
 				return data.json()
 			})
 			.then((json) => {
-				console.log('Quote fetched:', json)
+				// console.log('Quote fetched:', json)
 				// fallback quote
 				// {quote: 'Without dreams you can\'t fucking live.', author: 'Ann'}
 				this.setState({
@@ -94,7 +97,7 @@ export default class App extends Component {
 		const View = components[view]
 
 		return (
-			<div className={styles.appContainer}>
+			<div className="app-container">
 				<Navigation handleStateChange={this.handleStateChange} views={views} />
 				<View
 					loading={loading}

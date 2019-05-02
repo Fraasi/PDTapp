@@ -7,7 +7,7 @@ const ENV = process.env.NODE_ENV || 'development'
 module.exports = {
   watch: ENV === 'development',
   target: 'electron-renderer',
-  entry: ['./app/renderer.jsx', '.app/global.css'],
+  entry: ["@babel/polyfill", './app/renderer.jsx'],
   output: {
     path: `${__dirname}/app/build`,
     publicPath: 'build/',
@@ -34,8 +34,10 @@ module.exports = {
         loader: ExtractTextPlugin.extract({
           loader: 'css-loader',
           options: {
-            modules: true,
-            camelCase: 'dashes',
+            import: true,
+            // prevent selector hashing, keep original name
+            // modules: false,
+            // camelCase: 'dashes',
           }
         })
       },

@@ -1,7 +1,7 @@
 {
   "name": "pdtapp",
   "productName": "PDTapp",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "Personal Desktop app",
   "author": "Fraasi <fraasi.gh@gmail.com>",
   "repository": {
@@ -19,6 +19,7 @@
   "keywords": [],
   "license": "MIT",
   "dependencies": {
+    "@babel/polyfill": "^7.4.4",
     "cheerio": "^1.0.0-rc.3",
     "dotenv": "^7.0.0",
     "electron-devtools-installer": "^2.2.4",
@@ -26,9 +27,9 @@
     "futility": "github:fraasi/futility",
     "moment": "^2.24.0",
     "node-pty": "^0.8.1",
+    "react": "^16.8.6",
     "react-big-calendar": "^0.20.4",
     "react-datepicker": "^2.4.0",
-    "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-modal": "^3.8.1",
     "showdown": "^1.8.6",
