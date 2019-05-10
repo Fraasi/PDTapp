@@ -5,6 +5,7 @@ import calendar from 'Images/calendar-alt.svg'
 import notebook from 'Images/file-alt.svg'
 import compass from 'Images/compass.svg'
 import terminal from 'Images/laptop-code.svg'
+import stats from 'Images/microchip.svg'
 import settings from 'Images/cog.svg'
 import './styles.css'
 
@@ -14,7 +15,8 @@ const imgs = {
 	notebook,
 	compass,
 	terminal,
-	settings
+	stats,
+	settings,
 }
 
 export default function Navbar({ handleStateChange, views }) {

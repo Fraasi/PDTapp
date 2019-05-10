@@ -13,6 +13,7 @@ I have no idea what the end product will be like. I'm making this shit up as I g
 * cheerio
 * [futility](https://github.com/Fraasi/futility)
 * xterm + node-pty
+* systeminformation
 
 ### todo (or maybe not to, do):
 
@@ -47,6 +48,8 @@ I have no idea what the end product will be like. I'm making this shit up as I g
  (offline untill node-pty updates to work with node 12)
   - [ ] Quick links
   - [x] terminal emulator
+- [x] **Stats page**
+  - [x] display stats from systeminformation
 - [x] **Main.js + other**
   - [x] icon
   - [x] system tray

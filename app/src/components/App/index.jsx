@@ -9,6 +9,7 @@ import Settings from '../Settings'
 import Notebook from '../Notebook'
 import Compass from '../Compass'
 // import Terminal from '../Terminal'
+import Stats from '../Stats'
 import gigScrape from '../../js/gigscraper.js'
 import './styles.css'
 dotenv.config()
@@ -22,6 +23,7 @@ const components = {
 	notebook: Notebook,
 	compass: Compass,
 	// terminal: Terminal,
+	stats: Stats,
 	settings: Settings,
 }
 

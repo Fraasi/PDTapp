@@ -15,7 +15,7 @@ export default function NextGigs({ gigsObject }) {
 		)
 	}
 
-	if (typeof gigsObject === "string") {
+	if (typeof gigsObject === 'string') {
 		return (
 			<div className="next-gigs">
 				<fieldset>

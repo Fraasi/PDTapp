@@ -8,6 +8,6 @@ import './global.css'
 render(
     <ErrorBoundary>
       <App />
-    </ ErrorBoundary>,
+    </ErrorBoundary>,
     document.getElementById('app')
 )
