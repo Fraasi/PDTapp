@@ -28,7 +28,6 @@ I have no idea what the end product will be like. I'm making this shit up as I g
 - [x] **Calendar** 
   - [x] week month tooltip full text
   - [x] monthview recurring shit
-  - [ ] listview, events coming month with diff color
   - [ ] add google calendar support (if possible?, or maybe find a different calendar)
 - [x] **Gigs page**
   - [x] styling
@@ -38,7 +37,6 @@ I have no idea what the end product will be like. I'm making this shit up as I g
   - [x] markdown support
   - [x] put to store to keep notes between launches 
   - [x] hotkeys for save, delete & views
-    - [ ] ctrl+L conflict
   - [x] add example note with info on first launch
 - [x] **Settings page**
   - [x] choose pic of the day folder

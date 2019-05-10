@@ -1,4 +1,3 @@
-// require("@babel/polyfill")
 process.on('unhandledRejection', (err) => {
 	console.log('unhandledRejection', err)
 	// throw err;
@@ -34,6 +33,8 @@ const store = new Store({
 		storeView: 'home',
 	}
 })
+
+const shortcuts = require('./src/js/shortcuts.js')
 
 const isDevMode = process.execPath.match(/[\\/]electron/)
 if (isDevMode) {
@@ -145,7 +146,7 @@ async function createWindow() {
 		const notif = new Notification({
 			title: 'Clipboard to note',
 			body: clipboardText,
-			icon: path.join(__dirname, 'assets/icons/32x32.png'),
+			icon: path.join(__dirname, 'src/assets/icons/32x32.png'),
 		})
 		notif.show()
 		const notes = store.get('notes')
@@ -165,7 +166,7 @@ async function createWindow() {
 		const notif = new Notification({
 			title: 'Clipboard to note',
 			body: 'Shortcut registration failed!',
-			icon: path.join(__dirname, 'assets/icons/32x32.png'),
+			icon: path.join(__dirname, 'src/assets/icons/32x32.png'),
 		})
 		notif.show()
 	}
@@ -209,7 +210,7 @@ const menuTemplate = [
 				switchView(item)
 			}
 		}, {
-			label: 'Gigs',
+			label: 'Compass',
 			accelerator: 'CmdOrCtrl+G',
 			click(item) {
 				switchView(item)
@@ -217,6 +218,12 @@ const menuTemplate = [
 		}, {
 			label: 'Terminal',
 			accelerator: 'CmdOrCtrl+T',
+			click(item) {
+				switchView(item)
+			}
+		}, {
+			label: 'Stats',
+			accelerator: 'CmdOrCtrl+I',
 			click(item) {
 				switchView(item)
 			}
@@ -248,7 +255,7 @@ const menuTemplate = [
 				if (focusedWindow) {
 					const options = {
 						type: 'info',
-						icon: path.join(__dirname, './assets/icons/32x32.png'),
+						icon: path.join(__dirname, 'src/assets/icons/32x32.png'),
 						buttons: ['Ok', 'Github repo'],
 						defaultId: 0,
 						browserWindow: true,
@@ -269,11 +276,11 @@ const menuTemplate = [
 			click() {
 				const options = {
 					type: 'info',
-					icon: path.join(__dirname, './assets/icons/32x32.png'),
+					icon: path.join(__dirname, 'src/assets/icons/32x32.png'),
 					buttons: ['Ok'],
 					browserWindow: true,
 					title: 'Shortcuts',
-					message: 'Views\n Ctrl+H: Home\n Ctrl+K: Calendar\n Ctrl+N: Notebook\n Ctrl+G: Gigs\n Ctrl+T: Terminal\n Ctrl+S: Settings\n\nIn Notebook view\n Ctrl+Shift+N: Add new note\n Ctrl+L: All notes list\n 1-9: Quick jump to note\n Ctrl+D: Delete open note\n Ctrl+Enter: Close/open edit mode\n Saves automatically\n\nIn Terminal view\n Ctrl+Enter: Run code\n\nGlobal\n Ctrl+Alt+V: Paste clipboard to a new note\n Ctrl+Alt+P: Focus app',
+					message: shortcuts,
 
 				}
 				dialog.showMessageBox(options)

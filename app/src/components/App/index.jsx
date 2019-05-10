@@ -44,6 +44,7 @@ export default class App extends Component {
 		this.handleStateChange = this.handleStateChange.bind(this)
 		console.count('App constructor runs...')
 		ipcRenderer.on('switchView', (sender, msg) => {
+			console.log('msg:', msg)
 			this.setState({
 				view: msg.label.toLowerCase(),
 				loading: (msg.label === 'Calendar')
