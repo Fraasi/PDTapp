@@ -3,7 +3,7 @@
 	width: 25px;
 	margin: 10px 10px 10px 5px;
 	display: grid; 
-	grid-template-rows: repeat(4, 40px) 1fr;
+	grid-template-rows: repeat(6, 40px) 1fr;
 }
 
 .fa-icon {

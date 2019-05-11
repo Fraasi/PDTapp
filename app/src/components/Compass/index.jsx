@@ -11,7 +11,7 @@ export default function Compass({ gigsObject }) {
 	if (typeof gigsObject === 'string') {
 		return (
 			<div className="view-container" id="compass">
-				Dev mode, gig fetch disabled.
+				Dev mode, No automatic fetching.
 				<br />
 				{gigsObject}
 			</div>

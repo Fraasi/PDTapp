@@ -3,6 +3,7 @@ import { remote } from 'electron'
 import Store from 'electron-store'
 import { uptime, networkInterfaces } from 'os'
 import { secondsToDHMS } from 'futility'
+import gigScrape from '../../js/gigscraper.js'
 import './styles.css'
 import './atomspinner.css'
 
@@ -20,6 +21,15 @@ export default function Settings({
 		const pathArray = remote.dialog.showOpenDialog({ properties: ['openDirectory'] })
 		if (pathArray === undefined) return
 		saveChanges('pictureFolder', pathArray[0])
+	}
+
+	const scrapeHappenings = () => {
+		// alert('Not yet working\nStill thinking about this...')
+		try {
+			gigScrape(handleStateChange)
+		} catch (err) {
+			throw new Error('Scrape Failed!', err)
+		}
 	}
 
 	const clearSettings = () => {
@@ -74,6 +84,13 @@ export default function Settings({
 							))
 						}
 					</select>
+				</fieldset>
+			</div>
+
+			<div className="scrape-setting">
+				<fieldset>
+					<legend>Scrape happenings</legend>
+						<button type="button" onClick={scrapeHappenings}>Go!</button>
 				</fieldset>
 			</div>
 

@@ -8,7 +8,7 @@ import Calendar from '../Calendar'
 import Settings from '../Settings'
 import Notebook from '../Notebook'
 import Compass from '../Compass'
-// import Terminal from '../Terminal'
+import Terminal from '../Terminal'
 import Stats from '../Stats'
 import gigScrape from '../../js/gigscraper.js'
 import './styles.css'
@@ -22,7 +22,7 @@ const components = {
 	calendar: Calendar,
 	notebook: Notebook,
 	compass: Compass,
-	// terminal: Terminal,
+	terminal: Terminal,
 	stats: Stats,
 	settings: Settings,
 }
@@ -38,7 +38,7 @@ export default class App extends Component {
 			loading: true,
 			dailyQuote: {},
 			pictureFolder: store.get('pictureFolder'),
-			gigsObject: 'noscrape',
+			gigsObject: 'See settings',
 		}
 
 		this.handleStateChange = this.handleStateChange.bind(this)
