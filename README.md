@@ -5,7 +5,7 @@ I have no idea what the end product will be like. I'm making this shit up as I g
 
 ### dependencies so far
 * react
-* react-calendar
+* ~~fullcalendar react-big-calendar~~ fullcalendar
 * react-datepicker
 * electron-store
 * dotenv
@@ -29,10 +29,10 @@ I have no idea what the end product will be like. I'm making this shit up as I g
   - [x] week month tooltip full text
   - [x] monthview recurring shit
   - [ ] add google calendar support (if possible?, or maybe find a different calendar)
-- [x] **Gigs page**
+- [x] **Compass page**
   - [x] styling
   - [x] promises promises...
-  - [x] put gigs in app state so need only load once  
+  - [x] put happenings in app state so need only load once  
 - [x] **Notebook page**
   - [x] markdown support
   - [x] put to store to keep notes between launches 

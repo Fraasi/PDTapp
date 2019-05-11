@@ -2,29 +2,22 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/sort-comp */
 import React, { Component } from 'react'
-import BigCalendar from 'react-big-calendar'
-import 'react-big-calendar/lib/css/react-big-calendar.css'
-import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
-import 'react-big-calendar/lib/addons/dragAndDrop/styles.css'
-import moment from 'moment'
+import FullCalendar from '@fullcalendar/react'
+import interaction from '@fullcalendar/interaction'
+// import { Calendar } from '@fullcalendar/core';
+import gbLocale from '@fullcalendar/core/locales/en-gb'
+import dayGridPlugin from '@fullcalendar/daygrid'
+import timeGridPlugin from '@fullcalendar/timegrid'
+import listPlugin from '@fullcalendar/list'
+import momentPlugin from '@fullcalendar/moment'
+import '@fullcalendar/core/main.css'
+import '@fullcalendar/daygrid/main.css'
+import '@fullcalendar/timegrid/main.css'
+import '@fullcalendar/list/main.css'
 import Modal from './Modal.jsx'
 import events from '../../assets/events.js'
 import './styles.css'
 
-moment.locale(navigator.language, {
-  week: {
-    dow: 1
-  },
-});
-const localizer = BigCalendar.momentLocalizer(moment)
-const formats = {
-  timeGutterFormat: 'H:mm',
-  agendaTimeFormat: 'H:mm',
-  agendaHeaderFormat: ({ start, end }, culture, local) => (
-    `${local.format(start, 'MMMM D')} — ${local.format(end, 'MMMM D')}`),
-  dayHeaderFormat: 'dddd MMMM Do',
-}
-const DragAndDropCalendar = withDragAndDrop(BigCalendar)
 
 export default class Calendar extends Component {
   constructor() {
@@ -67,8 +60,8 @@ export default class Calendar extends Component {
     const { events } = this.state
 
     const nextEvents = events.map(existingEvent => (existingEvent.id === event.id
-        ? { ...existingEvent, start, end }
-        : existingEvent))
+      ? { ...existingEvent, start, end }
+      : existingEvent))
 
     this.setState({
       events: nextEvents,
@@ -157,29 +150,54 @@ export default class Calendar extends Component {
     }
   }
 
+  // full handlers
+  handleDateClick = (arg) => {
+    console.log('arg:', arg)
+  }
+
+  handleEventClick = (arg) => {
+    // opens events in a popup window
+    window.open(arg.event.url, 'google-calendar-event', 'width=700,height=600');
+    arg.jsEvent.preventDefault() // don't navigate in main tab
+  }
+
   render() {
     return (
       <div className="view-container">
-        <DragAndDropCalendar
-          style={{ height: '94vh' }}
-          localizer={localizer}
-          formats={formats}
-          events={this.state.events}
-          defaultView="month"
-          defaultDate={new Date()} // onSelectEvent click doesn't fire without this
-          min={moment('10:00am', 'H:mma').toDate()}
-          max={moment('09:59pm', 'H:mma').toDate()}
-          step={60}
-          showMultiDayTimes
-          onEventDrop={this.moveEvent}
-          resizable
-          onEventResize={this.resizeEvent}
-          selectable
-          onSelectEvent={this.selectEvent}
-          onSelectSlot={this.selectSlot}
-          popup
-          tooltipAccessor={e => e.title}
-          eventPropGetter={this.getEventStyle}
+        <FullCalendar
+          events={events}
+          plugins={[interaction, dayGridPlugin, timeGridPlugin, listPlugin, momentPlugin]}
+          defaultView="timeGridWeek"
+          header={{
+            left: 'title',
+            center: 'listMonth,dayGridMonth,timeGridWeek', // timeGridDay',
+            right: 'today prev,next'
+          }}
+          views={{
+            timeGridWeek: {
+              columnHeaderFormat: 'dd D/M',
+            }
+          }}
+          eventTimeFormat={{
+            hour: 'numeric',
+            minute: '2-digit',
+            meridiem: false,
+            hour12: false
+          }}
+          minTime="10:00:00"
+          maxTime="22:00:00"
+          height={() => window.innerHeight - 35}
+          nowIndicator
+          themeSystem="darkly"
+          weekNumbers
+          weekNumbersWithinDays
+          editable
+          eventLimit
+          allDaySlot={false}
+          locale={gbLocale}
+          firstDay={1}
+          dateClick={this.handleDateClick}
+          eventClick={this.handleEventClick}
         />
         <Modal
           modalIsOpen={this.state.modalIsOpen}

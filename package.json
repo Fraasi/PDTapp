@@ -20,6 +20,13 @@
   "license": "MIT",
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
+    "@fullcalendar/core": "^4.1.0",
+    "@fullcalendar/daygrid": "^4.1.0",
+    "@fullcalendar/interaction": "^4.1.0",
+    "@fullcalendar/list": "^4.1.0",
+    "@fullcalendar/moment": "^4.1.0",
+    "@fullcalendar/react": "^4.1.0",
+    "@fullcalendar/timegrid": "^4.1.0",
     "cheerio": "^1.0.0-rc.3",
     "dotenv": "^7.0.0",
     "electron-devtools-installer": "^2.2.4",

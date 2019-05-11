@@ -7,12 +7,14 @@ const ENV = process.env.NODE_ENV || 'development'
 module.exports = {
   watch: ENV === 'development',
   target: 'electron-renderer',
-  entry: ["@babel/polyfill", './app/renderer.jsx'],
+  // entry: ['@babel/polyfill', './app/renderer.jsx'],
+  entry: ['@babel/polyfill', './app/renderer.jsx'],
   output: {
     path: `${__dirname}/app/build`,
     publicPath: 'build/',
     filename: 'bundle.js'
   },
+  devtool: 'sourcemap',
   module: {
     rules: [
       {

@@ -10,6 +10,13 @@ summary {
   padding: .5em;
 }
 
+summary:hover {
+  cursor: pointer;
+}
+summary:focus {
+  outline: none;
+}
+
 details[open] {
   padding: .5em;
 }

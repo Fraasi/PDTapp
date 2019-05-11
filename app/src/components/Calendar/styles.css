@@ -1,28 +1,15 @@
-.rbc-calendar {
-  padding: 10px;
-  height: calc(100% - 0px);
-  background-color: #35363A;
-  color: #c7c7c7;
-}
-
-.rbc-now {
-  /* box-sizing: border-box; */
-  border-left: 1px solid white;
-  border-right: 1px solid white;
-}
-
-.rbc-now, .rbc-today {
+.fc-unthemed td.fc-today {
   background-color: #525252;
 }
-
-.rbc-btn-group button {
-  color: #c7c7c7;
+.fc-unthemed .fc-list-heading td {
+  background-color: #525252;
+  color: #cacaca;
 }
 
-.rbc-btn-group button.rbc-active {
-  color: #252525;
+.fc-toolbar h2 {
+  font-size: 1.5em;
 }
 
-.rbc-off-range-bg {
-  background-color: #1c1e22;
+.fc-unthemed .fc-list-item:hover td, .fc-day.fc-other-month {
+  background-color: #252525;
 }

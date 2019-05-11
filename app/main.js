@@ -27,7 +27,7 @@ const store = new Store({
 		notes: [{
 			title: 'Untitled',
 			dateCreated: 0,
-			rawText: '<!-- Untitled, first word on first line will be the title -->  \n\n- [x] github flavored markdown supported  \n- [x] saves automaticly  \n- [ ] check About -> Shortcuts for hotkeys'
+			rawText: '<!-- Untitled, first word on first line will be the title -->  \n\n- [x] github flavored markdown supported  \n- [x] saves automatically  \n- [ ] check About -> Shortcuts for hotkeys'
 		}],
 		pictureFolder: app.getPath('pictures'),
 		storeView: 'home',
@@ -43,6 +43,7 @@ if (isDevMode) {
 			label: 'Rainbow',
 			visible: params.mediaType === 'image',
 		}],
+			showInspectElement: true
 	})
 }
 
