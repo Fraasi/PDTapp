@@ -61,13 +61,16 @@ export default function gigScrape(handleStateChange) {
             return `${s[1].slice(0, -1)} ${s[0]}`
           }).get()
           return arr
-        } else if (url.includes('vastavirta')) {
+        }
+        if (url.includes('vastavirta')) {
           const arr = $(selector).map((i, el) => $(el).text()).get()
           return arr
-        } else if (url.includes('hiedanranta')) {
+        }
+        if (url.includes('hiedanranta')) {
           const arr = $(selector).map((i, el) => $(el).text()).get().filter(string => !(isNaN(string[0]) || string[0] === '\n'))
           return arr
-        } else if (url.includes('tampere')) {
+        }
+        if (url.includes('tampere')) {
           const arr = $(selector).map((i, el) => {
             const link = $('a', el).attr('href')
             const title = $('h4', el).text()
@@ -85,7 +88,8 @@ export default function gigScrape(handleStateChange) {
             return aa - bb
           })
           return sorted
-        } else if (url.includes('Hirvi')) {
+        }
+        if (url.includes('Hirvi')) {
           // const arr = $(selector).text()
           const date = $('[data-testid="story-subtitle"] a abbr').attr('data-utime')
           const hap = $('[data-ad-preview="message"]').text()
@@ -98,7 +102,8 @@ export default function gigScrape(handleStateChange) {
           return arr
 
           // return [arr.replace('SpSonsSoroSituS', ' ')]
-        } else if (url.includes('huuru')) {
+        }
+        if (url.includes('huuru')) {
           const arr = $(selector).map((i, el) => $(el).text()).get()
           arr.shift()
           return arr

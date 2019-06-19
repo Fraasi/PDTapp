@@ -3,11 +3,11 @@ import React, { Component } from 'react'
 export default class ErrorBoundary extends Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       hasError: false,
       error: '',
       info: ''
-     }
+    }
   }
 
   static getDerivedStateFromError(error) {
@@ -28,16 +28,16 @@ export default class ErrorBoundary extends Component {
     if (this.state.hasError) {
       return (
         <>
-        <h2>Something went wrong.</h2>
-        Error: <br/>
-        {this.state.error}
-        info: <br/>
-        {this.state.info}
+          <h2>Something went wrong.</h2>
+          Error: <br />
+          {this.state.error}
+          info: <br />
+          {this.state.info}
         </>
 
       )
     }
 
-    return this.props.children; 
+    return this.props.children;
   }
 }
