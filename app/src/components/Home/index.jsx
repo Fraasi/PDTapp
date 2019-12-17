@@ -3,7 +3,6 @@ import Store from 'electron-store'
 import Github from './components/Github.jsx'
 import Quote from './components/Quote.jsx'
 import Pic from './components/Pic.jsx'
-import NextGigs from './components/NextGigs.jsx'
 import './styles.css'
 
 const store = new Store({ name: 'pdtapp-config' })
@@ -16,7 +15,6 @@ export default function Home({ gigsObject, pictureFolder, dailyQuote }) {
 			</div>
 			<div className="grid left">
 				<Github />
-				<NextGigs gigsObject={gigsObject} />
 			</div>
 			<div className="grid right">
 				<Pic pictureFolder={pictureFolder} />

@@ -30,12 +30,11 @@ I have no idea what the end product will be like. I'm making this shit up as I g
   - [x] monthview recurring shit
   - [ ] add google calendar support (if possible?, or maybe find a different calendar)
 - [x] **Compass page**
-  - [x] styling
-  - [x] promises promises...
-  - [x] put happenings in app state so need only load once  
+  - [x] removed because I built [tapahtumat](https://pispala.events), now uses it in Iframe
 - [x] **Notebook page**
   - [x] markdown support
-  - [x] put to store to keep notes between launches 
+  - [x] put to store to keep notes between launches
+  - [ ] maybe alson use firestore?
   - [x] hotkeys for save, delete & views
   - [x] add example note with info on first launch
 - [x] **Settings page**

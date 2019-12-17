@@ -10,7 +10,6 @@ import Notebook from '../Notebook'
 import Compass from '../Compass'
 import Terminal from '../Terminal'
 import Stats from '../Stats'
-import gigScrape from '../../js/gigscraper.js'
 import './styles.css'
 dotenv.config()
 
@@ -38,7 +37,6 @@ export default class App extends Component {
 			loading: true,
 			dailyQuote: {},
 			pictureFolder: store.get('pictureFolder'),
-			gigsObject: 'See settings',
 		}
 
 		this.handleStateChange = this.handleStateChange.bind(this)
@@ -58,13 +56,6 @@ export default class App extends Component {
 
 	componentDidMount() {
 		if (this.state.view === 'home') this.fetchQuote()
-		if (this.state.gigsObject === null) {
-			try {
-				gigScrape(this.handleStateChange)
-			} catch (err) {
-				console.error('gigscrape err: ', err)
-			}
-		}
 	}
 
 	fetchQuote() {
@@ -77,7 +68,7 @@ export default class App extends Component {
 				return data.json()
 			})
 			.then((json) => {
-				// console.log('Quote fetched:', json)
+				console.log('Quote fetched:', json)
 				// fallback quote
 				// {quote: 'Without dreams you can\'t fucking live.', author: 'Ann'}
 				this.setState({
@@ -95,7 +86,7 @@ export default class App extends Component {
 
 	render() {
 		const {
-			view, loading, gigsObject, dailyQuote, pictureFolder, storeView
+			view, loading, dailyQuote, pictureFolder, storeView
 		} = this.state
 		const View = components[view]
 
@@ -105,7 +96,6 @@ export default class App extends Component {
 				<View
 					loading={loading}
 					handleStateChange={this.handleStateChange}
-					gigsObject={gigsObject}
 					dailyQuote={dailyQuote}
 					pictureFolder={pictureFolder}
 					views={views}
