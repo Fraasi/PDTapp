@@ -14,7 +14,7 @@
     "bundle": "cross-env NODE_ENV=development webpack --mode development",
     "build:production": "cross-env NODE_ENV=production webpack --mode production",
     "serve": "electron .",
-    "lint": "eslint --cache --color --ext .jsx,.js src",
+    "lint": "eslint --cache --color --ext \".jsx,.js\" src",
     "install-hooks": "cp -v bin/* .git/hooks/",
     "rebuild": "electron-rebuild",
     "rebuild-pty": "electron-rebuild -f -w node-pty"

@@ -55,7 +55,7 @@ export default class App extends Component {
 	}
 
 	componentDidMount() {
-		if (this.state.view === 'home') this.fetchQuote()
+		// if (this.state.dailyQuote.author === undefined) this.fetchQuote()
 	}
 
 	fetchQuote() {
@@ -63,12 +63,11 @@ export default class App extends Component {
 		if (author) return
 		fetch('https://ms-rq-api.herokuapp.com/')
 			.then((data) => {
-				// console.log('qdata: ', data)
 				if (data.status !== 200) return data
 				return data.json()
 			})
 			.then((json) => {
-				console.log('Quote fetched:', json)
+				// console.log('Quote fetched:', json)
 				// fallback quote
 				// {quote: 'Without dreams you can\'t fucking live.', author: 'Ann'}
 				this.setState({

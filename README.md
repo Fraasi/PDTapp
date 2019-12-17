@@ -10,7 +10,7 @@ I have no idea what the end product will be like. I'm making this shit up as I g
 * electron-store
 * dotenv
 * showdown
-* cheerio
+* ~~cheerio~~
 * [futility](https://github.com/Fraasi/futility)
 * xterm + node-pty
 * systeminformation
@@ -22,19 +22,18 @@ I have no idea what the end product will be like. I'm making this shit up as I g
   - [x] make random quote api in heroku & fetch a quote
   - [x] random image from a folder
   - [x] github notifications
-  - [x] next happenings quick look
 - [x] **Nav bar**
   - [x] hotkeys for views
 - [x] **Calendar** 
   - [x] week month tooltip full text
   - [x] monthview recurring shit
-  - [ ] add google calendar support (if possible?, or maybe find a different calendar)
+  - [ ] add google calendar support (if possible?)
 - [x] **Compass page**
   - [x] removed because I built [tapahtumat](https://pispala.events), now uses it in Iframe
 - [x] **Notebook page**
   - [x] markdown support
   - [x] put to store to keep notes between launches
-  - [ ] maybe alson use firestore?
+  - [ ] maybe also use firestore?
   - [x] hotkeys for save, delete & views
   - [x] add example note with info on first launch
 - [x] **Settings page**
@@ -44,6 +43,7 @@ I have no idea what the end product will be like. I'm making this shit up as I g
 - [x] **Terminal page**
   - [ ] Quick links
   - [x] terminal emulator
+  - [ ] keep session open while checking other views
 - [x] **Stats page**
   - [x] display stats from systeminformation
 - [x] **Main.js + other**
