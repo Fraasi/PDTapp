@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { uptime, networkInterfaces } from 'os'
 import { secondsToDHMS } from 'futility'
 import si from 'systeminformation'
-// eslint-disable-next-line import/no-unresolved
 import './styles.css'
 import { dummyData } from './dummy.js'
 

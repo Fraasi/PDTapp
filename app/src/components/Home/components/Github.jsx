@@ -1,4 +1,3 @@
-/* eslint-disable import/no-unresolved */
 import React, { Component } from 'react'
 import { shell } from 'electron'
 import spinner from 'Images/spinner.svg'

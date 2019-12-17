@@ -1,4 +1,3 @@
-/* eslint-disable import/no-unresolved */
 import React, { Component } from 'react'
 import { ipcRenderer } from 'electron'
 import { Terminal as XTerminal } from 'xterm'

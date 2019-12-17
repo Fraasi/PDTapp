@@ -1,4 +1,3 @@
-/* eslint-disable import/no-unresolved */
 import React from 'react'
 import home from 'Images/home.svg'
 import calendar from 'Images/calendar-alt.svg'

@@ -1,12 +1,12 @@
 #home {
 	display: grid;
 	grid-template-rows: 20px;
-	grid-template-columns: 1fr 1fr;  
+	grid-template-columns: 1fr 1fr;
 	grid-gap: 10px 5px;
 }
 
 .lastvisit {
-	grid-column: 1 / -1; /* keep this on first line to line up things prperly */
+	grid-column: 1 / -1; /* keep this on first line to line up things properly */
 	height: 20px;
 	display: grid;
 	grid-template-columns: 1fr auto 1fr;
@@ -23,17 +23,15 @@
 .lastvisit:after {
 	background: linear-gradient(to right, #707070, transparent)
 }
-.next-gigs ul{
-  /* overflow-x: scroll; */
-  margin-left: 5px;
-}
-.next-gigs li {
-  list-style-type: circle;
-}
 
 /* .pic > img:hover, .gits legend:hover { */
-.gits legend:hover {
+.gits, .npm legend:hover {
 	cursor: pointer;
+}
+
+.npm li {
+	font: 15px Courier;
+	list-style-type: decimal;
 }
 
 .grid {

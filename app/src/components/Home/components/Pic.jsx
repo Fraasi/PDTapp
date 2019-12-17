@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import fs from 'fs'
 import path from 'path'
 import { shell } from 'electron'
-// eslint-disable-next-line import/no-unresolved
 import spinner from 'Images/spinner.svg'
 
 export default class Pic extends Component {

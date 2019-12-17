@@ -1,5 +1,4 @@
 import React from 'react'
-// eslint-disable-next-line import/no-unresolved
 import spinner from 'Images/spinner.svg'
 
 export default function Quote({ dailyQuote: { quote, author } }) {
