@@ -5,7 +5,7 @@ I have no idea what the end product will be like. I'm making this shit up as I g
 
 ### dependencies so far
 * react
-* ~~fullcalendar react-big-calendar~~ fullcalendar
+* ~~fullcalendar, react-big-calendar~~ fullcalendar
 * react-datepicker
 * electron-store
 * dotenv
@@ -43,7 +43,6 @@ I have no idea what the end product will be like. I'm making this shit up as I g
   - [x] clear settings file button
   - [x] select which view opens when launched
 - [x] **Terminal page**
- (offline untill node-pty updates to work with node 12)
   - [ ] Quick links
   - [x] terminal emulator
 - [x] **Stats page**

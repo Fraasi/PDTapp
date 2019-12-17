@@ -1,15 +1,12 @@
 const path = require('path')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-// const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const nodeExternals = require('webpack-node-externals')
-// const { spawn } = require('node-pty') // only require works
-
 
 const ENV = process.env.NODE_ENV || 'development'
-// console.log('__dirname:', __dirname)
 
 module.exports = {
   watch: ENV === 'development',
+  devtool: ENV === 'development' ? 'eval-source-map' : 'source-map',
   target: 'electron-renderer',
   entry: ['@babel/polyfill', './app/renderer.jsx'],
   output: {
@@ -17,14 +14,11 @@ module.exports = {
     publicPath: 'build/',
     filename: 'bundle.js'
   },
-  devtool: 'sourcemap',
   module: {
     rules: [
       {
         test: /\.jsx?$/,
         loader: 'babel-loader',
-        // include: [path.resolve(__dirname, 'app', 'src')],
-        // include: [`${__dirname}/app`],
         exclude: /node_modules/,
         options: {
           presets: [
@@ -38,31 +32,16 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract({
-          loader: 'css-loader',
-          options: {
-            import: true,
-            // prevent selector hashing, keep original name
-            // modules: false,
-            // camelCase: 'dashes',
-          }
-        })
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              hmr: process.env.NODE_ENV === 'development',
+            },
+          },
+          'css-loader',
+        ],
       },
-      // {
-      //   test: /\.css$/,
-      //   use: [
-      //     {
-      //       loader: MiniCssExtractPlugin.loader,
-      //       options: {
-      //         // you can specify a publicPath here
-      //         // by default it uses publicPath in webpackOptions.output
-      //         // publicPath: '../',
-      //         hmr: process.env.NODE_ENV === 'development',
-      //       },
-      //     },
-      //     'css-loader',
-      //   ],
-      // },
       {
         test: /\.(png|jpg|gif|svg)$/,
         loader: 'file-loader',
@@ -75,17 +54,15 @@ module.exports = {
   },
 
   plugins: [
-    new ExtractTextPlugin({
-      filename: 'bundle.css',
-      disable: false,
-      allChunks: true
-    })
-    // new MiniCssExtractPlugin({
-    // Options similar to the same options in webpackOptions.output
-    // both options are optional
-    // filename: 'bundle.css',
-    // chunkFilename: '[id].css',
-    // }),
+    // new ExtractTextPlugin({
+    //   filename: 'bundle.css',
+    //   disable: false,
+    //   allChunks: true
+    // })
+    new MiniCssExtractPlugin({
+    filename: 'bundle.css',
+    chunkFilename: '[id].css',
+    }),
   ],
 
   resolve: {
@@ -95,7 +72,6 @@ module.exports = {
     }
   },
 
-  // externals: [/(node-pty)$/i]
   externals: [nodeExternals({
     whitelist: [/\.(?!(?:jsx?|json)$).{1,5}$/i],
   })]

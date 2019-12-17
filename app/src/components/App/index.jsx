@@ -57,7 +57,7 @@ export default class App extends Component {
 	}
 
 	componentDidMount() {
-		this.fetchQuote()
+		if (this.state.view === 'home') this.fetchQuote()
 		if (this.state.gigsObject === null) {
 			try {
 				gigScrape(this.handleStateChange)
