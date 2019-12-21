@@ -8,7 +8,7 @@ import './styles.css'
 
 const store = new Store({ name: 'pdtapp-config' })
 
-export default function Home({ gigsObject, pictureFolder, dailyQuote }) {
+export default function Home({ npm, fetchNpmStats, pictureFolder, dailyQuote }) {
 	return (
 		<div className="view-container" id="home">
 			<div className="lastvisit">
@@ -16,7 +16,7 @@ export default function Home({ gigsObject, pictureFolder, dailyQuote }) {
 			</div>
 			<div className="grid left">
 				<Github />
-				<Npm />
+				<Npm npm={npm} fetchNpmStats={fetchNpmStats}/>
 			</div>
 			<div className="grid right">
 				<Pic pictureFolder={pictureFolder} />

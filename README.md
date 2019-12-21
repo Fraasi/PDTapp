@@ -43,7 +43,7 @@ I have no idea what the end product will be like. I'm making this shit up as I g
 - [x] **Terminal page**
   - [ ] Quick links
   - [x] terminal emulator
-  - [ ] keep session open while checking other views
+  - [x] keep terminal session open while checking other views
 - [x] **Stats page**
   - [x] display stats from systeminformation
 - [x] **Main.js + other**

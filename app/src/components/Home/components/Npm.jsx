@@ -3,30 +3,20 @@ import { shell } from 'electron'
 import spinner from 'Images/spinner.svg'
 
 
-export default function Npm() {
-
-	const [npmData, setNpmData] = useState(null)
-	const [loading, setLoadingState] = useState(true)
-
-	useEffect(() => {
-		const getData = async () => {
-
-			const repos = await fetch('https://api.npms.io/v2/search?q=maintainer:fraasi').then(d => d.json())
-			const downloads = await Promise.all(repos.results.map(repo => {
-				return fetch(`https://api.npmjs.org/downloads/point/last-week/${repo.package.name}`).then(d => d.json())
-			}))
-			// TODO: put to global state, so only need to load once per app start
-			setNpmData(downloads)
-			setLoadingState(false)
-		}
-		getData()
-	}, [])
+export default function Npm({ npm: {loading, stats, time}, fetchNpmStats }) {
 
 	const handleTitleClick = () => {
 		shell.openExternal('https://www.npmjs.com/~fraasi')
 	}
+	const handleTimePeriodClick = () => {
+		if (time === 'last-week') {
+			fetchNpmStats('last-month')
+		} else {
+			fetchNpmStats('last-week')
+		}
+	}
 
-	if (npmData === null || loading) {
+	if (stats === null || loading) {
 		return (
 			<div className="npm">
 				<fieldset>
@@ -40,12 +30,12 @@ export default function Npm() {
 	return (
 		<div className="npm">
 			<fieldset>
-				<legend onClick={handleTitleClick} title="Npm">
-					Npm stats (dls/week)
+				<legend><span onClick={handleTitleClick} title="Npm">
+					Npm stats </span><span onClick={handleTimePeriodClick} title="Change time period">{`(dls/${time})`}</span>
 					</legend>
 				<ol>
 					{
-						npmData.map((repo, i) => {
+						stats.map((repo, i) => {
 							return (
 								<li key={i + 1}>
 									{

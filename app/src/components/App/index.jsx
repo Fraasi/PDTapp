@@ -37,9 +37,15 @@ export default class App extends Component {
 			loading: true,
 			dailyQuote: {},
 			pictureFolder: store.get('pictureFolder'),
+			npm: {
+				time: 'last-week',
+				stats: null,
+				loading: true
+			}
 		}
 
 		this.handleStateChange = this.handleStateChange.bind(this)
+		this.fetchNpmStats = this.fetchNpmStats.bind(this)
 		console.count('App constructor runs...')
 		ipcRenderer.on('switchView', (sender, msg) => {
 			console.log('msg:', msg)
@@ -56,6 +62,24 @@ export default class App extends Component {
 
 	componentDidMount() {
 		// if (this.state.dailyQuote.author === undefined) this.fetchQuote()
+		if (this.state.npm.stats === null) {
+			this.fetchNpmStats(this.state.npm.time)
+		}
+	}
+
+	async	fetchNpmStats(timePeriod) {
+		this.setState({ npm: { loading: true } })
+		const repos = await fetch('https://api.npms.io/v2/search?q=maintainer:fraasi').then(d => d.json())
+		const repoStats = await Promise.all(repos.results.map(repo => {
+			return fetch(`https://api.npmjs.org/downloads/point/${timePeriod}/${repo.package.name}`).then(d => d.json())
+		}))
+		this.setState({
+			npm: {
+				time: timePeriod,
+				stats: repoStats,
+				loading: false
+			}
+		})
 	}
 
 	fetchQuote() {
@@ -85,21 +109,30 @@ export default class App extends Component {
 
 	render() {
 		const {
-			view, loading, dailyQuote, pictureFolder, storeView
+			view, loading, dailyQuote, pictureFolder, storeView, npm
 		} = this.state
+
 		const View = components[view]
+		const Terminal = components['terminal']
 
 		return (
 			<div className="app-container">
 				<Navigation handleStateChange={this.handleStateChange} views={views} />
-				<View
-					loading={loading}
-					handleStateChange={this.handleStateChange}
-					dailyQuote={dailyQuote}
-					pictureFolder={pictureFolder}
-					views={views}
-					storeView={storeView}
-				/>
+				{view !== 'terminal' &&
+					<View
+						loading={loading}
+						handleStateChange={this.handleStateChange}
+						dailyQuote={dailyQuote}
+						pictureFolder={pictureFolder}
+						views={views}
+						storeView={storeView}
+						view={view}
+						npm={npm}
+						fetchNpmStats={this.fetchNpmStats}
+					/>
+				}
+				{/* uh, this seem to work, just render others over terminal.. */}
+					<Terminal />
 			</div>
 		)
 	}
