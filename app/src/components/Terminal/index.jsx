@@ -59,6 +59,7 @@ export default class Terminal extends Component {
 
 	render() {
 		return (
+			// <div className="view-container" id="laptop" style={{display: this.props.display}}>
 			<div className="view-container" id="laptop">
 				<fieldset className="links">
 					<legend>

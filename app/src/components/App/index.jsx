@@ -114,6 +114,8 @@ export default class App extends Component {
 
 		const View = components[view]
 		const Terminal = components['terminal']
+		const displayTerminal = view === 'terminal' ? 'grid' : 'none'
+		console.log('displayTerminal:', displayTerminal)
 
 		return (
 			<div className="app-container">
@@ -126,14 +128,28 @@ export default class App extends Component {
 						pictureFolder={pictureFolder}
 						views={views}
 						storeView={storeView}
-						view={view}
 						npm={npm}
 						fetchNpmStats={this.fetchNpmStats}
 					/>
 				}
-				{/* uh, this seem to work, just render others over terminal.. */}
-					<Terminal />
+				<KeepMounted
+					isMounted={view === 'terminal'}
+					render={() => <Terminal />}
+				/>
 			</div>
 		)
+	}
+}
+
+class KeepMounted extends Component {
+	hasBeenMounted = false
+	render() {
+		const { isMounted, render } = this.props;
+		this.hasBeenMounted = this.hasBeenMounted || isMounted;
+		return (
+			<div style={{ display: isMounted ? null : 'none' }}>
+				{this.hasBeenMounted ? render() : null}
+			</div>
+		);
 	}
 }
