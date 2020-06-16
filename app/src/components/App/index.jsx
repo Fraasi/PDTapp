@@ -29,8 +29,8 @@ const components = {
 const views = Object.keys(components)
 
 export default class App extends Component {
-	constructor() {
-		super()
+	constructor(props) {
+		super(props)
 		this.state = {
 			view: store.get('storeView'),
 			storeView: store.get('storeView'),
@@ -114,8 +114,8 @@ export default class App extends Component {
 
 		const View = components[view]
 		const Terminal = components['terminal']
-		const displayTerminal = view === 'terminal' ? 'grid' : 'none'
-		console.log('displayTerminal:', displayTerminal)
+		// const displayTerminal = view === 'terminal' ? 'grid' : 'none'
+		// console.log('displayTerminal:', displayTerminal)
 
 		return (
 			<div className="app-container">

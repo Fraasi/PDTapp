@@ -14,14 +14,15 @@ import '@fullcalendar/core/main.css'
 import '@fullcalendar/daygrid/main.css'
 import '@fullcalendar/timegrid/main.css'
 import '@fullcalendar/list/main.css'
+import googleCalendarPlugin from '@fullcalendar/google-calendar'
 import Modal from './Modal.jsx'
 import events from '../../assets/events.js'
 import './styles.css'
 
 
 export default class Calendar extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       events,
       modalIsOpen: false,
@@ -165,8 +166,13 @@ export default class Calendar extends Component {
     return (
       <div className="view-container">
         <FullCalendar
-          events={events}
-          plugins={[interaction, dayGridPlugin, timeGridPlugin, listPlugin, momentPlugin]}
+          // events={events}
+          events={{
+            googleCalendarId: process.env.CALENDAR_ID,
+            className: 'gcal-event '
+          }}
+          plugins={[interaction, dayGridPlugin, timeGridPlugin, listPlugin, momentPlugin, googleCalendarPlugin]}
+          googleCalendarApiKey={process.env.GC_APIKEY}
           defaultView="timeGridWeek"
           header={{
             left: 'title',

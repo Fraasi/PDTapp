@@ -3,5 +3,4 @@
 COMMIT_MSG_FILE=$1
 REVISIONS=$(git rev-list --all --count)
 
-echo "# [$REVISIONS]
-$(cat $COMMIT_MSG_FILE)" > $COMMIT_MSG_FILE
+echo "[$REVISIONS] $(cat $COMMIT_MSG_FILE)" > $COMMIT_MSG_FILE
