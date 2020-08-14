@@ -2,19 +2,19 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/sort-comp */
 import React, { Component } from 'react'
+// import { Calendar } from '@fullcalendar/core';
 import FullCalendar from '@fullcalendar/react'
 import interaction from '@fullcalendar/interaction'
-// import { Calendar } from '@fullcalendar/core';
 import gbLocale from '@fullcalendar/core/locales/en-gb'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import listPlugin from '@fullcalendar/list'
 import momentPlugin from '@fullcalendar/moment'
+import googleCalendarPlugin from '@fullcalendar/google-calendar'
 import '@fullcalendar/core/main.css'
 import '@fullcalendar/daygrid/main.css'
 import '@fullcalendar/timegrid/main.css'
 import '@fullcalendar/list/main.css'
-import googleCalendarPlugin from '@fullcalendar/google-calendar'
 import Modal from './Modal.jsx'
 import events from '../../assets/events.js'
 import './styles.css'
@@ -157,8 +157,10 @@ export default class Calendar extends Component {
   }
 
   handleEventClick = (arg) => {
+    console.log('arg:', arg)
+    this.openModal(arg.event)
     // opens events in a popup window
-    window.open(arg.event.url, 'google-calendar-event', 'width=700,height=600');
+    // window.open(arg.event.url, 'google-calendar-event', 'width=700,height=600');
     arg.jsEvent.preventDefault() // don't navigate in main tab
   }
 
@@ -167,10 +169,13 @@ export default class Calendar extends Component {
       <div className="view-container">
         <FullCalendar
           // events={events}
-          events={{
-            googleCalendarId: process.env.CALENDAR_ID,
-            className: 'gcal-event '
-          }}
+          eventSources={[
+            // events,
+            {
+              googleCalendarId: process.env.CALENDAR_ID,
+              className: 'gcal-event '
+            }
+          ]}
           plugins={[interaction, dayGridPlugin, timeGridPlugin, listPlugin, momentPlugin, googleCalendarPlugin]}
           googleCalendarApiKey={process.env.GC_APIKEY}
           defaultView="timeGridWeek"
@@ -202,6 +207,7 @@ export default class Calendar extends Component {
           allDaySlot={false}
           locale={gbLocale}
           firstDay={1}
+          buttonIcons={false}
           dateClick={this.handleDateClick}
           eventClick={this.handleEventClick}
         />
