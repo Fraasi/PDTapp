@@ -36,6 +36,7 @@
     "electron-devtools-installer": "^2.2.4",
     "electron-store": "^5.2.0",
     "futility": "github:fraasi/futility",
+    "googleapis": "^59.0.0",
     "moment": "^2.26.0",
     "node-pty": "^0.9.0-beta9",
     "react": "^16.13.1",

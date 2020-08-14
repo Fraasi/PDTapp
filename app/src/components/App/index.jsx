@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { ipcRenderer, remote } from 'electron'
 import Store from 'electron-store'
 import dotenv from 'dotenv'
+import fetchAnalyticsData from '../../js/googleapi.js'
 import Home from '../Home'
 import Navigation from '../Navigation'
 import Calendar from '../Calendar'
@@ -41,10 +42,12 @@ export default class App extends Component {
 				time: 'last-week',
 				stats: null,
 				loading: true
-			}
+			},
+			analyticsReports: []
 		}
 
 		this.handleStateChange = this.handleStateChange.bind(this)
+		this.fetchAnalytics = this.fetchAnalytics.bind(this)
 		this.fetchNpmStats = this.fetchNpmStats.bind(this)
 		console.count('App constructor runs...')
 		ipcRenderer.on('switchView', (sender, msg) => {
@@ -65,6 +68,15 @@ export default class App extends Component {
 		if (this.state.npm.stats === null) {
 			this.fetchNpmStats(this.state.npm.time)
 		}
+		if (this.state.analyticsReports.length === 0) {
+			this.fetchAnalytics()
+		}
+	}
+
+	fetchAnalytics() {
+		fetchAnalyticsData().then(data => {
+			this.setState({analyticsReports: data.reports})
+		})
 	}
 
 	async	fetchNpmStats(timePeriod) {
@@ -109,7 +121,7 @@ export default class App extends Component {
 
 	render() {
 		const {
-			view, loading, dailyQuote, pictureFolder, storeView, npm
+			view, loading, dailyQuote, pictureFolder, storeView, npm, analyticsReports
 		} = this.state
 
 		const View = components[view]
@@ -129,6 +141,7 @@ export default class App extends Component {
 						views={views}
 						storeView={storeView}
 						npm={npm}
+						analyticsReports={analyticsReports}
 						fetchNpmStats={this.fetchNpmStats}
 					/>
 				}

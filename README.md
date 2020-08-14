@@ -14,6 +14,7 @@ I have no idea what the end product will be like. I'm making this shit up as I g
 * [futility](https://github.com/Fraasi/futility)
 * xterm + node-pty
 * systeminformation
+* googleapis
 
 ### todo (or maybe not to, do):
 
@@ -22,12 +23,14 @@ I have no idea what the end product will be like. I'm making this shit up as I g
   - [x] make random quote api in heroku & fetch a quote
   - [x] random image from a folder
   - [x] github notifications
+  - [x] npm stats
+  - [x] google analytics
 - [x] **Nav bar**
   - [x] hotkeys for views
 - [x] **Calendar** 
   - [x] week month tooltip full text
   - [x] monthview recurring shit
-  - [ ] add google calendar support (if possible?)
+  - [x] add google calendar support
 - [x] **Compass page**
   - [x] removed because I built [tapahtumat](https://pispala.events), now uses it in Iframe
 - [x] **Notebook page**
