@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { uptime, networkInterfaces } from 'os'
 import { secondsToDHMS } from 'futility'
 import si from 'systeminformation'
+import useCancellablePromises from '../../js/useCancellablePromise.js'
 import './styles.css'
 import { dummyData } from './dummy.js'
 
@@ -11,13 +12,14 @@ import { dummyData } from './dummy.js'
 
 export default function Stats() {
 
-  const [versions, setVersions] = useState(null)
-  useEffect(() => {
-    si.versions()
-      .then((data) => {
-        setVersions(data)
-      })
-  }, [])
+  const [versions, error, isPending] = useCancellablePromises(si.versions)
+  // const [versions, setVersions] = useState(null)
+  // useEffect(() => {
+  //   si.versions()
+  //     .then((data) => {
+  //       setVersions(data)
+  //     })
+  // }, [])
 
   const cell = Object.keys(networkInterfaces())[0]
   const { address, mac, family } = networkInterfaces()[cell][0]
@@ -59,7 +61,9 @@ export default function Stats() {
           <details>
             <summary>Versions</summary>
             <ul>
-              { filteredVersions }
+              {isPending && <li className="loading">loading versions...</li>}
+              {!isPending && !error && filteredVersions}
+              {error && <li className="error">{error}</li>}
             </ul>
           </details>
         </fieldset>
