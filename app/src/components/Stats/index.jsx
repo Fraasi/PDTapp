@@ -59,7 +59,7 @@ export default function Stats() {
           </details>
 
           <details>
-            <summary>Versions</summary>
+            <summary>Versions {isPending && '( loading... )'}</summary>
             <ul>
               {isPending && <li className="loading">loading versions...</li>}
               {!isPending && !error && filteredVersions}
