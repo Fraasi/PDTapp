@@ -8,7 +8,7 @@ module.exports = {
   watch: ENV === 'development',
   devtool: ENV === 'development' ? 'eval-source-map' : 'source-map',
   target: 'electron-renderer',
-  entry: ['@babel/polyfill', './app/renderer.jsx'],
+  entry: ['./@babel/polyfill', './app/renderer.jsx'],
   output: {
     path: `${__dirname}/app/build`,
     publicPath: 'build/',
@@ -36,7 +36,8 @@ module.exports = {
           {
             loader: MiniCssExtractPlugin.loader,
             options: {
-              hmr: process.env.NODE_ENV === 'development',
+
+              // hmr: process.env.NODE_ENV === 'development',
             },
           },
           'css-loader',
@@ -73,6 +74,6 @@ module.exports = {
   },
 
   externals: [nodeExternals({
-    whitelist: [/\.(?!(?:jsx?|json)$).{1,5}$/i],
+    allowlist: [/\.(?!(?:jsx?|json)$).{1,5}$/i],
   })]
 }

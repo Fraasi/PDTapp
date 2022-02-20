@@ -16,7 +16,7 @@ import '@fullcalendar/daygrid/main.css'
 import '@fullcalendar/timegrid/main.css'
 import '@fullcalendar/list/main.css'
 import Modal from './Modal.jsx'
-import events from '../../assets/events.js'
+// import events from '../../assets/events.js'
 import './styles.css'
 
 

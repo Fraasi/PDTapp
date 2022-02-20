@@ -5,11 +5,11 @@ import dotenv from 'dotenv'
 import fetchAnalyticsData from '../../js/googleapi.js'
 import Home from '../Home'
 import Navigation from '../Navigation'
-import Calendar from '../Calendar'
+// import Calendar from '../Calendar'
 import Settings from '../Settings'
 import Notebook from '../Notebook'
 import Compass from '../Compass'
-import Terminal from '../Terminal'
+// import Terminal from '../Terminal'
 import Stats from '../Stats'
 import './styles.css'
 dotenv.config()
@@ -19,10 +19,10 @@ const store = new Store({ name: 'pdtapp-config' })
 
 const components = {
 	home: Home,
-	calendar: Calendar,
+	// calendar: Calendar,
 	notebook: Notebook,
 	compass: Compass,
-	terminal: Terminal,
+	// terminal: Terminal,
 	stats: Stats,
 	settings: Settings,
 }
@@ -125,7 +125,7 @@ export default class App extends Component {
 		} = this.state
 
 		const View = components[view]
-		const Terminal = components['terminal']
+		// const Terminal = components['terminal']
 		// const displayTerminal = view === 'terminal' ? 'grid' : 'none'
 		// console.log('displayTerminal:', displayTerminal)
 
