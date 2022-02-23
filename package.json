@@ -22,7 +22,6 @@
   "keywords": [],
   "license": "MIT",
   "dependencies": {
-    "@babel/polyfill": "^7.12.1",
     "@fullcalendar/core": "^5.10.1",
     "@fullcalendar/daygrid": "^5.10.1",
     "@fullcalendar/google-calendar": "^5.10.1",
