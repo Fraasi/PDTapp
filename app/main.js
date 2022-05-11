@@ -65,22 +65,25 @@ async function createWindow() {
 		backgroundColor: '#525252',
 		icon: path.join(__dirname, 'src/assets/icons/32x32.png'),
 		show: false,
-		titleBarStyle: 'hidden',
+		// titleBarStyle: 'hidden',
 		webPreferences: {
 			nodeIntegration: true,
 			webSecurity: false,
 			// contextIsolation: true,
+			// preload: path.join(__dirname, 'preload.js')
 		}
 	}).on('ready-to-show', () => {
 		win.show()
 		win.focus()
 	})
 
-	win.loadURL(`file://${__dirname}/index.html`)
+	// win.loadURL(`file://${__dirname}/index.html`)
+	win.loadFile('index.html')
 	if (isDevMode) {
 		await installExtension(REACT_DEVELOPER_TOOLS)
 		win.webContents.openDevTools({ mode: 'right' })
 	}
+	win.webContents.openDevTools({ mode: 'right' })
 
 	win.on('closed', () => {
 		win = null

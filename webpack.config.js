@@ -1,6 +1,7 @@
 const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const nodeExternals = require('webpack-node-externals')
+const CopyPlugin = require("copy-webpack-plugin")
 
 const ENV = process.env.NODE_ENV || 'development'
 
@@ -10,7 +11,7 @@ module.exports = {
   target: 'electron-renderer',
   entry: ['./app/renderer.jsx'],
   output: {
-    path: `${__dirname}/app/build`,
+    path: `${__dirname}/build`,
     publicPath: 'build/',
     filename: 'bundle.js'
   },
@@ -46,14 +47,17 @@ module.exports = {
   },
 
   plugins: [
-    // new ExtractTextPlugin({
-    //   filename: 'bundle.css',
-    //   disable: false,
-    //   allChunks: true
-    // })
     new MiniCssExtractPlugin({
     filename: 'bundle.css',
     chunkFilename: '[id].css',
+    }),
+    new CopyPlugin({
+      patterns: [
+        { from: "app/index.html", to: "index.html" },
+      ],
+      options: {
+        concurrency: 100,
+      },
     }),
   ],
 
