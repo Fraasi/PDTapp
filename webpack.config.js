@@ -12,7 +12,8 @@ module.exports = {
   entry: ['./app/renderer.jsx'],
   output: {
     path: `${__dirname}/build`,
-    publicPath: 'build/',
+    // https://medium.com/@raviroshan.talk/webpack-understanding-the-publicpath-mystery-aeb96d9effb1
+    // publicPath: 'public',
     filename: 'bundle.js'
   },
   module: {
@@ -23,7 +24,14 @@ module.exports = {
         exclude: /node_modules/,
         options: {
           presets: [
-            '@babel/preset-env',
+            [
+              "@babel/preset-env",
+              {
+                "targets": {
+                  "node": "16"
+                }
+              }
+            ],
             '@babel/preset-react'
           ],
           plugins: [
@@ -64,7 +72,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.json', '.jsx', '.css', '.svg'],
     alias: {
-      Images: path.resolve(__dirname, 'app/src/assets/images/'),
+      Images: path.join(__dirname, 'app/src/assets/images/'),
     }
   },
 

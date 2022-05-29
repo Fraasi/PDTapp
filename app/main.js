@@ -3,7 +3,7 @@ process.on('unhandledRejection', (err) => {
 	// throw err;
 })
 const path = require('path')
-const { default: installExtension, REACT_DEVELOPER_TOOLS } = require('electron-devtools-installer');
+// const { default: installExtension, REACT_DEVELOPER_TOOLS } = require('electron-devtools-installer');
 require('electron-reload')(__dirname)
 
 delete process.env.ELECTRON_ENABLE_SECURITY_WARNINGS
@@ -69,18 +69,18 @@ async function createWindow() {
 		webPreferences: {
 			nodeIntegration: true,
 			webSecurity: false,
-			// contextIsolation: true,
+			contextIsolation: false,
 			// preload: path.join(__dirname, 'preload.js')
 		}
 	}).on('ready-to-show', () => {
 		win.show()
 		win.focus()
 	})
-
+	// app\index.html
 	// win.loadURL(`file://${__dirname}/index.html`)
-	win.loadFile('index.html')
+	win.loadFile(path.join(__dirname, '../build/index.html'))
 	if (isDevMode) {
-		await installExtension(REACT_DEVELOPER_TOOLS)
+		// await installExtension(REACT_DEVELOPER_TOOLS)
 		win.webContents.openDevTools({ mode: 'right' })
 	}
 	win.webContents.openDevTools({ mode: 'right' })
