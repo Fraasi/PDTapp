@@ -1,6 +1,6 @@
 process.on('unhandledRejection', (err) => {
 	console.log('unhandledRejection', err)
-	// throw err;
+	throw err;
 })
 const path = require('path')
 // const { default: installExtension, REACT_DEVELOPER_TOOLS } = require('electron-devtools-installer');
@@ -49,7 +49,7 @@ if (isDevMode) {
 
 let win
 let trayIcon
-const launchedAt = new Date().toLocaleString('de', { hour12: false }).replace(/\./g, '/')
+const launchedAt = new Date().toLocaleString('en-GB', { hour12: false })
 
 async function createWindow() {
 	app.setAppUserModelId('PDTapp')
@@ -70,7 +70,7 @@ async function createWindow() {
 			nodeIntegration: true,
 			webSecurity: false,
 			contextIsolation: false,
-			// preload: path.join(__dirname, 'preload.js')
+			preload: path.join(__dirname, 'src', 'preload.js')
 		}
 	}).on('ready-to-show', () => {
 		win.show()
