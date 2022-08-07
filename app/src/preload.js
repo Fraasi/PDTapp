@@ -16,7 +16,7 @@ window.addEventListener('DOMContentLoaded', () => {
 contextBridge.exposeInMainWorld(
   "api", {
   ipcSend: (channel, data) => {
-    let validChannels = ['fetch-error', 'update-info']
+    let validChannels = ['showDialog', 'fetch-error', 'update-info']
     if (validChannels.includes(channel)) {
       ipcRenderer.send(channel, data)
     }

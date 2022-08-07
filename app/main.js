@@ -10,7 +10,7 @@ delete process.env.ELECTRON_ENABLE_SECURITY_WARNINGS
 process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = true
 
 const {
-	app, BrowserWindow, Menu, dialog, globalShortcut, Tray, shell, Notification, clipboard
+	app, BrowserWindow, Menu, dialog, globalShortcut, Tray, shell, Notification, clipboard, ipcMain
 } = require('electron')
 const Store = require('electron-store')
 
@@ -67,9 +67,9 @@ async function createWindow() {
 		show: false,
 		// titleBarStyle: 'hidden',
 		webPreferences: {
-			nodeIntegration: true,
+			nodeIntegration: false,
 			webSecurity: false,
-			contextIsolation: false,
+			contextIsolation: true,
 			preload: path.join(__dirname, 'src', 'preload.js')
 		}
 	}).on('ready-to-show', () => {
@@ -298,3 +298,11 @@ const menuTemplate = [
 		],
 	},
 ]
+
+
+ipcMain.handle("showDialog", (e, message) => {
+  const pathArray = dialog.showOpenDialogSync(win, { properties: ['openDirectory'] })
+  console.log('pathArray:', pathArray)
+  if (pathArray === undefined) return
+  store.set('pictureFolder', pathArray[0])
+})

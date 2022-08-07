@@ -1,7 +1,7 @@
 import React from 'react'
-import { remote } from 'electron'
+import { ipcRenderer } from 'electron'
 import Store from 'electron-store'
-import { uptime, networkInterfaces } from 'os'
+// import { uptime, networkInterfaces } from 'os'
 import { secondsToDHMS } from 'futility'
 import './styles.css'
 import './atomspinner.css'
@@ -17,9 +17,10 @@ export default function Settings({
 	}
 
 	const chooseFolder = () => {
-		const pathArray = remote.dialog.showOpenDialog({ properties: ['openDirectory'] })
-		if (pathArray === undefined) return
-		saveChanges('pictureFolder', pathArray[0])
+		// const pathArray = remote.dialog.showOpenDialog({ properties: ['openDirectory'] })
+    ipcRenderer.invoke("showDialog", "message")
+		// if (pathArray === undefined) return
+		// saveChanges('pictureFolder', pathArray[0])
 	}
 
 	const clearSettings = () => {
@@ -39,8 +40,8 @@ export default function Settings({
 		})
 	}
 
-	const cell = Object.keys(networkInterfaces())[0]
-	const { address, mac, family } = networkInterfaces()[cell][0]
+	// const cell = Object.keys(networkInterfaces())[0]
+	// const { address, mac, family } = networkInterfaces()[cell][0]
 
 	return (
 		<div className="view-container" id="settings">
@@ -101,9 +102,10 @@ export default function Settings({
 				</div>
 				<br />
 				<div>
-					{`${family}: ${address}  -  ${mac}`}
+          pöööööööö
+					{/* {`${family}: ${address}  -  ${mac}`}
 					<br />
-					{`Uptime: ${secondsToDHMS(uptime(), true)}`}
+					{`Uptime: ${secondsToDHMS(uptime(), true)}`} */}
 				</div>
 			</div>
 
